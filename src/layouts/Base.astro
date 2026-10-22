@@ -39,6 +39,24 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         document.head.appendChild(link);
       })();
     </script>
+    <!-- Before paint: start [data-anim] content in its hidden entrance state so it never shows, hides, then
+         animates in (#36). Only when motion is allowed and IntersectionObserver exists, as in motion.ts.
+         motion.ts marks html[data-motion="on"]; it is a deferred module, so if it has not started by
+         DOMContentLoaded it never will, and everything is shown again. JS disabled: nothing is hidden. -->
+    <script is:inline>
+      (function () {
+        var root = document.documentElement;
+        if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        root.setAttribute('data-anim-ready', '');
+        document.addEventListener('DOMContentLoaded', function () {
+          setTimeout(function () {
+            if (root.getAttribute('data-motion') === 'on') return;
+            root.removeAttribute('data-anim-ready');
+            root.setAttribute('data-motion', 'off');
+          }, 0);
+        });
+      })();
+    </script>
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />

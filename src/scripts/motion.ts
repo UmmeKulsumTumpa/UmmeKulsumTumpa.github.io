@@ -14,7 +14,11 @@ const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 function init() {
   if (reduce || !('IntersectionObserver' in window)) return;
   const root = document.documentElement;
+  // The head script in Base.astro already set data-anim-ready before first paint; "off" means its
+  // fallback gave up on us and showed everything, so don't hide it again.
+  if (root.getAttribute('data-motion') === 'off') return;
   root.setAttribute('data-anim-ready', '');
+  root.setAttribute('data-motion', 'on');
 
   const io = new IntersectionObserver(
     (entries) => {
