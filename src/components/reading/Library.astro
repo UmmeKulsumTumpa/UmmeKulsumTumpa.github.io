@@ -16,4 +16,4 @@ const items = (await getReading()).map((entry) => ({
 }));
 ---
 
-<ReadingLibrary client:visible items={items} heading="h-library" />
+<ReadingLibrary client:load items={items} heading="h-library" />
