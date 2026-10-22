@@ -1,7 +1,7 @@
 {
   "name": "ummekulsumtumpa.github.io",
   "type": "module",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": true,
   "description": "Personal website of Umme Kulsum Tumpa: software engineer and LLM researcher.",
   "scripts": {

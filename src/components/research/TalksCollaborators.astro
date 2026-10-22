@@ -1,0 +1,36 @@
+---
+// "04 · talks & posters" (owner placeholder) beside "05 · collaborators" (Research.dc.html; SPEC §5.4).
+// Copy is verbatim from the prototype; collaborators are only the Scholar co-authors it lists.
+// The pair enters together with "up", as the prototype's shared wrapper does.
+const talks = [{ when: '[Mon YYYY] · [city or online]', title: '[Talk or poster title]', event: '[event]' }];
+const collaborators = [
+  { name: 'Nazifa Tasnim Hia', org: 'University of Dhaka' },
+  { name: 'Shebuti Rayana', org: 'SUNY at Old Westbury' },
+  { name: 'Md Shahrar Fatemi', org: 'Stony Brook University' },
+];
+---
+
+<div class="res-section res-pair" data-anim="up">
+  <section class="res-col" aria-labelledby="h-talks">
+    <h2 id="h-talks" class="label res-label">04 · talks &amp; posters</h2>
+    <ul class="res-talks" role="list">
+      {talks.map((t) => (
+        <li class="res-talk">
+          <div class="res-talk-when">{t.when}</div>
+          <div class="res-talk-title">{t.title} <span class="res-talk-event">· {t.event}</span></div>
+        </li>
+      ))}
+    </ul>
+  </section>
+  <section class="res-col" aria-labelledby="h-collab">
+    <h2 id="h-collab" class="label res-label">05 · collaborators</h2>
+    <ul class="res-collab" role="list">
+      {collaborators.map((c) => (
+        <li class="res-collab-row">
+          <span>{c.name}</span>
+          <span class="res-collab-org">{c.org}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+</div>

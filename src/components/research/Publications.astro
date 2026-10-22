@@ -1,0 +1,55 @@
+---
+// "02 · publications" (Research.dc.html; SPEC §5.4) from src/content/publications.yaml, in file order
+// (newest first), grouped by year: year column, figure placeholder, title, authors with "U. K. Tumpa" bold,
+// venue in italic serif, TL;DR and one link pill per entry in `links`. The schema has no paper URL, so the
+// title is plain text (the prototype's href="#" is not carried over); external pills get the ↗ mark.
+import { getCollection } from 'astro:content';
+
+const SELF = 'U. K. Tumpa';
+const papers = (await getCollection('publications')).sort((a, b) => a.data.order - b.data.order);
+
+const years: { year: number; items: typeof papers }[] = [];
+for (const p of papers) {
+  const last = years.at(-1);
+  if (last && last.year === p.data.year) last.items.push(p);
+  else years.push({ year: p.data.year, items: [p] });
+}
+const external = (href: string) => /^https?:\/\//.test(href);
+---
+
+<section class="res-section res-pub" data-anim="up" aria-labelledby="h-pub">
+  <div class="pub-head">
+    <h2 id="h-pub" class="label res-label">02 · publications</h2>
+    <a class="pub-scholar" href="https://scholar.google.com/citations?user=3iF7aUQAAAAJ&hl=en">google scholar ↗</a>
+  </div>
+  {years.map((g) => (
+    <div class="pub-group">
+      <div class="pub-year">{g.year}</div>
+      <div class="pub-list">
+        {g.items.map(({ data: p }) => (
+          <article class="pub">
+            {/* No figures yet: dotted placeholder, as in the prototype. */}
+            <div class="pub-fig" role="img" aria-label="Paper figure placeholder">[key figure]</div>
+            <div class="pub-body">
+              <h3 class="pub-title">{p.title}</h3>
+              <p class="pub-authors">
+                {p.authors.map((a, i) => (
+                  <>{i > 0 && ', '}{a === SELF ? <strong class="pub-self">{a}</strong> : a}</>
+                ))}
+              </p>
+              <p class="pub-venue">{p.venue}</p>
+              {p.tldr && <p class="pub-tldr">{p.tldr}</p>}
+              {p.links.length > 0 && (
+                <ul class="pub-links" role="list">
+                  {p.links.map((l) => (
+                    <li><a class="pub-pill" href={l.href}>{l.label}{external(l.href) && <> <span aria-hidden="true">↗</span></>}</a></li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  ))}
+</section>
