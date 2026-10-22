@@ -14,26 +14,55 @@ const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 function init() {
   if (reduce || !('IntersectionObserver' in window)) return;
   const root = document.documentElement;
+  // The head script in Base.astro already set data-anim-ready before first paint; "off" means its
+  // fallback gave up on us and showed everything, so don't hide it again.
+  if (root.getAttribute('data-motion') === 'off') return;
   root.setAttribute('data-anim-ready', '');
+  try {
+    startEntrances(root);
+  } catch (err) {
+    // Never leave content hidden: show everything and tell the head script's fallback we're off.
+    root.removeAttribute('data-anim-ready');
+    root.setAttribute('data-motion', 'off');
+    console.error(err);
+    return;
+  }
+  startParallax();
+}
 
-  const io = new IntersectionObserver(
+function startEntrances(root: HTMLElement) {
+  // Enter when 12% is visible. Leave (so it replays later) only once the element is more than
+  // OUT_MARGIN px outside the viewport: observers see the transformed box, and the hidden state moves
+  // elements down by up to 64px, so leaving right at the edge would pull an element parked just above
+  // the top back into view, where it re-enters, leaves again, and flickers in a loop.
+  const OUT_MARGIN = 80;
+  const enter = new IntersectionObserver(
     (entries) => {
-      for (const e of entries) {
-        if (e.intersectionRatio >= 0.12) e.target.setAttribute('data-in', '');
-        else if (!e.isIntersecting) e.target.removeAttribute('data-in');
-      }
+      for (const e of entries) if (e.intersectionRatio >= 0.12) e.target.setAttribute('data-in', '');
     },
     { threshold: [0, 0.12] },
   );
+  const leave = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) if (!e.isIntersecting) e.target.removeAttribute('data-in');
+    },
+    { rootMargin: `${OUT_MARGIN}px 0px` },
+  );
+  const observe = (el: HTMLElement) => { enter.observe(el); leave.observe(el); };
   const scan = (scope: ParentNode = document) =>
-    scope.querySelectorAll<HTMLElement>('[data-anim]').forEach((el) => io.observe(el));
+    scope.querySelectorAll<HTMLElement>('[data-anim]').forEach(observe);
   scan();
 
   // React islands render later or re-render on filter changes: watch for new nodes.
   new MutationObserver((records) => {
-    for (const r of records) r.addedNodes.forEach((n) => n instanceof HTMLElement && (n.matches('[data-anim]') ? io.observe(n) : scan(n)));
+    for (const r of records) r.addedNodes.forEach((n) => n instanceof HTMLElement && (n.matches('[data-anim]') ? observe(n) : scan(n)));
   }).observe(document.body, { childList: true, subtree: true });
 
+  // Only now is motion really running; until then the head script's fallback may still show everything.
+  root.setAttribute('data-motion', 'on');
+}
+
+function startParallax() {
   const layers = document.querySelectorAll<HTMLElement>('[data-parallax]');
   if (!layers.length) return;
   let ticking = false;

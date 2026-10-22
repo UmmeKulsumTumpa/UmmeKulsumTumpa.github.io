@@ -1,10 +1,17 @@
 ---
-// TEMPORARY placeholder so the first deploy (PLAN Phase 0) has a page to serve.
-// Phase 2 replaces this file with the real Home page.
 import Base from '../layouts/Base.astro';
+import Hero from '../components/home/Hero.astro';
+import About from '../components/home/About.astro';
+import Glimpse from '../components/home/Glimpse.astro';
+import TokenStrip from '../components/home/TokenStrip.astro';
+import Contact from '../components/home/Contact.astro';
 ---
 <Base active="home">
-  <main class="container">
-    <p>Umme Kulsum Tumpa · site under construction.</p>
+  <main>
+    <Hero />
+    <About />
+    <Glimpse />
+    <TokenStrip />
+    <Contact />
   </main>
 </Base>
