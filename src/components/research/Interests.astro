@@ -1,0 +1,22 @@
+---
+// "01 · interests" (Research.dc.html; SPEC §5.4): three columns. Copy is verbatim from the prototype,
+// [bracket placeholders] included. The whole section enters with "up", as in the prototype.
+const interests = [
+  { name: 'LLM efficiency', line: 'Getting more out of a model per token, per second and per dollar.' },
+  { name: 'Context management', line: 'What an agent should keep, compress or drop across long tasks.' },
+  { name: 'Adaptive inference', line: 'Spending compute where an input needs it, not uniformly.' },
+];
+---
+
+<section class="res-section res-int" data-anim="up" aria-labelledby="h-int">
+  <h2 id="h-int" class="label res-label">01 · interests</h2>
+  <div class="res-int-grid">
+    {interests.map((it) => (
+      <div class="res-int-col">
+        <h3 class="res-int-name">{it.name}</h3>
+        <p class="res-int-line">{it.line}</p>
+        <p class="res-int-ask">asking: [the question you're chasing]</p>
+      </div>
+    ))}
+  </div>
+</section>
