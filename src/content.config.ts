@@ -92,7 +92,7 @@ const projects = defineCollection({
 });
 
 const publications = defineCollection({
-  loader: file('src/content/publications.yaml'),
+  loader: ordered('src/content/publications.yaml'),
   schema: z.object({
     id: z.string(),
     title: z.string(),
@@ -101,6 +101,7 @@ const publications = defineCollection({
     year: z.number(),
     tldr: z.string().optional(),
     links: z.array(z.object({ label: z.string(), href: z.string() })).default([]),
+    order: z.number(), // set by ordered(): position in the YAML file, not written by hand
   }),
 });
 
