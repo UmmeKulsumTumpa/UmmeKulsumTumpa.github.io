@@ -26,7 +26,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="preload" as="image" type="image/avif" href="/bg/background-dark.avif" fetchpriority="high" />
+    <link rel="preload" as="image" type="image/avif" href="/bg/background-dark.avif" media="(min-width: 1101px)" fetchpriority="high" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
