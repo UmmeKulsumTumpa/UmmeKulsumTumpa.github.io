@@ -2,7 +2,7 @@
 import ThemeToggle from '../islands/ThemeToggle.tsx';
 import { nav, site, type NavId } from '../data/site';
 
-interface Props { active: NavId }
+interface Props { active?: NavId }
 const { active } = Astro.props;
 
 const icons: Record<NavId, string> = {
