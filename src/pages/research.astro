@@ -1,11 +1,20 @@
 ---
-// Stub: page head only. Interests, publications and the rest come in Phase 4.
+// Head, interests, publications, in progress, then talks & posters beside collaborators (Research.dc.html).
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
+import Interests from '../components/research/Interests.astro';
+import Publications from '../components/research/Publications.astro';
+import InProgress from '../components/research/InProgress.astro';
+import TalksCollaborators from '../components/research/TalksCollaborators.astro';
 ---
 <Base title="Research" active="research">
   <PageHead slug="research" title="Research" ghost="inference">
     At <span class="ph-em">BARTA Research Lab</span>, IIT, University of Dhaka, I work on NLP, large language models and AI agents: LLM-based analysis of health discussions on social media, cross-lingual evaluation of LLM agents in Bangla, and, for my M.Sc. thesis, adaptive inference for efficient LLMs.
   </PageHead>
-  <main class="container"></main>
+  <main class="container">
+    <Interests />
+    <Publications />
+    <InProgress />
+    <TalksCollaborators />
+  </main>
 </Base>
