@@ -6,7 +6,7 @@
 @import './utilities.css';
 
 @import './components/background.css';
-/* @import './components/dock.css'; */
+@import './components/dock.css';
 /* @import './components/page-head.css'; */
 /* @import './components/timeline.css'; */
 /* @import './components/prose.css'; */
