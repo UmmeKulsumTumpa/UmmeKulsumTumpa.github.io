@@ -14,7 +14,7 @@
 @import './components/footer.css';
 
 @import './pages/not-found.css';
-/* @import './pages/home.css'; */
+@import './pages/home.css';
 @import './pages/education.css';
 @import './pages/experience.css';
 @import './pages/research.css';
