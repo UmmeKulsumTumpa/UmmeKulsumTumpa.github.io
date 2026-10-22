@@ -1,8 +1,9 @@
 ---
-// Head and interests. Publications, in progress, talks & posters and collaborators follow (#18).
+// Head, interests and publications. In progress, talks & posters and collaborators follow (#18).
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import Interests from '../components/research/Interests.astro';
+import Publications from '../components/research/Publications.astro';
 ---
 <Base title="Research" active="research">
   <PageHead slug="research" title="Research" ghost="inference">
@@ -10,5 +11,6 @@ import Interests from '../components/research/Interests.astro';
   </PageHead>
   <main class="container">
     <Interests />
+    <Publications />
   </main>
 </Base>
