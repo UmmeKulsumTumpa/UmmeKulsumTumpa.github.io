@@ -66,7 +66,7 @@ Checks:
 - Theme toggle persists across reloads with no flash of the wrong theme.
 - Page heads on all stub pages match `*-desktop-01.jpg` (path line, § label, serif title, ghost word, lead).
 - `prefers-reduced-motion` (DevTools → Rendering) turns off entrances and drift.
-- No inline `style=""`, no `<style>` in pages, no hex colour outside `tokens.css`: `grep -rnE "#[0-9a-fA-F]{3,8}\b" src --include=*.css | grep -v tokens.css` prints nothing.
+- No inline `style=""`, no `<style>` in pages, no hex colour outside `tokens.css`: `grep -rnE "#[0-9a-fA-F]{3,8}\b" src --include='*.css' | grep -v tokens.css` prints nothing.
 
 ## Phase 2: Home
 
