@@ -1,0 +1,10 @@
+/* 404 page (src/pages/404.astro): path link home + serif title, spaced like the inner page heads. */
+.nf { padding-top: 16px; }
+.nf-home { display: inline-block; font-family: var(--mono); font-size: 13px; color: var(--muted); }
+.nf-title { margin-top: 46px; font-family: var(--serif); font-weight: 400; font-size: clamp(64px, 9vw, 128px); line-height: 1; letter-spacing: -0.02em; }
+
+@media (max-width: 640px) {
+  .nf { padding-top: 14px; }
+  .nf-home { font-size: 12px; }
+  .nf-title { margin-top: 28px; font-size: 60px; }
+}

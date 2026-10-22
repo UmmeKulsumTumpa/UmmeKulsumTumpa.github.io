@@ -7,8 +7,8 @@ import { site, type NavId } from '../data/site';
 interface Props {
   title?: string;
   description?: string;
-  /** Page highlighted in the dock. */
-  active: NavId;
+  /** Page highlighted in the dock (none on the 404 page). */
+  active?: NavId;
 }
 const { title, description = site.description, active } = Astro.props;
 const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.role}`;
