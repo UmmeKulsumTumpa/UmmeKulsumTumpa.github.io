@@ -1,0 +1,29 @@
+---
+// Long-form article page: back link, meta line, title, lead, then Markdown in .prose (prose.css).
+// Generic on purpose: writing posts use it now, reading notes (/reading/<slug>/) reuse it.
+interface Props {
+  back: { href: string; label: string };
+  meta: string; // mono line above the title, e.g. "2026-10-20 · llm · 8 min"
+  date?: Date; // when set, the meta line is a <time> for it
+  title: string;
+  lead?: string;
+}
+const { back, meta, date, title, lead } = Astro.props;
+---
+
+<article class="container prose-page" aria-labelledby="h-title">
+  <header class="prose-head">
+    <a class="prose-back" data-anim="blur" href={back.href}><span aria-hidden="true">← </span>{back.label}</a>
+    {date ? (
+      <time class="prose-meta" data-anim="blur" datetime={date.toISOString().slice(0, 10)}>{meta}</time>
+    ) : (
+      <div class="prose-meta" data-anim="blur">{meta}</div>
+    )}
+    <h1 id="h-title" class="prose-title" data-anim="mask"><span class="d1">{title}</span></h1>
+    {lead && <p class="prose-lead d4" data-anim="up">{lead}</p>}
+  </header>
+  <div class="prose">
+    <slot />
+  </div>
+  <slot name="after" />
+</article>
