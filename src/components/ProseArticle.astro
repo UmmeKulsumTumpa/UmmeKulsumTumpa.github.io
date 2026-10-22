@@ -13,7 +13,7 @@ const { back, meta, date, title, lead } = Astro.props;
 
 <article class="container prose-page" aria-labelledby="h-title">
   <header class="prose-head">
-    <a class="prose-back" data-anim="blur" href={back.href}><span aria-hidden="true">← </span>{back.label}</a>
+    <a class="prose-back" data-anim="blur" href={back.href}><span aria-hidden="true">←</span>{back.label}</a>
     {date ? (
       <time class="prose-meta" data-anim="blur" datetime={date.toISOString().slice(0, 10)}>{meta}</time>
     ) : (

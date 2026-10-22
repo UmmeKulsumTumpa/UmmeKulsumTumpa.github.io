@@ -1,7 +1,7 @@
 /* ---------- long-form article (src/components/ProseArticle.astro): writing posts, reading notes ---------- */
 .prose-page { padding-top: 16px; }
-.prose-head { padding: 32px 0 48px; border-bottom: 1px solid var(--border); }
-.prose-back { display: inline-block; font-family: var(--mono); font-size: 13px; color: var(--muted); }
+.prose-head { padding-bottom: 48px; border-bottom: 1px solid var(--border); }
+.prose-back { display: inline-flex; gap: 1ch; font-family: var(--mono); font-size: 13px; color: var(--muted); }
 .prose-meta { display: block; margin-top: 32px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; color: var(--accent); }
 .prose-title {
   margin-top: 14px; max-width: 18em; font-family: var(--serif); font-weight: 400;
@@ -27,8 +27,8 @@
 
 @media (max-width: 640px) {
   .prose-page { padding-top: 14px; }
-  .prose-head { padding: 28px 0 32px; }
-  .prose-back { display: inline-flex; align-items: center; min-height: 44px; font-size: 12px; } /* 44px touch target (SPEC §6) */
+  .prose-head { padding-bottom: 32px; }
+  .prose-back { align-items: center; min-height: 44px; font-size: 12px; } /* 44px touch target (SPEC §6) */
   .prose-meta { margin-top: 16px; }
   .prose-title { font-size: 44px; }
   .prose-lead { margin-top: 14px; font-size: 15px; line-height: 1.65; }
