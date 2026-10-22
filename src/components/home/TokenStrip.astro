@@ -1,0 +1,42 @@
+---
+// "fig. 0 — me, tokenized": tokenizer-style chips (copy from Main.dc.html; phones use MobileHome.dc.html's shorter rows).
+// Each row loops by sliding its track by half; the first copy is readable, the repeats are aria-hidden.
+// Chip shading alternates over the whole track (as in the prototype), so the half-way loop point lines up.
+const hot = ['less', 'context', 'inference', 'history', 'philosophy', 'books', 'agents', 'Bangla'];
+const rows = {
+  desktop: [
+    "I|'m| a| software| engineer| who| studies| how| language| models| can| do| more| with| less|.| I| also| build| things| people| use|.",
+    ' adaptive| inference|,| LLM| agents| in| Bangla|,| spec|-driven| dev|,| React|,| Flutter|,| history|,| philosophy|,| books|, and| learning| new| things|.',
+  ],
+  phone: [
+    "I|'m| a| software| engineer| who| studies| how| language| models| can| do| more| with| less|.",
+    ' context| windows|,| KV|-cache|,| adaptive| inference|,| agents|,| history|,| philosophy|,| books|.',
+  ],
+};
+const COPIES = 4; // enough track for the loop to cover wide screens (it moves by two copies)
+const tokens = (row: string) => row.split('|').map((s) => ({ s, hot: hot.includes(s.trim()) }));
+---
+
+<figure class="tokens" aria-labelledby="tokens-fig">
+  <div class="container tokens-caption" data-anim="up">
+    <span id="tokens-fig">fig. 0 — me, tokenized</span>
+    <span class="tokens-aside">off the clock: history · philosophy · books</span>
+  </div>
+  {(['desktop', 'phone'] as const).map((variant) => (
+    <div class:list={['tokens-rows', `tokens-${variant}`]}>
+      {rows[variant].map((row, r) => (
+        <div class:list={['tokens-row', r === 0 ? 'd1' : 'd2']} data-anim={r === 0 ? 'from-right' : 'from-left'}>
+          <div class:list={['tokens-track', r === 1 && 'tokens-track-reverse']}>
+            {Array.from({ length: COPIES }, (_, copy) => (
+              <span class="tokens-copy" aria-hidden={copy > 0 ? 'true' : undefined}>
+                {tokens(row).map((t, i, all) => (
+                  <span class:list={['tokens-chip', (copy * all.length + i) % 2 === 1 && 'tokens-alt', t.hot && 'tokens-hot']}>{t.s}</span>
+                ))}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  ))}
+</figure>

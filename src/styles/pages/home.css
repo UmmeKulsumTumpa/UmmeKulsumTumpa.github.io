@@ -273,3 +273,55 @@
   }
   .glimpse-list { display: block; }
 }
+
+/* ── token strip ── */
+.tokens {
+  margin-top: 120px; padding: 52px 0 60px; overflow: hidden;
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+}
+.tokens-caption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--faint); }
+.tokens-rows { margin-top: 22px; }
+.tokens-phone { display: none; }
+.tokens-row + .tokens-row { margin-top: 10px; margin-left: -240px; }
+.tokens-track { display: flex; width: max-content; animation: tokens-left 90s linear infinite; }
+.tokens-track-reverse { animation-name: tokens-right; }
+.tokens:hover .tokens-track { animation-play-state: paused; }
+.tokens-copy { display: flex; }
+.tokens-chip {
+  padding: 10px 3px; border-right: 1px solid var(--border); background: var(--tok-a);
+  font-family: var(--mono); font-size: 24px; line-height: 1; white-space: pre; color: var(--muted);
+}
+.tokens-chip.tokens-alt { background: var(--tok-b); }
+.tokens-chip.tokens-hot { color: var(--accent); }
+@keyframes tokens-left { to { transform: translateX(-50%); } }
+@keyframes tokens-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+@media (prefers-reduced-motion: reduce) {
+  .tokens-track { animation: none; }
+}
+
+@media (max-width: 640px) {
+  .tokens { margin-top: 56px; padding: 36px 0 40px; }
+  .tokens-caption { font-size: 11px; }
+  .tokens-aside, .tokens-desktop { display: none; }
+  .tokens-phone { display: block; margin-top: 14px; }
+  .tokens-row + .tokens-row { margin-top: 8px; margin-left: -160px; }
+  .tokens-chip { padding: 8px 2px; font-size: 18px; }
+}
+
+/* ── contact ── */
+.contact { padding-top: 120px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 32px; }
+.contact-title { font-family: var(--serif); font-weight: 400; font-size: clamp(64px, 8vw, 120px); line-height: 1; letter-spacing: -0.02em; }
+.contact-actions { flex: 0 1 420px; }
+.contact-links { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 6px 20px; font-family: var(--mono); font-size: 13px; }
+.contact-links a { color: var(--muted); }
+
+@media (max-width: 640px) {
+  .contact { padding-top: 64px; display: block; }
+  .contact-title { font-size: 64px; }
+  .contact-actions { margin-top: 22px; }
+  .contact-email { display: flex; justify-content: space-between; padding: 0 18px; font-size: 14px; }
+  /* 44px touch targets (SPEC §6); margins absorb the extra height so the text sits where MobileHome.dc.html has it. */
+  .contact-links { margin-top: 4px; margin-bottom: -12px; gap: 0 18px; font-size: 12px; }
+  .contact-links a { display: inline-flex; align-items: center; min-height: 44px; }
+  .contact-links .contact-desktop-only { display: none; }
+}
