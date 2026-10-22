@@ -1,0 +1,52 @@
+/* =========================================================================
+   Design tokens. Change colours, fonts and spacing here only.
+   Dark is the default; [data-theme="light"] overrides.
+   ========================================================================= */
+:root {
+  --bg: #0b0c0f;
+  --surface: #121418;
+  --border: #22252c;
+  --text: #ececef;
+  --muted: #a3a6b0;
+  --faint: #82858f;
+  --accent: #b9a6ff;
+  --ring: rgba(185, 166, 255, 0.18);
+  --dot: rgba(255, 255, 255, 0.09);
+  --stroke: rgba(255, 255, 255, 0.1);
+  --tok-a: #121418;
+  --tok-b: #171a1f;
+  --glow-opacity: 0.22;
+  --dock-bg: rgba(22, 24, 30, 0.72);
+  --dock-border: rgba(255, 255, 255, 0.1);
+  --dock-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
+
+  --serif: 'Instrument Serif', Georgia, serif;
+  --sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  --container: 1280px;
+  --gutter: 32px;
+  --radius: 16px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: dark;
+}
+
+:root[data-theme='light'] {
+  --bg: #f7f7f8;
+  --surface: #eeeef1;
+  --border: #dedee3;
+  --text: #131418;
+  --muted: #4b4d56;
+  --faint: #666873;
+  --accent: #5b32d6;
+  --ring: rgba(91, 50, 214, 0.14);
+  --dot: rgba(0, 0, 0, 0.1);
+  --stroke: rgba(0, 0, 0, 0.1);
+  --tok-a: #eeeef1;
+  --tok-b: #e6e6ea;
+  --glow-opacity: 0.13;
+  --dock-bg: rgba(255, 255, 255, 0.74);
+  --dock-border: rgba(0, 0, 0, 0.09);
+  --dock-shadow: 0 10px 40px rgba(20, 20, 30, 0.12);
+  color-scheme: light;
+}

@@ -1,0 +1,24 @@
+{
+  "v": 3,
+  "createdOnFiles": {"v": 1, "at": "2026-10-22T10:30:00Z"},
+  "title": "Personal Website",
+  "launch": {"view": "canvas"},
+  "pages": [],
+  "boards": {
+    "Main.dc.html": {"x": 0, "y": 0, "w": 1440, "h": 3000, "title": "Home · about + glimpse (Play + scroll to see entrances)", "expand": "fill", "is_interactive": true},
+    "Education.dc.html": {"x": 1520, "y": 0, "w": 1440, "h": 3100, "title": "Education + course-project archive", "expand": "fill", "is_interactive": true},
+    "Experience.dc.html": {"x": 3040, "y": 0, "w": 1440, "h": 2500, "title": "Experience", "expand": "fill", "is_interactive": true},
+    "Research.dc.html": {"x": 4560, "y": 0, "w": 1440, "h": 2400, "title": "Research", "expand": "fill", "is_interactive": true},
+    "Writing.dc.html": {"x": 6080, "y": 0, "w": 1440, "h": 2200, "title": "Writing (blog)", "expand": "fill", "is_interactive": true},
+    "Reading.dc.html": {"x": 7600, "y": 0, "w": 1440, "h": 2600, "title": "Reading library", "expand": "fill", "is_interactive": true},
+    "MobileHome.dc.html": {"x": 0, "y": 3600, "w": 390, "h": 844, "title": "Home · phone (scroll inside)", "is_interactive": true},
+    "MobileReading.dc.html": {"x": 470, "y": 3600, "w": 390, "h": 844, "title": "Reading · phone, light", "is_interactive": true},
+    "Dock.dc.html": {"x": 940, "y": 3600, "w": 540, "h": 84, "title": "Dock component (shared)", "is_interactive": true}
+  },
+  "order": ["Main.dc.html", "Education.dc.html", "Experience.dc.html", "Research.dc.html", "Writing.dc.html", "Reading.dc.html", "MobileHome.dc.html", "MobileReading.dc.html", "Dock.dc.html"],
+  "notes": {
+    "heading": {"x": 0, "y": -300, "text": "Terminal Serif v4: about + bento home, course-project archive", "kind": "title1", "maxW": 9040},
+    "heading2": {"x": 0, "y": 3300, "text": "Phone + the shared dock", "kind": "title1", "maxW": 1480}
+  },
+  "designSystems": []
+}

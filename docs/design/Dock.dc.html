@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Site dock</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="display: flex; justify-content: center; align-items: flex-end; padding: 10px 0; font-family: 'IBM Plex Mono', monospace">
+<nav aria-label="Site" style="display: inline-flex; align-items: center; gap: {{gap}}; padding: 8px; border-radius: 22px; background: {{d.bg}}; border: 1px solid {{d.border}}; box-shadow: {{d.shadow}}; backdrop-filter: blur(18px) saturate(1.4); -webkit-backdrop-filter: blur(18px) saturate(1.4); pointer-events: auto">
+<sc-for list="{{items}}" as="item" hint-placeholder-count="5">
+<a class="dock-item" href="{{item.href}}" aria-label="{{item.label}}" aria-current="{{item.current}}" style="position: relative; width: {{size}}; height: {{size}}; border-radius: 14px; display: flex; align-items: center; justify-content: center; color: {{d.icon}}; background: {{item.bg}}; text-decoration: none">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{item.d}}"></path></svg>
+<span aria-hidden="true" style="position: absolute; bottom: 4px; left: 50%; margin-left: -2px; width: 4px; height: 4px; border-radius: 50%; background: {{d.dot}}; opacity: {{item.dot}}"></span>
+<sc-if value="{{tips}}" hint-placeholder-val="{{ true }}">
+<span class="dock-tip" aria-hidden="true" style="font-size: 12px; padding: 5px 10px; border-radius: 8px; background: {{d.tipBg}}; color: {{d.tipText}}; border: 1px solid {{d.border}}">{{item.label}}</span>
+</sc-if>
+</a>
+</sc-for>
+<span aria-hidden="true" style="width: 1px; height: 28px; margin: 0 4px; background: {{d.border}}"></span>
+<sc-if value="{{tips}}" hint-placeholder-val="{{ true }}">
+<a class="dock-item" href="mailto:bsse1307@iit.du.ac.bd" aria-label="Email me" style="position: relative; width: {{size}}; height: {{size}}; border-radius: 14px; display: flex; align-items: center; justify-content: center; color: {{d.icon}}; text-decoration: none">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zM3 7l9 6 9-6"></path></svg>
+<sc-if value="{{tips}}" hint-placeholder-val="{{ true }}">
+<span class="dock-tip" aria-hidden="true" style="font-size: 12px; padding: 5px 10px; border-radius: 8px; background: {{d.tipBg}}; color: {{d.tipText}}; border: 1px solid {{d.border}}">Email</span>
+</sc-if>
+</a>
+</sc-if>
+<button class="dock-item" onClick="{{toggle}}" aria-label="{{toggleLabel}}" style="position: relative; width: {{size}}; height: {{size}}; border-radius: 14px; display: flex; align-items: center; justify-content: center; color: {{d.icon}}; background: transparent; border: 0; padding: 0; cursor: pointer">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{themeIcon}}"></path></svg>
+<sc-if value="{{tips}}" hint-placeholder-val="{{ true }}">
+<span class="dock-tip" aria-hidden="true" style="font-size: 12px; padding: 5px 10px; border-radius: 8px; background: {{d.tipBg}}; color: {{d.tipText}}; border: 1px solid {{d.border}}">{{themeTip}}</span>
+</sc-if>
+</button>
+</nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"active":{"editor":"enum","options":["home","research","experience","education","writing","reading"],"default":"home"},"dark":{"editor":"boolean","default":true},"mobile":{"editor":"boolean","default":false},"onToggle":{"editor":null},"$preview":{"width":540,"height":84}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const dark = this.props.dark ?? true;
+    const mobile = !!this.props.mobile;
+    const active = this.props.active ?? 'home';
+    const d = dark
+      ? { bg: 'rgba(22,24,30,0.72)', border: 'rgba(255,255,255,0.10)', shadow: '0 10px 40px rgba(0,0,0,0.45)', icon: '#D9DAE0', activeBg: 'rgba(255,255,255,0.08)', dot: '#ECECEF', tipBg: '#1A1C22', tipText: '#ECECEF' }
+      : { bg: 'rgba(255,255,255,0.74)', border: 'rgba(0,0,0,0.09)', shadow: '0 10px 40px rgba(20,20,30,0.12)', icon: '#2A2C33', activeBg: 'rgba(0,0,0,0.06)', dot: '#131418', tipBg: '#FFFFFF', tipText: '#131418' };
+    const pages = mobile
+      ? { home: 'MobileHome.dc.html', reading: 'MobileReading.dc.html' }
+      : { home: 'Main.dc.html', research: 'Research.dc.html', experience: 'Experience.dc.html', education: 'Education.dc.html', writing: 'Writing.dc.html', reading: 'Reading.dc.html' };
+    const base = [
+      { id: 'home', label: 'Home', d: 'M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z' },
+      { id: 'education', label: 'Education', d: 'M2 9l10-5 10 5-10 5zM6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5M22 9v6' },
+      { id: 'experience', label: 'Experience', d: 'M4 7h16a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1zM8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18' },
+      { id: 'research', label: 'Research', d: 'M9 3h6M10 3v6l-5.6 9.6A1.6 1.6 0 0 0 5.8 21h12.4a1.6 1.6 0 0 0 1.4-2.4L14 9V3M7.5 15h9' },
+      { id: 'writing', label: 'Writing', d: 'M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16v4zM13.5 6.5l4 4' },
+      { id: 'reading', label: 'Reading', d: 'M3 5h6a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H3zM21 5h-6a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h7z' }
+    ];
+    const items = base.map((it) => ({
+      id: it.id,
+      label: it.label,
+      d: it.d,
+      href: pages[it.id] || '#',
+      bg: it.id === active ? d.activeBg : 'transparent',
+      dot: it.id === active ? 1 : 0,
+      current: it.id === active ? 'page' : 'false'
+    }));
+    const sun = 'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4';
+    const moon = 'M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z';
+    return {
+      d: d,
+      items: items,
+      size: mobile ? '42px' : '46px',
+      gap: mobile ? '2px' : '6px',
+      tips: !mobile,
+      themeIcon: dark ? sun : moon,
+      themeTip: dark ? 'Light' : 'Dark',
+      toggleLabel: dark ? 'Switch to light theme' : 'Switch to dark theme',
+      toggle: () => { if (this.props.onToggle) this.props.onToggle(); }
+    };
+  }
+}
+</script>
+</body>
+</html>

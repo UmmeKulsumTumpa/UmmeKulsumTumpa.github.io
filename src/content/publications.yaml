@@ -1,0 +1,10 @@
+# Newest first.
+- id: voices-of-care
+  title: "Voices of Care: Actor-Centric LLM-Assisted Analysis of Alzheimer's and Dementia Discourse on Reddit"
+  authors: [U. K. Tumpa, N. T. Hia, M. S. Fatemi, M. M. A. Joarder, S. Rayana]
+  venue: 2025 IEEE International Conference on Big Data (BigData)
+  year: 2025
+  tldr: "[One-sentence TL;DR of the finding.]"
+  links:
+    - { label: code, href: "https://github.com/UmmeKulsumTumpa/alzheimers-dementia-reddit-analysis" }
+    - { label: scholar, href: "https://scholar.google.com/citations?user=3iF7aUQAAAAJ&hl=en" }

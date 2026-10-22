@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Research: Umme Kulsum Tumpa</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{text-decoration:none}a:hover{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.dock-item{transition:transform .18s cubic-bezier(.2,.7,.3,1.4);transform-origin:50% 100%}
+.dock-item:hover,.dock-item:focus-visible{transform:translateY(-6px) scale(1.22);text-decoration:none}
+.dock-item:hover + .dock-item,.dock-item:has(+ .dock-item:hover){transform:translateY(-2px) scale(1.08)}
+.dock-tip{position:absolute;bottom:calc(100% + 12px);left:50%;transform:translateX(-50%);opacity:0;pointer-events:none;transition:opacity .15s;white-space:nowrap}
+.dock-item:hover .dock-tip,.dock-item:focus-visible .dock-tip{opacity:1}
+[data-anim]{transition:opacity .9s cubic-bezier(.16,1,.3,1),transform 1.1s cubic-bezier(.16,1,.3,1),filter .9s ease}
+[data-anim-ready] [data-anim]:not([data-in]){opacity:0}
+[data-anim-ready] [data-anim="up"]:not([data-in]){transform:translateY(64px)}
+[data-anim-ready] [data-anim="down"]:not([data-in]){transform:translateY(-64px)}
+[data-anim-ready] [data-anim="from-left"]:not([data-in]){transform:translateX(-110px)}
+[data-anim-ready] [data-anim="from-right"]:not([data-in]){transform:translateX(110px)}
+[data-anim-ready] [data-anim="zoom"]:not([data-in]){transform:scale(.88)}
+[data-anim-ready] [data-anim="blur"]:not([data-in]){filter:blur(14px);transform:translateY(20px)}
+[data-anim-ready] [data-anim="mask"]:not([data-in]){opacity:1}
+[data-anim="mask"] > *{transition:transform 1.15s cubic-bezier(.16,1,.3,1)}
+[data-anim-ready] [data-anim="mask"]:not([data-in]) > *{transform:translateY(112%)}
+[data-parallax]{transform:translate3d(0,var(--py,0),0)}
+.glow{animation:glow 38s ease-in-out infinite alternate}
+.glow-b{animation-duration:46s;animation-direction:alternate-reverse}
+.grain{background-image:url(/_blob/086d39903a05b1b2e541bfd5d26fda62);background-size:128px 128px}
+@keyframes glow{to{transform:translate3d(6vw,5vh,0) scale(1.12)}}
+@media (prefers-reduced-motion: reduce){.glow{animation:none}}
+@media (prefers-reduced-motion: reduce){.dock-item,[data-anim],[data-anim="mask"] > *{transition:none}}
+</style>
+</helmet>
+<div id="top" data-anim-root="" style="min-height: 100vh; background: {{t.bg}}; color: {{t.text}}; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 16px; line-height: 1.65; overflow-x: clip; isolation: isolate">
+<div aria-hidden="true" style="position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden">
+<span class="glow" style="position: absolute; width: 58vw; height: 58vw; left: -16vw; top: -22vw; border-radius: 50%; background: #7C6BFF; filter: blur(140px); opacity: {{t.glowO}}"></span>
+<span class="glow glow-b" style="position: absolute; width: 44vw; height: 44vw; right: -14vw; top: 34vh; border-radius: 50%; background: #3E5C8F; filter: blur(150px); opacity: {{t.glowO}}"></span>
+<span class="glow" style="position: absolute; width: 36vw; height: 36vw; left: 20vw; bottom: -12vw; border-radius: 50%; background: #5B4FA8; filter: blur(150px); opacity: {{t.glowO}}"></span>
+<span class="grain" style="position: absolute; inset: 0; opacity: 0.6"></span>
+</div>
+
+<header style="position: relative; overflow: hidden; border-bottom: 1px solid {{t.border}}">
+<div data-parallax="0.4" aria-hidden="true" style="position: absolute; right: -40px; top: 30px; font-family: 'Instrument Serif', Georgia, serif; font-size: 360px; line-height: 0.8; color: transparent; -webkit-text-stroke: 1px {{t.stroke}}; white-space: nowrap; user-select: none">inference</div>
+<div style="position: relative; max-width: 1280px; margin: 0 auto; padding: 16px 32px 48px; box-sizing: border-box">
+<a href="Main.dc.html" style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: {{t.muted}}">~/ummekulsumtumpa/research</a>
+<div style="margin-top: 32px">
+<div data-anim="blur" style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.08em; color: {{t.faint}}">§ research</div>
+<h1 data-anim="mask" style="margin: 14px 0 0; overflow: hidden; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(64px, 9vw, 128px); line-height: 1; letter-spacing: -0.02em"><span style="display: block; padding-bottom: 0.06em; transition-delay: 0.1s">Research</span></h1>
+<p data-anim="up" style="transition-delay: 0.3s; margin: 28px 0 0; max-width: 36em; font-size: 19px; line-height: 1.7; color: {{t.muted}}">At <span style="color: {{t.text}}">BARTA Research Lab</span>, IIT, University of Dhaka, I work on NLP, large language models and AI agents: LLM-based analysis of health discussions on social media, cross-lingual evaluation of LLM agents in Bangla, and, for my M.Sc. thesis, adaptive inference for efficient LLMs.</p>
+</div>
+</div>
+</header>
+
+<main style="max-width: 1280px; margin: 0 auto; padding: 0 32px 160px; box-sizing: border-box">
+
+<section data-anim="up" aria-labelledby="h-int" style="padding-top: 72px">
+<h2 id="h-int" style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-weight: 400; font-size: 12px; letter-spacing: 0.08em; color: {{t.faint}}">01 · interests</h2>
+<div style="margin-top: 24px; display: flex; flex-wrap: wrap; gap: 32px">
+<div style="flex: 1 1 280px; min-width: 0; border-top: 1px solid {{t.text}}; padding-top: 20px">
+<h3 style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 34px; line-height: 1.1">LLM efficiency</h3>
+<p style="margin: 10px 0 0; font-size: 15px; color: {{t.muted}}">Getting more out of a model per token, per second and per dollar.</p>
+<p style="margin: 14px 0 0; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: {{t.faint}}">asking: [the question you're chasing]</p>
+</div>
+<div style="flex: 1 1 280px; min-width: 0; border-top: 1px solid {{t.text}}; padding-top: 20px">
+<h3 style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 34px; line-height: 1.1">Context management</h3>
+<p style="margin: 10px 0 0; font-size: 15px; color: {{t.muted}}">What an agent should keep, compress or drop across long tasks.</p>
+<p style="margin: 14px 0 0; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: {{t.faint}}">asking: [the question you're chasing]</p>
+</div>
+<div style="flex: 1 1 280px; min-width: 0; border-top: 1px solid {{t.text}}; padding-top: 20px">
+<h3 style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 34px; line-height: 1.1">Adaptive inference</h3>
+<p style="margin: 10px 0 0; font-size: 15px; color: {{t.muted}}">Spending compute where an input needs it, not uniformly.</p>
+<p style="margin: 14px 0 0; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: {{t.faint}}">asking: [the question you're chasing]</p>
+</div>
+</div>
+</section>
+
+<section data-anim="up" aria-labelledby="h-pub" style="padding-top: 96px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 12px">
+<h2 id="h-pub" style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-weight: 400; font-size: 12px; letter-spacing: 0.08em; color: {{t.faint}}">02 · publications</h2>
+<a href="https://scholar.google.com/citations?user=3iF7aUQAAAAJ&amp;hl=en" style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: {{t.muted}}">google scholar ↗</a>
+</div>
+<div style="margin-top: 24px; display: flex; flex-wrap: wrap; gap: 8px 40px; border-top: 1px solid {{t.border}}; padding-top: 28px">
+<div style="flex: 0 0 90px; font-family: 'Instrument Serif', Georgia, serif; font-size: 40px; line-height: 1; color: {{t.faint}}">2025</div>
+<article style="flex: 1 1 600px; min-width: 0; display: flex; flex-wrap: wrap; gap: 20px 32px">
+<div role="img" aria-label="Paper figure placeholder" style="flex: 0 0 220px; height: 150px; border-radius: 12px; border: 1px solid {{t.border}}; background-color: {{t.surface}}; background-image: radial-gradient({{t.dot}} 1px, transparent 1.5px); background-size: 16px 16px; display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: {{t.faint}}">[key figure]</div>
+<div style="flex: 1 1 360px; min-width: 0">
+<h3 style="margin: 0; font-size: 20px; font-weight: 500; line-height: 1.4"><a href="#" style="color: {{t.text}}">Voices of Care: Actor-Centric LLM-Assisted Analysis of Alzheimer's and Dementia Discourse on Reddit</a></h3>
+<p style="margin: 8px 0 0; font-size: 15px; color: {{t.muted}}"><strong style="font-weight: 600; color: {{t.text}}">U. K. Tumpa</strong>, N. T. Hia, M. S. Fatemi, M. M. A. Joarder, S. Rayana</p>
+<p style="margin: 2px 0 0; font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 19px; color: {{t.muted}}">2025 IEEE International Conference on Big Data (BigData)</p>
+<p style="margin: 10px 0 0; font-size: 15px; color: {{t.muted}}">[One-sentence TL;DR of the finding.]</p>
+<div style="margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 12px">
+<a href="#" style="color: {{t.text}}; border: 1px solid {{t.border}}; border-radius: 8px; padding: 6px 12px">pdf</a>
+<a href="#" style="color: {{t.text}}; border: 1px solid {{t.border}}; border-radius: 8px; padding: 6px 12px">doi</a>
+<a href="#" style="color: {{t.text}}; border: 1px solid {{t.border}}; border-radius: 8px; padding: 6px 12px">bibtex</a>
+<a href="#" style="color: {{t.text}}; border: 1px solid {{t.border}}; border-radius: 8px; padding: 6px 12px">slides</a>
+<a href="https://github.com/UmmeKulsumTumpa/alzheimers-dementia-reddit-analysis" style="color: {{t.text}}; border: 1px solid {{t.border}}; border-radius: 8px; padding: 6px 12px">code ↗</a>
+</div>
+</div>
+</article>
+</div>
+</section>
+
+<section data-anim="up" aria-labelledby="h-prog" style="padding-top: 96px">
+<h2 id="h-prog" style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-weight: 400; font-size: 12px; letter-spacing: 0.08em; color: {{t.faint}}">03 · in progress</h2>
+<div style="margin-top: 24px; border-top: 1px solid {{t.border}}">
+<div style="display: flex; flex-wrap: wrap; gap: 6px 28px; align-items: baseline; padding: 22px 0; border-bottom: 1px solid {{t.border}}">
+<span style="flex: 1 1 420px; min-width: 0; font-size: 18px">Adaptive inference for efficient LLMs <span style="color: {{t.faint}}; font-size: 15px">· M.Sc. thesis</span></span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: {{t.accent}}; border: 1px solid {{t.border}}; border-radius: 999px; padding: 3px 12px">thesis · in progress</span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px 28px; align-items: baseline; padding: 22px 0; border-bottom: 1px solid {{t.border}}">
+<span style="flex: 1 1 420px; min-width: 0; font-size: 18px">Cross-lingual evaluation of LLM agents in Bangla <a href="https://github.com/UmmeKulsumTumpa/WorkBench-bangla" style="margin-left: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: {{t.muted}}">WorkBench-bangla ↗</a></span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: {{t.muted}}; border: 1px solid {{t.border}}; border-radius: 999px; padding: 3px 12px">[in prep / under review]</span>
+</div>
+</div>
+</section>
+
+<section data-anim="up" aria-labelledby="h-talks" style="padding-top: 96px; display: flex; flex-wrap: wrap; gap: 48px 64px">
+<div style="flex: 1 1 420px; min-width: 0">
+<h2 id="h-talks" style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-weight: 400; font-size: 12px; letter-spacing: 0.08em; color: {{t.faint}}">04 · talks &amp; posters</h2>
+<div style="margin-top: 24px; border-top: 1px solid {{t.border}}; padding: 20px 0; border-bottom: 1px solid {{t.border}}">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: {{t.faint}}">[Mon YYYY] · [city or online]</div>
+<div style="margin-top: 4px; font-size: 17px">[Talk or poster title] <span style="color: {{t.muted}}">· [event]</span></div>
+</div>
+</div>
+<div style="flex: 1 1 420px; min-width: 0">
+<h2 style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-weight: 400; font-size: 12px; letter-spacing: 0.08em; color: {{t.faint}}">05 · collaborators</h2>
+<div style="margin-top: 24px; border-top: 1px solid {{t.border}}">
+<div style="padding: 16px 0; border-bottom: 1px solid {{t.border}}; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap"><span>Nazifa Tasnim Hia</span><span style="color: {{t.muted}}; font-size: 14px">University of Dhaka</span></div>
+<div style="padding: 16px 0; border-bottom: 1px solid {{t.border}}; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap"><span>Shebuti Rayana</span><span style="color: {{t.muted}}; font-size: 14px">SUNY at Old Westbury</span></div>
+<div style="padding: 16px 0; border-bottom: 1px solid {{t.border}}; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap"><span>Md Shahrar Fatemi</span><span style="color: {{t.muted}}; font-size: 14px">Stony Brook University</span></div>
+</div>
+</div>
+</section>
+
+</main>
+
+<div data-anim="up" style="position: fixed; left: 0; right: 0; bottom: 14px; display: flex; justify-content: center; z-index: 50; pointer-events: none; transition-delay: 0.6s">
+<dc-import name="Dock" active="research" dark="{{dark}}" mobile="{{ false }}" on-toggle="{{toggle}}" hint-size="540px,84px"></dc-import>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":true,"section":"Theme"},"accentDark":{"editor":"color","default":"#B9A6FF","options":["#B9A6FF","#E7E7EC","#9CC3FF","#F2B880"],"section":"Theme"},"accentLight":{"editor":"color","default":"#5B32D6","options":["#5B32D6","#131418","#1D4ED8","#B45309"],"section":"Theme"},"$preview":{"width":1440,"height":2500}}'>
+class Component extends DCLogic {
+  componentDidMount() { this.initMotion(); }
+  componentDidUpdate() { this.scanMotion(); }
+  componentWillUnmount() { if (this.io) this.io.disconnect(); if (this.offScroll) this.offScroll(); }
+  initMotion() {
+    try {
+      const root = document.querySelector('[data-anim-root]');
+      if (!root) return;
+      this.root = root;
+      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce || !('IntersectionObserver' in window)) return;
+      root.setAttribute('data-anim-ready', '');
+      this.io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.intersectionRatio >= 0.12) e.target.setAttribute('data-in', '');
+          else if (!e.isIntersecting) e.target.removeAttribute('data-in');
+        });
+      }, { threshold: [0, 0.12] });
+      this.scanMotion();
+      const scroller = root.querySelector('[data-scroller]');
+      const src = scroller || window;
+      let ticking = false;
+      const update = () => {
+        ticking = false;
+        const y = scroller ? scroller.scrollTop : (window.scrollY || 0);
+        root.querySelectorAll('[data-parallax]').forEach((el) => {
+          const s = parseFloat(el.getAttribute('data-parallax')) || 0;
+          el.style.setProperty('--py', (y * s).toFixed(1) + 'px');
+        });
+      };
+      const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+      src.addEventListener('scroll', onScroll, { passive: true });
+      this.offScroll = () => src.removeEventListener('scroll', onScroll);
+      update();
+    } catch (e) {}
+  }
+  scanMotion() {
+    if (!this.io || !this.root) return;
+    this.root.querySelectorAll('[data-anim]').forEach((el) => this.io.observe(el));
+  }
+  renderVals() {
+    const st = this.state || {};
+    const dark = st.dark !== undefined ? st.dark : (this.props.dark ?? true);
+    const accent = dark ? (this.props.accentDark ?? '#B9A6FF') : (this.props.accentLight ?? '#5B32D6');
+    const t = dark
+      ? { bg: '#0B0C0F', surface: '#121418', border: '#22252C', text: '#ECECEF', muted: '#A3A6B0', faint: '#82858F', accent: accent, dot: 'rgba(255,255,255,0.09)', stroke: 'rgba(255,255,255,0.10)', glowO: 0.2 }
+      : { bg: '#F7F7F8', surface: '#EEEEF1', border: '#DEDEE3', text: '#131418', muted: '#4B4D56', faint: '#666873', accent: accent, dot: 'rgba(0,0,0,0.10)', stroke: 'rgba(0,0,0,0.10)', glowO: 0.12 };
+    return { t: t, dark: dark, toggle: () => this.setState({ dark: !dark }) };
+  }
+}
+</script>
+</body>
+</html>

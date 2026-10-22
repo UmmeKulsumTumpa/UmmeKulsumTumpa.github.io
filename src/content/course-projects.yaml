@@ -1,0 +1,21 @@
+# Public course repos. `id` must be the exact GitHub repo name.
+# category: spl | ai | sys | fund
+- { id: SPL-1, category: spl, lang: C++, course: "SPL-1 · 3rd semester", desc: "Code analyzer: builds control-flow graphs and computes cyclomatic complexity, SLOC and WMC." }
+- { id: SPL_02, category: spl, lang: JavaScript, course: "SPL-2 · [semester]", desc: "Second Software Project Lab." }
+- { id: VoicesOfCare-SPL3, category: spl, lang: Python, course: "SPL-3 · [semester]", desc: "Third Software Project Lab: LLM-assisted analysis of dementia discourse on Reddit." }
+- { id: Wumpus-Quest, category: ai, lang: Python, course: "[course]", desc: "An agent explores a 10×10 Wumpus world using propositional or first-order logic." }
+- { id: MiniChess, category: ai, lang: JavaScript, course: "[course]", desc: "[One line on what it does.]" }
+- { id: AI-project3, category: ai, lang: TypeScript, course: "[course]", desc: "[One line on what it does.]" }
+- { id: Machile-Learning-Course, category: ai, lang: Jupyter, course: "[course]", desc: "Machine learning course work." }
+- { id: Sentiment-Analysis-IMDB-Movie-Reviews, category: ai, lang: Jupyter, course: "[course]", desc: "Logistic-regression sentiment classifier for IMDB reviews, with an interactive UI." }
+- { id: Intrusion-Detection-System, category: ai, lang: Python, course: "[course]", desc: "ML intrusion detection on CICFlowMeter features, real-time and historical." }
+- { id: text2code-seq2seq-assignment, category: ai, lang: Python, course: "[course]", desc: "Sequence-to-sequence model that turns text into code." }
+- { id: NLP_Basic_Codes, category: ai, lang: Python, course: "[course]", desc: "NLP fundamentals: preprocessing, hidden Markov models, POS tagging." }
+- { id: Stack-Overflow-Lite, category: sys, lang: JavaScript, course: "[course]", desc: "Monolithic Q&A system on MERN and MinIO, with notifications for new posts." }
+- { id: StackOverFlowLite-micro, category: sys, lang: JavaScript, course: "[course]", desc: "[One line: the microservice version?]" }
+- { id: RPC, category: sys, lang: JavaScript, course: "[course]", desc: "[One line on what it does.]" }
+- { id: Rate-Limiter-TokenBucketAlgo, category: sys, lang: JavaScript, course: "[course]", desc: "Rate limiter built on the token-bucket algorithm." }
+- { id: ci-cd-pipeline, category: sys, lang: JavaScript, course: "[course]", desc: "[One line on what it does.]" }
+- { id: CI-CD-Pipeline-Basic, category: sys, lang: JavaScript, course: "[course]", desc: "[One line on what it does.]" }
+- { id: MCR-Demo-Project, category: sys, lang: HTML, course: "[course]", desc: "Practising modern code review: pull requests, peer review, feedback and merging." }
+- { id: TicTacToe, category: fund, lang: Java, course: "[course]", desc: "Tic-tac-toe with a Java Swing GUI." }

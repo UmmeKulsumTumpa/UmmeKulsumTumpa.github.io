@@ -1,0 +1,50 @@
+# Newest first. Same organisation = one entry with several roles (shown as connected dots).
+# The first role inside an entry is the newest. Mark the role you hold now with `current: true`.
+
+- id: cefalo
+  org: Cefalo Bangladesh
+  short: C
+  url: https://cefalo.com
+  location: Dhaka
+  span: "[YYYY] → now"
+  roles:
+    - title: Associate Software Engineer
+      type: full-time
+      start: "[Mon YYYY]"
+      current: true
+      bullets:
+        - "Production features across four projects, two in-house and two for clients: backend services, web apps (React, Next.js, Node.js, TypeScript) and cross-platform mobile apps (Flutter, Firebase)."
+        - "Spec-driven, agent-assisted development: LLM agents help turn requirements into specs, implement them and review the code."
+        - "Custom skills, hooks and plugins, and the workflows that keep agent output reliable."
+    - title: Software Engineer
+      type: part-time, alongside the B.Sc.
+      start: "[Mon YYYY]"
+      end: "[Mon YYYY]"
+      summary: "[One line: the project or team you joined.]"
+    - title: Software Engineering Intern
+      type: internship
+      start: "[Mon YYYY]"
+      end: "[Mon YYYY]"
+      summary: "[One line: training phase, what you learned or built.]"
+
+- id: fellowship-ai
+  org: Fellowship.AI
+  short: F
+  location: "[remote]"
+  span: "[YYYY]"
+  roles:
+    - title: "[Fellow title, e.g. Machine Learning Fellow · cohort]"
+      start: "[Mon YYYY]"
+      end: "[Mon YYYY]"
+      summary: "[One line: the project you worked on and what you shipped.]"
+
+- id: barta
+  org: BARTA Research Lab, IIT, University of Dhaka
+  short: BARTA
+  location: Dhaka
+  span: "[YYYY] → now"
+  roles:
+    - title: Researcher
+      start: "[Mon YYYY]"
+      current: true
+      summary: "NLP, LLMs and AI agents: LLM-based analysis of health discussions on social media (IEEE BigData 2025), and cross-lingual evaluation of LLM agents in Bangla."

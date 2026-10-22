@@ -1,0 +1,45 @@
+# Newest first. Same institution = one entry with several degrees (connected dots).
+
+- id: iit-du
+  org: Institute of Information Technology, University of Dhaka
+  short: IIT
+  url: https://iit.du.ac.bd
+  location: Dhaka
+  span: "2 degrees · [YYYY] → now"
+  roles:
+    - title: M.Sc. in Software Engineering (thesis)
+      start: "[YYYY]"
+      current: true
+      type: "supervised by [Supervisor]"
+      details:
+        - { label: thesis, value: Adaptive inference for efficient LLMs }
+      courses:
+        - { name: Research Methodology, note: Systematic review of cross-lingual LLM agents }
+        - { name: Software Security, note: Prompt-injection robustness of coding agents }
+        - { name: Formal Methods, note: Modelling with Alloy }
+    - title: B.Sc. in Software Engineering
+      start: "[YYYY]"
+      end: Feb 2026
+      type: "CGPA [x.xx] / 4.00"
+      details:
+        - { label: capstone (SPL-3), value: Voices of Care }
+
+- id: college
+  org: "[College name]"
+  short: C
+  location: "[City]"
+  span: "[YYYY]"
+  roles:
+    - title: Higher Secondary Certificate (HSC) · Science
+      start: "[YYYY]"
+      type: "GPA [x.xx] / 5.00 · [board]"
+
+- id: school
+  org: "[School name]"
+  short: S
+  location: "[City]"
+  span: "[YYYY]"
+  roles:
+    - title: Secondary School Certificate (SSC) · Science
+      start: "[YYYY]"
+      type: "GPA [x.xx] / 5.00 · [board]"

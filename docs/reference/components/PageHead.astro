@@ -1,0 +1,21 @@
+---
+interface Props {
+  slug: string;     // shown in the breadcrumb, e.g. "education"
+  title: string;
+  ghost: string;    // big outlined word behind the header
+  italicGhost?: boolean;
+}
+const { slug, title, ghost, italicGhost = false } = Astro.props;
+---
+
+<header class="page-head">
+  <div class:list={['ghost', italicGhost && 'ghost-italic']} data-parallax="0.4" aria-hidden="true">{ghost}</div>
+  <div class="container inner">
+    <a class="crumb" data-anim="blur" href="/">~/ummekulsumtumpa/{slug}</a>
+    <div class="page-head-text">
+      <div class="label" data-anim="blur">§ {slug}</div>
+      <h1 data-anim="mask"><span class="d1">{title}</span></h1>
+      <p class="lede d3" data-anim="up"><slot /></p>
+    </div>
+  </div>
+</header>

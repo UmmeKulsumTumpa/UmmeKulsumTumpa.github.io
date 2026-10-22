@@ -1,0 +1,100 @@
+---
+import { site } from '../../data/site';
+
+const facts = [
+  { k: 'based in', v: 'Dhaka, Bangladesh · UTC+6' },
+  { k: 'work', v: 'Associate Software Engineer, Cefalo Bangladesh' },
+  { k: 'study', v: 'M.Sc. in SE (thesis), IIT DU' },
+  { k: 'lab', v: 'BARTA Research Lab' },
+  { k: 'thesis', v: 'Adaptive inference for efficient LLMs' },
+];
+const links = [
+  { label: 'email', href: `mailto:${site.email}`, icon: '→' },
+  { label: 'google scholar', href: site.links.scholar, icon: '↗' },
+  { label: 'github', href: site.links.github, icon: '↗' },
+  { label: 'linkedin', href: site.links.linkedin, icon: '↗' },
+  { label: 'cv.pdf', href: site.links.cv, icon: '↓' },
+];
+const interests = [
+  { n: 'i.', word: 'History', note: '[an era you return to]' },
+  { n: 'ii.', word: 'Philosophy', note: '[a thinker you argue with]' },
+  { n: 'iii.', word: 'Books', note: '[now reading: book title]' },
+  { n: 'iv.', word: 'Learning', note: "[what you're picking up]" },
+];
+---
+
+<section class="container about" aria-labelledby="h-about">
+  <div class="about-head">
+    <div>
+      <div class="label" data-anim="blur">§ 01 · about</div>
+      <h2 id="h-about" class="section-title" data-anim="mask"><span>A little about me.</span></h2>
+    </div>
+    <span class="label" data-anim="blur">~/about.md · engineer · researcher · reader</span>
+  </div>
+
+  <div class="about-body">
+    <aside class="about-facts" data-anim="from-left" aria-label="Quick facts">
+      <div class="label-sm">at a glance</div>
+      <dl>
+        {facts.map((f) => <div><dt>{f.k}</dt><dd>{f.v}</dd></div>)}
+      </dl>
+      <div class="label-sm about-links-label">find me</div>
+      <div class="about-links">
+        {links.map((l) => <a href={l.href}>{l.label} <span aria-hidden="true">{l.icon}</span></a>)}
+      </div>
+    </aside>
+
+    <div class="about-text">
+      <p class="about-lead" data-anim="up">
+        I'm a software engineer at <a href="https://cefalo.com">Cefalo Bangladesh</a> and a thesis-based M.Sc. student in
+        Software Engineering at <a href="https://iit.du.ac.bd">IIT, University of Dhaka</a>, where I also completed my B.Sc.
+      </p>
+      <div class="about-paras">
+        <p data-anim="up">
+          At Cefalo, I've delivered production features across <strong>four projects</strong> (two in-house, two for clients),
+          covering backend services, web applications (React, Next.js, Node.js, TypeScript) and cross-platform mobile apps
+          (Flutter, Firebase).
+        </p>
+        <p class="d1" data-anim="up">
+          I practise <strong>spec-driven, agent-assisted development</strong>. LLM agents are part of my everyday engineering,
+          from turning requirements into specs through implementation and code review. I build custom skills, hooks and
+          plugins, and design the workflows that keep their output reliable.
+        </p>
+        <p class="d2" data-anim="up">
+          As a researcher at <strong>BARTA Research Lab</strong>, IIT-DU, I work on NLP, large language models and AI agents,
+          including LLM-based analysis of health discussions on social media and cross-lingual evaluation of LLM agents in
+          Bangla. My M.Sc. thesis focuses on <strong>adaptive inference for efficient LLMs</strong>.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-extra">
+    <div class="about-interests">
+      <div class="label-sm" data-anim="blur">off the clock</div>
+      <div class="interest-grid">
+        {interests.map((it, i) => (
+          <div class:list={['interest', `d${i + 1}`]} data-anim="up">
+            <span class="interest-n" aria-hidden="true">{it.n}</span>
+            <span class="interest-word">{it.word}</span>
+            <span class="interest-note">{it.note}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+    <figure class="about-portrait" data-anim="zoom">
+      <div class="label-sm">portrait</div>
+      <!-- Replace with: <img src="/portrait.jpg" alt="Umme Kulsum Tumpa" /> -->
+      <div class="portrait-frame" role="img" aria-label="Photo placeholder">[your photo]</div>
+      <figcaption><span>{site.name}</span><span>Dhaka, 2026</span></figcaption>
+    </figure>
+  </div>
+
+  <figure class="about-quote" data-anim="blur">
+    <blockquote>
+      <span class="accent" aria-hidden="true">“</span>Working with LLMs as both a researcher and an engineer gives me a practical
+      view of where they excel, where they fail, and how to use them responsibly in real products.
+    </blockquote>
+    <figcaption class="label">— why I do both</figcaption>
+  </figure>
+</section>
