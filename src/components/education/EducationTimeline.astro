@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+import Timeline from '../Timeline.astro';
+
+// Degrees from education.yaml, in file order (newest first). An institution with several degrees
+// shows the count in its meta line ("2 degrees · …"). A detail value may contain {projects}, filled
+// with the live course-project count so the archive link never goes stale.
+const projects = await getCollection('projects');
+const fill = (s: string) => s.replaceAll('{projects}', String(projects.length));
+const degrees = (await getCollection('education')).sort((a, b) => a.data.order - b.data.order);
+const entries = degrees.map(({ data }) => ({
+  ...data,
+  span: data.roles.length > 1 ? `${data.roles.length} degrees · ${data.span}` : data.span,
+  roles: data.roles.map((r) => ({ ...r, details: r.details.map((d) => ({ ...d, value: fill(d.value) })) })),
+}));
+---
+
+<Timeline
+  id="h-deg"
+  label="01 · timeline"
+  hint="newest first · connected dots = same institution"
+  currentLabel="in progress"
+  entries={entries}
+/>

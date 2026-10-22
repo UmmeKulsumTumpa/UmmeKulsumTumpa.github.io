@@ -1,0 +1,12 @@
+---
+import { getCollection } from 'astro:content';
+import ProjectArchive from '../../islands/ProjectArchive.tsx';
+
+// course-projects.yaml in file order. The section id is the target of the B.Sc. "on GitHub ↓" link:
+// it is not animated, so the jump lands with the heading in view (the h2's head starts 64px lower).
+const projects = (await getCollection('projects'))
+  .sort((a, b) => a.data.order - b.data.order)
+  .map(({ data: { id, category, lang, desc, course } }) => ({ id, category, lang, desc, course }));
+---
+
+<ProjectArchive client:visible projects={projects} id="course-projects" heading="h-arch" />
