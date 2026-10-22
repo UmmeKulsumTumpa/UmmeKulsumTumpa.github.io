@@ -1,0 +1,21 @@
+---
+import { getPosts, postDate, postHref, readingTime } from '../../lib/posts';
+
+// SPEC §5.5: the featured card is the first `featured: true` post (newest first). No card without one.
+const post = (await getPosts()).find((p) => p.data.featured);
+const meta = post && ['featured', ...post.data.tags, `${readingTime(post)} min`].join(' · ');
+---
+
+{post && (
+  <section class="wr-featured" data-anim="zoom" aria-labelledby="h-featured">
+    <a class="wr-card" href={postHref(post)}>
+      <div class="wr-card-text">
+        <div class="wr-card-meta">{meta}</div>
+        <h2 id="h-featured" class="wr-card-title">{post.data.title}</h2>
+        <p class="wr-card-summary">{post.data.summary}</p>
+        <div class="wr-card-date">{postDate(post)} <span class="wr-arrow" aria-hidden="true">→</span></div>
+      </div>
+      <div class="wr-card-cover" aria-hidden="true">[cover diagram]</div>
+    </a>
+  </section>
+)}

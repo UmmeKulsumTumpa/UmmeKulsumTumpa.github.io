@@ -1,7 +1,9 @@
 ---
-// Stub: page head only. Featured post, tag filter and post rows come in Phase 5.
+// Featured post, then all posts with the tag filter. The post page and RSS come in #20.
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
+import FeaturedPost from '../components/writing/FeaturedPost.astro';
+import PostList from '../components/writing/PostList.astro';
 ---
 <Base title="Writing" active="writing">
   <PageHead slug="writing" title="Writing" ghost="notes" italicGhost>
@@ -11,5 +13,8 @@ import PageHead from '../components/PageHead.astro';
       <a href="#">subscribe by email ↗</a>
     </div>
   </PageHead>
-  <main class="container"></main>
+  <main class="container">
+    <FeaturedPost />
+    <PostList />
+  </main>
 </Base>
