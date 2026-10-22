@@ -18,8 +18,19 @@ function init() {
   // fallback gave up on us and showed everything, so don't hide it again.
   if (root.getAttribute('data-motion') === 'off') return;
   root.setAttribute('data-anim-ready', '');
-  root.setAttribute('data-motion', 'on');
+  try {
+    startEntrances(root);
+  } catch (err) {
+    // Never leave content hidden: show everything and tell the head script's fallback we're off.
+    root.removeAttribute('data-anim-ready');
+    root.setAttribute('data-motion', 'off');
+    console.error(err);
+    return;
+  }
+  startParallax();
+}
 
+function startEntrances(root: HTMLElement) {
   // Enter when 12% is visible. Leave (so it replays later) only once the element is more than
   // OUT_MARGIN px outside the viewport: observers see the transformed box, and the hidden state moves
   // elements down by up to 64px, so leaving right at the edge would pull an element parked just above
@@ -47,6 +58,11 @@ function init() {
     for (const r of records) r.addedNodes.forEach((n) => n instanceof HTMLElement && (n.matches('[data-anim]') ? observe(n) : scan(n)));
   }).observe(document.body, { childList: true, subtree: true });
 
+  // Only now is motion really running; until then the head script's fallback may still show everything.
+  root.setAttribute('data-motion', 'on');
+}
+
+function startParallax() {
   const layers = document.querySelectorAll<HTMLElement>('[data-parallax]');
   if (!layers.length) return;
   let ticking = false;
