@@ -1,0 +1,19 @@
+---
+import { getReading, hasNotes, notesHref } from '../../lib/reading';
+import ReadingLibrary from '../../islands/ReadingLibrary.tsx';
+
+// Library order and draft filtering come from getReading().
+const items = (await getReading()).map((entry) => ({
+  href: notesHref(entry),
+  title: entry.data.title,
+  author: entry.data.author,
+  kind: entry.data.kind,
+  status: entry.data.status,
+  topic: entry.data.topic,
+  year: entry.data.year === undefined ? undefined : String(entry.data.year),
+  why: entry.data.why,
+  notes: hasNotes(entry),
+}));
+---
+
+<ReadingLibrary client:load items={items} heading="h-library" />

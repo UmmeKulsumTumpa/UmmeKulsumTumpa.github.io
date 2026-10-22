@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { getReading } from '../../lib/reading';
 
 // Live numbers (SPEC §5.1 item 3): counts and latest entries come from the collections.
 const projects = await getCollection('projects');
@@ -8,7 +9,7 @@ const posts = (await getCollection('writing', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
 const [latest] = posts;
-const [book] = await getCollection('reading', ({ data }) => data.status === 'reading');
+const book = (await getReading()).find(({ data }) => data.status === 'reading');
 
 const numbers = [
   // "2 degrees" stays literal (SPEC §5.1); no collection field states it.

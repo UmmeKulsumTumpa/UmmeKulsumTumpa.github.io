@@ -1,16 +1,16 @@
 ---
-// Stub: page head only. Counters become computed and the library island arrives in Phase 5.
+// Page head with computed counters, then the library island (tabs, status pills, covers, rows).
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
+import ReadingStats from '../components/reading/ReadingStats.astro';
+import Library from '../components/reading/Library.astro';
 ---
 <Base title="Reading" active="reading">
   <PageHead slug="reading" title="The library" ghost="library" italicGhost>
     Books, papers and articles I'm reading, have read, or mean to. Each one links to my notes when I have them.
-    <div class="reading-stats d5" data-anim="from-left" slot="after">
-      <div class="reading-stat"><div class="reading-stat-n">[N]</div><div class="reading-stat-label">books in 2026</div></div>
-      <div class="reading-stat"><div class="reading-stat-n">[N]</div><div class="reading-stat-label">papers read</div></div>
-      <div class="reading-stat"><div class="reading-stat-n">[N]</div><div class="reading-stat-label">notes written</div></div>
-    </div>
+    <ReadingStats slot="after" />
   </PageHead>
-  <main class="container"></main>
+  <main class="container">
+    <Library />
+  </main>
 </Base>
