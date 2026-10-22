@@ -5,7 +5,11 @@ import PageHead from '../components/PageHead.astro';
 import FeaturedPost from '../components/writing/FeaturedPost.astro';
 import PostList from '../components/writing/PostList.astro';
 ---
-<Base title="Writing" active="writing">
+<Base
+  title="Writing"
+  description="Notes on LLMs, building software, and the books and ideas I can't stop thinking about."
+  active="writing"
+>
   <PageHead slug="writing" title="Writing" ghost="notes" italicGhost>
     Notes on LLMs, building software, and the books and ideas I can't stop thinking about. [Posting cadence, if you want to commit to one.]
     <div class="writing-feeds" slot="after-lead">
