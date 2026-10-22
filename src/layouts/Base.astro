@@ -1,0 +1,45 @@
+---
+import '../styles/global.css';
+import { site, type NavId } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Page highlighted in the dock (used once the dock is added). */
+  active: NavId;
+}
+const { title, description = site.description } = Astro.props;
+const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.role}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" as="image" type="image/avif" href="/bg/background-dark.avif" fetchpriority="high" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+    />
+  </head>
+  <body>
+    <div class="bg" aria-hidden="true">
+      <span class="bg-image"></span>
+      <span class="grain"></span>
+    </div>
+
+    <slot />
+  </body>
+</html>
