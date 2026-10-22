@@ -8,7 +8,7 @@ const posts = (await getCollection('writing', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
 const [latest] = posts;
-const [book] = await getCollection('reading', ({ data }) => data.status === 'reading');
+const [book] = await getCollection('reading', ({ data }) => !data.draft && data.status === 'reading');
 
 const numbers = [
   // "2 degrees" stays literal (SPEC §5.1); no collection field states it.
