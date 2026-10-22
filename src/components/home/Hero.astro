@@ -1,11 +1,11 @@
 ---
-import { getCollection } from 'astro:content';
+import { getReading } from '../../lib/reading';
 import { site } from '../../data/site';
 import LocalTime from '../../islands/LocalTime.tsx';
 
 // Phones show "reading <current book>" in place of the thesis line (MobileHome.dc.html).
 // Until a reading entry has status "reading", keep the prototype's placeholder.
-const [current] = await getCollection('reading', ({ data }) => !data.draft && data.status === 'reading');
+const current = (await getReading()).find(({ data }) => data.status === 'reading');
 const book = current?.data.title ?? '[book title]';
 
 // Two masked lines (given name, family name): one line on desktop, stacked on phones (MobileHome.dc.html).

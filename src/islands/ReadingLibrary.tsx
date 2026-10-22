@@ -3,7 +3,7 @@ import { useRef, useState, type KeyboardEvent } from 'react';
 type Kind = 'book' | 'paper' | 'article';
 type Status = 'reading' | 'finished' | 'queued';
 interface Item {
-  slug: string;
+  href: string; // the notes page, /reading/<slug>/
   title: string;
   author: string;
   kind: Kind;
@@ -11,7 +11,7 @@ interface Item {
   topic?: string;
   year?: string;
   why?: string;
-  notes: boolean; // has a Markdown body → /reading/<slug>/
+  notes: boolean; // has a Markdown body, so the notes page exists
 }
 interface Props {
   items: Item[];
@@ -28,7 +28,6 @@ const BOOK_STAGGER = ['', 'd1', 'd2', 'd3']; // 0 / 0.08 / 0.16 / 0.24s across e
 const ROW_STAGGER = ['', 'd1', 'd2', 'd3', 'd4']; // 0.08s apart, capped
 
 const cx = (...names: (string | false | undefined)[]) => names.filter(Boolean).join(' ');
-const notesHref = (slug: string) => `/reading/${slug}/`;
 
 /**
  * Reading library (SPEC §5.6): Books / Papers / Articles tabs and status pills over book covers or
@@ -105,8 +104,8 @@ export default function ReadingLibrary({ items, heading }: Props) {
                 </>
               );
               return (
-                <li key={b.slug} className={cx('rd-book-item', `rd-is-${b.status}`, BOOK_STAGGER[i % 4])} data-anim="up">
-                  {b.notes ? <a className="rd-book" href={notesHref(b.slug)}>{inner}</a> : <div className="rd-book">{inner}</div>}
+                <li key={b.href} className={cx('rd-book-item', `rd-is-${b.status}`, BOOK_STAGGER[i % 4])} data-anim="up">
+                  {b.notes ? <a className="rd-book" href={b.href}>{inner}</a> : <div className="rd-book">{inner}</div>}
                 </li>
               );
             })}
@@ -114,7 +113,7 @@ export default function ReadingLibrary({ items, heading }: Props) {
         ) : (
           <ul className="rd-rows">
             {shown.map((r, i) => (
-              <li key={r.slug} className={cx('rd-row', ROW_STAGGER[Math.min(i, ROW_STAGGER.length - 1)])} data-anim="from-right">
+              <li key={r.href} className={cx('rd-row', ROW_STAGGER[Math.min(i, ROW_STAGGER.length - 1)])} data-anim="from-right">
                 <span className="rd-row-year">{r.year}</span>
                 <span className="rd-row-main">
                   <span className="rd-row-title">{r.title}</span>
@@ -124,7 +123,7 @@ export default function ReadingLibrary({ items, heading }: Props) {
                 <span className="rd-row-side">
                   <span className={cx('rd-status', `rd-status-${r.status}`)}>{r.status}</span>
                   {r.notes && (
-                    <a className="rd-notes" href={notesHref(r.slug)}>
+                    <a className="rd-notes" href={r.href}>
                       notes<span className="visually-hidden"> on {r.title}</span> →
                     </a>
                   )}
