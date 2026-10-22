@@ -38,3 +38,14 @@
 @media (prefers-reduced-motion: reduce) {
   .arc-card-in { transition: none; }
 }
+
+/* ---------- awards & activities + hackathons & contests (src/components/education/Activities.astro) ---------- */
+/* overflow-x: clip keeps the from-left/right hidden state from widening the page. */
+.edu-extra { padding-top: 88px; display: flex; flex-wrap: wrap; gap: 48px 64px; overflow-x: clip; }
+.edu-col { flex: 1 1 420px; min-width: 0; }
+.edu-col-label { font-weight: 400; }
+.edu-rows { list-style: none; margin: 18px 0 0; padding: 0; border-top: 1px solid var(--border); }
+.edu-row { padding: 16px 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+a.edu-row { color: var(--text); }
+.edu-row-meta { font-family: var(--mono); font-size: 12px; color: var(--faint); }
+.edu-row-link { color: var(--muted); }
