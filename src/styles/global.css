@@ -9,7 +9,7 @@
 @import './components/dock.css';
 @import './components/page-head.css';
 @import './components/timeline.css';
-/* @import './components/prose.css'; */
+@import './components/prose.css';
 /* @import './components/cards.css'; */
 @import './components/footer.css';
 

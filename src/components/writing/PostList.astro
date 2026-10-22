@@ -1,0 +1,28 @@
+---
+import { getPosts, postDate, postHref, readingTime, TAGS } from '../../lib/posts';
+import WritingFilter from '../../islands/WritingFilter.tsx';
+
+const posts = (await getPosts()).map((p) => ({
+  id: p.id,
+  href: postHref(p),
+  date: postDate(p),
+  title: p.data.title,
+  summary: p.data.summary,
+  tags: p.data.tags,
+  minutes: readingTime(p),
+}));
+---
+
+{posts.length > 0 ? (
+  <WritingFilter client:visible posts={posts} tags={TAGS} heading="h-all" />
+) : (
+  // Empty state (SPEC §5.5): nothing to filter yet, so no pills and no island JS.
+  <section class="wr-all" aria-labelledby="h-all">
+    <div class="wr-all-head">
+      <h2 id="h-all" class="label wr-all-label">all posts · 0</h2>
+    </div>
+    <ul class="wr-rows" role="list">
+      <li class="wr-empty">first post coming soon</li>
+    </ul>
+  </section>
+)}

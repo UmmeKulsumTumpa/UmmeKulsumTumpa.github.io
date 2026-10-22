@@ -1,0 +1,34 @@
+---
+// One page per post (SPEC §5.5). Posts come from getPosts(), so drafts get no page in production.
+import type { CollectionEntry } from 'astro:content';
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import ProseArticle from '../../components/ProseArticle.astro';
+import PostNav from '../../components/writing/PostNav.astro';
+import { getPosts, postDate, readingTime } from '../../lib/posts';
+
+export async function getStaticPaths() {
+  const posts = await getPosts(); // newest first
+  return posts.map((post, i) => ({
+    params: { slug: post.id },
+    props: { post, next: posts[i - 1], previous: posts[i + 1] },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<'writing'>;
+  previous?: CollectionEntry<'writing'>;
+  next?: CollectionEntry<'writing'>;
+}
+const { post, previous, next } = Astro.props;
+const { Content } = await render(post);
+const meta = [postDate(post), ...post.data.tags, `${readingTime(post)} min`].join(' · ');
+---
+<Base title={post.data.title} description={post.data.summary} active="writing">
+  <main>
+    <ProseArticle back={{ href: '/writing/', label: 'all posts' }} meta={meta} date={post.data.date} title={post.data.title} lead={post.data.summary}>
+      <Content />
+      <PostNav slot="after" previous={previous} next={next} />
+    </ProseArticle>
+  </main>
+</Base>

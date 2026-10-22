@@ -7,4 +7,7 @@ import react from '@astrojs/react';
 export default defineConfig({
   site: 'https://ummekulsumtumpa.github.io',
   integrations: [react()],
+  // Code blocks are plain <pre><code>, styled by prose.css from the theme tokens. Shiki would inline
+  // fixed hex colours (one theme for both light and dark) as style attributes.
+  markdown: { syntaxHighlight: false },
 });
