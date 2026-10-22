@@ -53,6 +53,9 @@
 @media (max-width: 640px) {
   /* 44px touch targets (SPEC §6). */
   .wr-pill { min-height: 44px; }
+  /* No phone prototype for Writing: a tighter card so the 44px title does not fill the screen. */
+  .wr-card { padding: 24px; }
+  .wr-card-title { font-size: 34px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .wr-arrow { transition: none; }
