@@ -24,7 +24,7 @@
       details:
         - { label: capstone (SPL-3), value: Voices of Care }
         # {projects} is replaced with the number of entries in course-projects.yaml.
-        - { label: course projects, value: "{projects} on GitHub ↓", href: "#h-arch" }
+        - { label: course projects, value: "{projects} on GitHub ↓", href: "#course-projects" }
 
 - id: college
   org: "[College name]"
