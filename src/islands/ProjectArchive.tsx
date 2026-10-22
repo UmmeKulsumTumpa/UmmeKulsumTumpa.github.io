@@ -2,7 +2,11 @@ import { useState } from 'react';
 
 type Category = 'spl' | 'ai' | 'sys' | 'fund';
 interface Project { id: string; category: Category; lang: string; desc: string; course: string }
-interface Props { projects: Project[]; heading: string } // heading: id of the h2 (the timeline links to it)
+interface Props {
+  projects: Project[];
+  id: string; // id of the section: the in-page link target (the section itself never animates)
+  heading: string; // id of the h2
+}
 
 const FILTERS: { id: Category | 'all'; label: string }[] = [
   { id: 'all', label: 'all' },
@@ -18,13 +22,13 @@ const STAGGER = ['', 'd1', 'd2']; // 0 / 0.08 / 0.16s across each row of three
  * Course-project archive: filter pills (counts from the data) over a card grid. The server
  * renders the full "all" grid, so every card is there without JS; the pills filter once hydrated.
  */
-export default function ProjectArchive({ projects, heading }: Props) {
+export default function ProjectArchive({ projects, id, heading }: Props) {
   const [filter, setFilter] = useState<Category | 'all'>('all');
   const shown = filter === 'all' ? projects : projects.filter((p) => p.category === filter);
   const count = (id: Category | 'all') => (id === 'all' ? projects.length : projects.filter((p) => p.category === id).length);
 
   return (
-    <section className="arc" aria-labelledby={heading}>
+    <section id={id} className="arc" aria-labelledby={heading}>
       <div className="arc-head" data-anim="up">
         <div>
           <h2 id={heading} className="label arc-label">
