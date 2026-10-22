@@ -1,11 +1,14 @@
 ---
-// Stub: page head only. The timeline, selected projects and toolbox come in Phase 3.
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
+import SelectedProjects from '../components/experience/SelectedProjects.astro';
 ---
 <Base title="Experience" active="experience">
   <PageHead slug="experience" title="Experience" ghost="ship it">
     Three roles at Cefalo Bangladesh, from intern to full-time engineer, a fellowship at Fellowship.AI, and research at BARTA Lab.
   </PageHead>
-  <main class="container"></main>
+  <main class="container">
+    {/* 01 · roles: the Timeline section (#15) goes here, first. */}
+    <SelectedProjects />
+  </main>
 </Base>
