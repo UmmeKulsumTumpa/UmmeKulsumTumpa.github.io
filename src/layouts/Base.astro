@@ -1,14 +1,15 @@
 ---
 import '../styles/global.css';
+import Dock from '../components/Dock.astro';
 import { site, type NavId } from '../data/site';
 
 interface Props {
   title?: string;
   description?: string;
-  /** Page highlighted in the dock (used once the dock is added). */
+  /** Page highlighted in the dock. */
   active: NavId;
 }
-const { title, description = site.description } = Astro.props;
+const { title, description = site.description, active } = Astro.props;
 const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.role}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
@@ -41,5 +42,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     </div>
 
     <slot />
+
+    <Dock active={active} />
   </body>
 </html>
