@@ -33,6 +33,10 @@
 .dock-item:hover .dock-tip, .dock-item:focus-visible .dock-tip { opacity: 1; }
 .dock-sep { width: 1px; height: 28px; margin: 0 4px; background: var(--dock-border); }
 
+/* Theme button: show the icon/tooltip word for the current theme (set before paint). */
+:root:not([data-theme='light']) .dock-theme-light,
+[data-theme='light'] .dock-theme-dark { display: none; }
+
 @keyframes dock-in {
   from { opacity: 0; transform: translateY(64px); }
 }
