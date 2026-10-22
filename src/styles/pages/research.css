@@ -42,3 +42,23 @@
   .pub-scholar { display: inline-flex; align-items: center; min-height: 44px; }
   .pub-pill { padding: 12px; line-height: 18px; } /* 18 + 2×12 + 2×1 border = 44px */
 }
+
+/* ---------- 03 · in progress (src/components/research/InProgress.astro) ---------- */
+.res-prog-list { margin: 24px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--border); }
+.res-prog-row {
+  display: flex; flex-wrap: wrap; gap: 6px 28px; align-items: baseline;
+  padding: 22px 0; border-bottom: 1px solid var(--border);
+}
+.res-prog-title { flex: 1 1 420px; min-width: 0; font-size: 18px; }
+.res-prog-note { font-size: 15px; color: var(--faint); }
+.res-prog-link { margin-left: 8px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.res-status {
+  font-family: var(--mono); font-size: 12px; color: var(--muted);
+  border: 1px solid var(--border); border-radius: 999px; padding: 3px 12px;
+}
+.res-status-current { color: var(--accent); }
+
+/* Phones: 44px touch target for the inline repo link (SPEC §6) without moving the row. */
+@media (max-width: 640px) {
+  .res-prog-link { display: inline-block; padding: 12px 0; margin: -12px 0 -12px 8px; }
+}
