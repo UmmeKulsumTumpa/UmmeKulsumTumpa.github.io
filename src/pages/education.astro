@@ -1,11 +1,14 @@
 ---
-// Stub: page head only. The timeline, course-project archive and awards come in Phase 3.
+// Timeline here; the course-project archive and awards come in later Phase 3 issues.
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
+import EducationTimeline from '../components/education/EducationTimeline.astro';
 ---
 <Base title="Education" active="education">
   <PageHead slug="education" title="Education" ghost="learning" italicGhost>
     A thesis-based M.Sc. in progress and a B.Sc. in Software Engineering at IIT, University of Dhaka, after SSC and HSC in science.
   </PageHead>
-  <main class="container"></main>
+  <main class="container">
+    <EducationTimeline />
+  </main>
 </Base>
