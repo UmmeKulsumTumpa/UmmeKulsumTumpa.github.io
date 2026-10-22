@@ -7,6 +7,8 @@
 interface Role {
   title: string; type?: string; start: string; end?: string; current: boolean;
   summary?: string; bullets: string[];
+  link?: { label: string; href: string }; // optional link after the summary, e.g. "see research →"
+  badge?: string; // badge text for this current role; overrides currentLabel ('' = no badge)
   details: { label: string; value: string; href?: string }[];
   courses: { name: string; note: string }[];
 }
@@ -17,14 +19,15 @@ interface Props {
   hint: string; // right-hand note in the section head
   entries: Entry[];
   currentLabel?: string; // badge on the role marked current: true
+  class?: string; // extra class on the section, for page-level spacing tweaks
 }
 
-const { id, label, hint, entries, currentLabel = 'current' } = Astro.props;
+const { id, label, hint, entries, currentLabel = 'current', class: className } = Astro.props;
 const when = (r: Role) =>
   (r.end || r.current ? `${r.start} → ${r.current ? 'present' : r.end}` : r.start) + (r.type ? ` · ${r.type}` : '');
 ---
 
-<section class="tl-section" aria-labelledby={id}>
+<section class:list={['tl-section', className]} aria-labelledby={id}>
   <div class="tl-section-head" data-anim="up">
     <h2 id={id} class="label">{label}</h2>
     <span class="tl-hint">{hint}</span>
@@ -44,10 +47,10 @@ const when = (r: Role) =>
               {i < e.roles.length - 1 && <span class="tl-line" aria-hidden="true"></span>}
               <div class="tl-title">
                 <span>{r.title}</span>
-                {r.current && <span class="tl-badge">{currentLabel}</span>}
+                {r.current && (r.badge ?? currentLabel) && <span class="tl-badge">{r.badge ?? currentLabel}</span>}
               </div>
               <div class="tl-when">{when(r)}</div>
-              {r.summary && <p class="tl-text">{r.summary}</p>}
+              {r.summary && <p class="tl-text">{r.summary}{r.link && <> <a class="tl-link" href={r.link.href}>{r.link.label}</a></>}</p>}
               {r.bullets.length > 0 && <ul class="tl-bullets">{r.bullets.map((b) => <li>{b}</li>)}</ul>}
               {r.details.length > 0 && (
                 <div class="tl-details">
