@@ -79,13 +79,14 @@ const experience = defineCollection({ loader: ordered('src/content/experience.ya
 const education = defineCollection({ loader: ordered('src/content/education.yaml'), schema: org });
 
 const projects = defineCollection({
-  loader: file('src/content/course-projects.yaml'),
+  loader: ordered('src/content/course-projects.yaml'),
   schema: z.object({
     id: z.string(), // GitHub repo name
     category: z.enum(['spl', 'ai', 'sys', 'fund']),
     lang: z.string(),
     desc: z.string(),
     course: z.string(),
+    order: z.number(), // set by ordered(): position in the YAML file, not written by hand
   }),
 });
 
