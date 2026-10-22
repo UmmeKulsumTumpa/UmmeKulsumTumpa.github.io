@@ -1,5 +1,5 @@
 import { defineCollection } from 'astro:content';
-import { glob, file } from 'astro/loaders';
+import { glob, file, type Loader } from 'astro/loaders';
 import { z } from 'astro/zod';
 
 /* Markdown collections: one file = one entry ------------------------------ */
@@ -32,6 +32,25 @@ const reading = defineCollection({
 
 /* YAML collections: one file = a list of entries --------------------------- */
 
+/**
+ * Astro stores entries sorted by id, which loses the order of a YAML list. Lists are newest first
+ * by their position in the file (SPEC §4), so this wraps file() and records each entry's position
+ * as `order`. Read in file order with `.sort((a, b) => a.data.order - b.data.order)`.
+ */
+function ordered(path: string): Loader {
+  const inner = file(path);
+  return {
+    name: 'ordered-file-loader',
+    load: (context) => {
+      let position = 0;
+      return inner.load({
+        ...context,
+        parseData: (props) => context.parseData({ ...props, data: { ...props.data, order: position++ } }),
+      });
+    },
+  };
+}
+
 const role = z.object({
   title: z.string(),
   type: z.string().optional(),
@@ -40,7 +59,7 @@ const role = z.object({
   current: z.boolean().default(false),
   summary: z.string().optional(),
   bullets: z.array(z.string()).default([]),
-  details: z.array(z.object({ label: z.string(), value: z.string() })).default([]),
+  details: z.array(z.object({ label: z.string(), value: z.string(), href: z.string().optional() })).default([]),
   courses: z.array(z.object({ name: z.string(), note: z.string() })).default([]),
 });
 
@@ -52,10 +71,11 @@ const org = z.object({
   location: z.string(),
   span: z.string(),
   roles: z.array(role).min(1),
+  order: z.number(), // set by ordered(): position in the YAML file, not written by hand
 });
 
-const experience = defineCollection({ loader: file('src/content/experience.yaml'), schema: org });
-const education = defineCollection({ loader: file('src/content/education.yaml'), schema: org });
+const experience = defineCollection({ loader: ordered('src/content/experience.yaml'), schema: org });
+const education = defineCollection({ loader: ordered('src/content/education.yaml'), schema: org });
 
 const projects = defineCollection({
   loader: file('src/content/course-projects.yaml'),
