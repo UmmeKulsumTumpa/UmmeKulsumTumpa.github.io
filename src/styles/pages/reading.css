@@ -87,7 +87,7 @@ a.rd-book:hover { transform: translateY(-6px) rotate(-1deg); text-decoration: no
   .rd-row-title { font-size: 17px; }
   .rd-row-source { margin-top: 2px; font-size: 13px; }
   .rd-row-why { margin-top: 6px; font-size: 17px; }
-  .rd-notes { grid-area: notes; justify-self: start; display: inline-flex; align-items: center; min-height: 44px; }
+  .rd-notes { grid-area: notes; justify-self: start; display: inline-block; line-height: 44px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
