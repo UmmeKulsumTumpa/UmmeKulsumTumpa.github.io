@@ -41,6 +41,16 @@
   [data-theme='light'] .bg-image { background-image: url('/bg/background-light-1920.webp'); }
 }
 
+/* Portrait screens: `cover` would show the centre strip of the landscape image
+   (violet down the whole side). Zoom into its lower-left corner instead, so the
+   violet glow sits top-left and fades to the page colour, as in mobile-home-01. */
+@media (orientation: portrait) {
+  .bg-image {
+    background-size: auto 200%;
+    background-position: left bottom;
+  }
+}
+
 .bg .grain {
   position: absolute;
   inset: 0;
