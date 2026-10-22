@@ -4,3 +4,37 @@
   .ph-education .ph-title { margin-top: 12px; font-size: clamp(64px, 9vw, 120px); }
   .ph-education .ph-lead { margin-top: 20px; max-width: 38em; }
 }
+
+/* ---------- course-project archive (src/islands/ProjectArchive.tsx) ---------- */
+.arc { padding-top: 72px; }
+.arc-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px; }
+.arc-label { font-weight: 400; }
+.arc-title { margin-top: 8px; font-family: var(--serif); font-size: 34px; line-height: 1.15; }
+.arc-all { font-family: var(--mono); font-size: 13px; color: var(--muted); }
+.arc-filters { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 8px; }
+.arc-pill-n { opacity: 0.6; }
+.arc-grid { margin-top: 24px; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 16px; }
+.arc-card { display: block; color: var(--text); }
+.arc-card:hover { text-decoration: none; }
+.arc-card-in {
+  height: 100%; min-height: 190px; padding: 20px 22px; border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--surface); display: flex; flex-direction: column; gap: 10px;
+  transition: transform 0.4s var(--ease), box-shadow 0.3s ease;
+}
+.arc-card:hover .arc-card-in, .arc-card:focus-visible .arc-card-in { transform: translateY(-4px); box-shadow: 0 0 0 1px var(--muted); }
+.arc-card:hover .arc-name { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+.arc-meta, .arc-foot { display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 11px; color: var(--faint); }
+.arc-lang { display: inline-flex; align-items: center; gap: 6px; }
+.arc-lang-dot { width: 8px; height: 8px; border-radius: 50%; border: 1px solid var(--muted); background: var(--border); }
+.arc-name { font-size: 17px; font-weight: 600; line-height: 1.35; word-break: break-word; }
+.arc-desc { flex: 1 1 auto; font-size: 14px; line-height: 1.55; color: var(--muted); }
+.arc-gh { color: var(--text); }
+
+@media (max-width: 640px) {
+  /* 44px touch targets (SPEC §6). */
+  .arc-pill { min-height: 44px; }
+  .arc-all { display: inline-flex; align-items: center; min-height: 44px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .arc-card-in { transition: none; }
+}
