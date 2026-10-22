@@ -1,3 +1,59 @@
 /* Writing page (src/pages/writing.astro). */
 .writing-feeds { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 6px 22px; font-family: var(--mono); font-size: 13px; }
 .writing-feeds a { color: var(--text); }
+
+/* Hover on a post link (Writing.dc.html .row-link): no link underline, the title underlines, the arrow slides. */
+.wr-card:hover, .wr-row:hover { text-decoration: none; }
+.wr-card:hover .wr-card-title, .wr-card:focus-visible .wr-card-title,
+.wr-row:hover .wr-row-title, .wr-row:focus-visible .wr-row-title {
+  text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px;
+}
+.wr-arrow { display: inline-block; color: var(--text); transition: transform 0.2s ease; }
+.wr-card:hover .wr-arrow, .wr-card:focus-visible .wr-arrow,
+.wr-row:hover .wr-arrow, .wr-row:focus-visible .wr-arrow { transform: translateX(6px); }
+
+/* ---------- featured post (src/components/writing/FeaturedPost.astro) ---------- */
+.wr-featured { padding-top: 56px; }
+.wr-card {
+  display: flex; flex-wrap: wrap; gap: 28px 48px; align-items: stretch; padding: 36px;
+  border: 1px solid var(--border); border-radius: 20px; background: var(--surface); color: var(--text);
+}
+.wr-card-text { flex: 1 1 460px; min-width: 0; }
+.wr-card-meta { font-family: var(--mono); font-size: 12px; color: var(--accent); }
+.wr-card-title { margin-top: 12px; font-family: var(--serif); font-weight: 400; font-size: 44px; line-height: 1.08; }
+.wr-card-summary { margin-top: 16px; font-size: 17px; color: var(--muted); }
+.wr-card-date { margin-top: 20px; font-family: var(--mono); font-size: 13px; color: var(--faint); }
+.wr-card-date .wr-arrow { margin-left: 10px; }
+.wr-card-cover {
+  flex: 1 1 320px; min-height: 220px; display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--border); border-radius: 14px; background-color: var(--bg);
+  background-image: radial-gradient(var(--dot) 1px, transparent 1.5px); background-size: 18px 18px;
+  font-family: var(--mono); font-size: 12px; color: var(--faint);
+}
+
+/* ---------- all posts + tag filter (src/islands/WritingFilter.tsx, src/components/writing/PostList.astro) ---------- */
+.wr-all { padding-top: 72px; }
+.wr-all-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; }
+.wr-all-label { font-weight: 400; }
+.wr-filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.wr-pill { min-height: 36px; }
+.wr-rows { list-style: none; margin: 20px 0 0; padding: 0; border-top: 1px solid var(--border); }
+.wr-row {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 28px; padding: 26px 0;
+  border-bottom: 1px solid var(--border); color: var(--text);
+}
+.wr-row-date { flex: 0 0 120px; font-family: var(--mono); font-size: 13px; color: var(--faint); }
+.wr-row-body { flex: 1 1 480px; min-width: 0; }
+.wr-row-title { display: block; font-size: 20px; font-weight: 500; line-height: 1.4; }
+.wr-row-summary { display: block; margin-top: 6px; font-size: 15px; color: var(--muted); }
+.wr-row-meta { flex: 0 0 auto; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.wr-row-meta .wr-arrow { margin-left: 8px; }
+.wr-empty { padding: 26px 0; border-bottom: 1px solid var(--border); font-family: var(--mono); font-size: 13px; color: var(--faint); }
+
+@media (max-width: 640px) {
+  /* 44px touch targets (SPEC §6). */
+  .wr-pill { min-height: 44px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wr-arrow { transition: none; }
+}
