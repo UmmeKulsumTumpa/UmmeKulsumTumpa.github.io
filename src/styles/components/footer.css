@@ -1,0 +1,13 @@
+/* Site footer (src/components/Footer.astro), rendered by Base on every page (Main.dc.html).
+   The 150px bottom padding keeps the fixed dock off the last line. */
+.footer {
+  max-width: var(--container); margin: 88px auto 0; padding: 28px var(--gutter) 150px; border-top: 1px solid var(--border);
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px;
+  font-family: var(--mono); font-size: 12px; color: var(--faint);
+}
+.footer-top { color: var(--muted); }
+
+/* Phones (MobileHome.dc.html): inset rule, smaller type. */
+@media (max-width: 640px) {
+  .footer { margin: 56px 20px 0; padding: 20px 0 130px; font-size: 11px; }
+}
