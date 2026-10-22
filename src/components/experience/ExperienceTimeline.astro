@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+import Timeline from '../Timeline.astro';
+
+// Roles from experience.yaml, in file order (newest first). As in Experience.dc.html:
+// an org with several roles shows the count in its meta line ("3 roles · …"), and a current role
+// with a type carries it in the badge ("current · full-time") instead of the date line.
+const orgs = (await getCollection('experience')).sort((a, b) => a.data.order - b.data.order);
+const entries = orgs.map(({ data }) => ({
+  ...data,
+  span: data.roles.length > 1 ? `${data.roles.length} roles · ${data.span}` : data.span,
+  roles: data.roles.map((r) =>
+    r.current ? { ...r, badge: r.type ? `current · ${r.type}` : '', type: undefined } : r,
+  ),
+}));
+---
+
+<Timeline
+  id="h-roles"
+  label="01 · roles"
+  hint="newest first · connected dots = role changes at the same place"
+  class="exp-tl"
+  entries={entries}
+/>

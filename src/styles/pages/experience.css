@@ -3,6 +3,12 @@
   .ph-experience .ph-lead { margin-top: 20px; max-width: 38em; }
 }
 
+/* ---------- 01 · roles: page-level tweaks to the shared Timeline (Experience.dc.html) ---------- */
+.exp-tl .tl-role:not(:last-child) { padding-bottom: 26px; }
+.exp-tl .tl-org:not(.tl-multi) .tl-text { margin-top: 10px; }
+.exp-tl .tl-org:has(.tl-dot-current) .tl-logo { color: var(--text); }
+.exp-tl .tl-logo-text { font-size: 12px; }
+
 /* Sections after the timeline (Experience.dc.html). */
 .exp-section { padding-top: 96px; }
 
