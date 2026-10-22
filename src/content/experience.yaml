@@ -16,7 +16,7 @@
         - "Production features across four projects, two in-house and two for clients: backend services, web apps (React, Next.js, Node.js, TypeScript) and cross-platform mobile apps (Flutter, Firebase)."
         - "Spec-driven, agent-assisted development: LLM agents help turn requirements into specs, implement them and review the code."
         - "Custom skills, hooks and plugins, and the workflows that keep agent output reliable."
-    - title: Software Engineer
+    - title: Software Engineer, part-time
       type: part-time, alongside the B.Sc.
       start: "[Mon YYYY]"
       end: "[Mon YYYY]"
@@ -48,3 +48,4 @@
       start: "[Mon YYYY]"
       current: true
       summary: "NLP, LLMs and AI agents: LLM-based analysis of health discussions on social media (IEEE BigData 2025), and cross-lingual evaluation of LLM agents in Bangla."
+      link: { label: "see research →", href: /research/ }

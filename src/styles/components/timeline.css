@@ -29,7 +29,8 @@
 .tl-badge { font-family: var(--mono); font-size: 11px; font-weight: 400; color: var(--accent); border: 1px solid var(--border); border-radius: 999px; padding: 1px 10px; }
 .tl-when { margin-top: 2px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
 .tl-text { margin-top: 8px; max-width: 46em; font-size: 15px; line-height: 1.7; color: var(--muted); }
-.tl-bullets { margin: 10px 0 0; padding-left: 18px; max-width: 46em; font-size: 15px; line-height: 1.7; color: var(--muted); }
+.tl-link { color: var(--accent); }
+.tl-bullets { box-sizing: content-box; margin: 10px 0 0; padding-left: 18px; max-width: 46em; font-size: 15px; line-height: 1.7; color: var(--muted); }
 .tl-details { margin-top: 12px; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px 32px; font-size: 15px; }
 .tl-details > :only-child { grid-column: 1 / -1; }
 .tl-detail-label { font-family: var(--mono); font-size: 12px; color: var(--faint); }
@@ -45,5 +46,5 @@
   .tl-org-name { font-size: 24px; }
   /* 44px touch targets (SPEC §6): inline padding grows the hit area without moving the text. */
   .tl-org-name a { padding-block: 8px; }
-  .tl-detail-link { padding-block: 13px; }
+  .tl-detail-link, .tl-link { padding-block: 13px; }
 }
