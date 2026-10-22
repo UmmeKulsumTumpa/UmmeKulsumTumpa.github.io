@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
+import ExperienceTimeline from '../components/experience/ExperienceTimeline.astro';
 import SelectedProjects from '../components/experience/SelectedProjects.astro';
 import Toolbox from '../components/experience/Toolbox.astro';
 ---
@@ -9,7 +10,7 @@ import Toolbox from '../components/experience/Toolbox.astro';
     Three roles at Cefalo Bangladesh, from intern to full-time engineer, a fellowship at Fellowship.AI, and research at BARTA Lab.
   </PageHead>
   <main class="container">
-    {/* 01 · roles: the Timeline section (#15) goes here, first. */}
+    <ExperienceTimeline />
     <SelectedProjects />
     <Toolbox />
   </main>
