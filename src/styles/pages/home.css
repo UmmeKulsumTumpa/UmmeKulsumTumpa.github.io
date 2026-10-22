@@ -1,0 +1,74 @@
+/* ---------- Home page (src/pages/index.astro) ----------
+   Sizes follow docs/design/Main.dc.html; phones (≤640px) follow MobileHome.dc.html.
+   One section per component, in page order. */
+
+/* ── hero ── */
+.hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--border); }
+.hero-grid {
+  position: absolute; left: 0; right: 0; top: -60px; height: 900px;
+  background-image: radial-gradient(var(--dot) 1px, transparent 1.5px);
+  background-size: 28px 28px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 62% 35%, black 25%, transparent 75%);
+  mask-image: radial-gradient(ellipse 70% 60% at 62% 35%, black 25%, transparent 75%);
+}
+.hero-ghost {
+  position: absolute; right: -80px; top: 90px; font-family: var(--serif); font-size: 420px;
+  line-height: 0.8; color: transparent; -webkit-text-stroke: 1px var(--stroke); white-space: nowrap; user-select: none;
+}
+.hero-inner { position: relative; padding-top: 16px; }
+.hero-top {
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  font-family: var(--mono); font-size: 13px; color: var(--faint);
+}
+.hero-path { color: var(--muted); }
+.hero-name-block { margin-top: 40px; }
+.hero-hello { font-family: var(--mono); font-size: 14px; color: var(--accent); }
+.hero-name {
+  margin-top: 10px; font-family: var(--serif); font-weight: 400;
+  font-size: clamp(52px, 11.4vw, 172px); line-height: 0.95; letter-spacing: -0.02em;
+}
+/* Desktop: both masked lines sit on one line and wipe in together (.d1), as in Main.dc.html.
+   Phones stack them and keep the second line's own .d3 delay.
+   nowrap: at the 172px cap (≥1430px wide) the name is slightly wider than the 1216px content box. */
+.hero-name .hero-name-line { display: inline-block; vertical-align: top; }
+@media (min-width: 641px) {
+  .hero-name { white-space: nowrap; }
+  .hero-name .hero-name-end { transition-delay: 0.08s; }
+}
+.hero-role {
+  margin-top: 22px; display: flex; align-items: center; gap: 14px;
+  font-family: var(--mono); font-size: 13px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--muted);
+}
+.hero-bottom {
+  margin-top: 28px; padding-bottom: 36px; display: flex; flex-wrap: wrap; gap: 28px 56px;
+  justify-content: space-between; align-items: flex-end;
+}
+.hero-statement {
+  flex: 1 1 420px; max-width: 24em; font-family: var(--serif); font-style: italic; font-size: 30px; line-height: 1.3;
+}
+.hero-now { flex: 0 1 auto; font-family: var(--mono); font-size: 13px; line-height: 2; color: var(--muted); }
+.hero-now-label { display: flex; align-items: center; gap: 10px; color: var(--faint); }
+.hero-now-value { color: var(--text); }
+.hero-now-reading { display: none; }
+
+@media (max-width: 640px) {
+  .hero-grid {
+    top: 0; height: 640px; background-size: 22px 22px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 55% at 70% 35%, black 25%, transparent 75%);
+    mask-image: radial-gradient(ellipse 80% 55% at 70% 35%, black 25%, transparent 75%);
+  }
+  .hero-ghost { right: auto; left: 40px; top: 130px; font-size: 230px; }
+  .hero-inner { padding-top: 20px; }
+  .hero-top { font-size: 12px; }
+  .hero-name-block { margin-top: 32px; }
+  .hero-hello { font-size: 13px; }
+  .hero-name { font-size: 66px; line-height: 0.92; }
+  .hero-name .hero-name-line { display: block; }
+  .hero-name .caret { width: 3px; margin-left: 8px; }
+  .hero-role { margin-top: 18px; gap: 10px; font-size: 11px; letter-spacing: 0.26em; }
+  .hero-bottom { margin-top: 40px; padding-bottom: 48px; flex-direction: column; align-items: stretch; gap: 28px; }
+  .hero-statement { flex: none; font-size: 24px; }
+  .hero-now { font-size: 12px; }
+  .hero-now-thesis { display: none; }
+  .hero-now-reading { display: block; }
+}
