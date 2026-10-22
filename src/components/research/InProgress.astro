@@ -1,0 +1,36 @@
+---
+// "03 · in progress" (Research.dc.html; SPEC §5.4): the M.Sc. thesis and the Bangla agents work with its
+// WorkBench-bangla link. Copy and statuses are verbatim from the prototype ([in prep / under review] is the
+// owner's placeholder). The thesis status pill is accent-coloured, the other muted, as in the prototype.
+interface Item {
+  title: string;
+  note?: string; // faint suffix after the title
+  link?: { label: string; href: string };
+  status: string;
+  current?: boolean; // accent pill
+}
+const items: Item[] = [
+  { title: 'Adaptive inference for efficient LLMs', note: 'M.Sc. thesis', status: 'thesis · in progress', current: true },
+  {
+    title: 'Cross-lingual evaluation of LLM agents in Bangla',
+    link: { label: 'WorkBench-bangla', href: 'https://github.com/UmmeKulsumTumpa/WorkBench-bangla' },
+    status: '[in prep / under review]',
+  },
+];
+---
+
+<section class="res-section res-prog" data-anim="up" aria-labelledby="h-prog">
+  <h2 id="h-prog" class="label res-label">03 · in progress</h2>
+  <ul class="res-prog-list" role="list">
+    {items.map((it) => (
+      <li class="res-prog-row">
+        <span class="res-prog-title">
+          {it.title}
+          {it.note && <span class="res-prog-note"> · {it.note}</span>}
+          {it.link && <>{' '}<a class="res-prog-link" href={it.link.href}>{it.link.label} <span aria-hidden="true">↗</span></a></>}
+        </span>
+        <span class:list={['res-status', it.current && 'res-status-current']}>{it.status}</span>
+      </li>
+    ))}
+  </ul>
+</section>

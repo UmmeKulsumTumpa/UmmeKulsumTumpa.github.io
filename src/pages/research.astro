@@ -1,9 +1,11 @@
 ---
-// Head, interests and publications. In progress, talks & posters and collaborators follow (#18).
+// Head, interests, publications, in progress, then talks & posters beside collaborators (Research.dc.html).
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import Interests from '../components/research/Interests.astro';
 import Publications from '../components/research/Publications.astro';
+import InProgress from '../components/research/InProgress.astro';
+import TalksCollaborators from '../components/research/TalksCollaborators.astro';
 ---
 <Base title="Research" active="research">
   <PageHead slug="research" title="Research" ghost="inference">
@@ -12,5 +14,7 @@ import Publications from '../components/research/Publications.astro';
   <main class="container">
     <Interests />
     <Publications />
+    <InProgress />
+    <TalksCollaborators />
   </main>
 </Base>
