@@ -154,3 +154,122 @@
   .about-quote blockquote { flex: 1 1 auto; font-size: 22px; line-height: 1.3; }
   .about-quote-short { display: inline; }
 }
+
+/* ── glimpse ── */
+.glimpse { padding-top: 120px; }
+.glimpse-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px; }
+.glimpse-title { margin-top: 12px; font-family: var(--serif); font-weight: 400; font-size: 56px; line-height: 1; letter-spacing: -0.01em; }
+.glimpse-hint { font-family: var(--mono); font-size: 12px; color: var(--faint); }
+
+.glimpse-bento { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 20px; }
+.glimpse-tile { --ring: var(--muted); display: block; min-width: 0; color: var(--text); }
+.glimpse-tile:hover { text-decoration: none; }
+.glimpse-edu { flex: 1 1 340px; }
+.glimpse-exp { flex: 1.5 1 460px; }
+.glimpse-research { flex: 2 1 560px; }
+.glimpse-numbers { flex: 1 1 300px; min-width: 0; }
+.glimpse-writing, .glimpse-reading { flex: 1 1 420px; }
+
+.glimpse-tile-in, .glimpse-numbers-in {
+  height: 100%; min-height: 280px; padding: 28px; border: 1px solid var(--border); border-radius: 22px;
+  display: flex; flex-direction: column; justify-content: space-between; gap: 24px;
+}
+.glimpse-tile-in { background: var(--surface); transition: transform 0.45s var(--ease), box-shadow 0.3s ease; }
+.glimpse-tile:hover .glimpse-tile-in, .glimpse-tile:focus-visible .glimpse-tile-in {
+  transform: translateY(-6px); box-shadow: 0 0 0 1px var(--ring), 0 24px 48px -24px rgba(0, 0, 0, 0.45);
+}
+.glimpse-tile-top { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 12px; color: var(--faint); }
+.glimpse-arrow { display: inline-block; color: var(--text); transition: transform 0.45s var(--ease); }
+.glimpse-tile:hover .glimpse-arrow { transform: translateX(4px) rotate(-45deg); }
+.glimpse-meta { font-family: var(--mono); font-size: 11px; color: var(--faint); }
+.glimpse-sub { font-size: 15px; color: var(--muted); }
+.glimpse-serif-40 { font-family: var(--serif); font-size: 40px; line-height: 1.05; }
+.glimpse-serif-30 { font-family: var(--serif); font-size: 30px; line-height: 1.1; }
+.glimpse-edu .glimpse-sub { margin-top: 8px; }
+
+/* education: thesis progress (30% as in Main.dc.html; no content field yet) */
+.glimpse-progress-label { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 11px; color: var(--faint); }
+.glimpse-progress { margin-top: 8px; height: 3px; border-radius: 2px; background: var(--border); }
+.glimpse-progress-bar { width: 30%; height: 3px; border-radius: 2px; background: var(--accent); }
+
+/* experience */
+.glimpse-exp-row { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 20px; }
+.glimpse-exp-n { font-family: var(--serif); font-size: 96px; line-height: 0.8; }
+.glimpse-exp-text { padding-bottom: 4px; }
+.glimpse-exp-sub { margin-top: 4px; font-size: 15px; color: var(--muted); }
+.glimpse-chips { display: flex; flex-wrap: wrap; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.glimpse-chips span { padding: 4px 12px; border: 1px solid var(--border); border-radius: 999px; }
+.glimpse-chips .glimpse-chip-accent { color: var(--accent); }
+
+/* research: text + bar chart */
+.glimpse-research .glimpse-tile-in { flex-direction: row; flex-wrap: wrap; justify-content: flex-start; gap: 0; padding: 0; overflow: hidden; }
+.glimpse-research-text {
+  flex: 1 1 340px; min-width: 0; padding: 28px;
+  display: flex; flex-direction: column; justify-content: space-between; gap: 24px;
+}
+.glimpse-research-title { margin-top: 6px; font-family: var(--serif); font-size: 32px; line-height: 1.1; }
+.glimpse-bars {
+  flex: 1 1 220px; min-height: 200px; padding: 28px; border-left: 1px solid var(--border);
+  background-image: radial-gradient(var(--dot) 1px, transparent 1.5px); background-size: 16px 16px;
+  display: flex; align-items: flex-end; gap: 6px;
+}
+.glimpse-bars span { flex: 1 1 0; border-radius: 4px 4px 0 0; background: var(--border); }
+.glimpse-bars span:nth-child(1) { height: 28%; }
+.glimpse-bars span:nth-child(2) { height: 46%; }
+.glimpse-bars span:nth-child(3) { height: 38%; }
+.glimpse-bars span:nth-child(4) { height: 72%; background: var(--accent); }
+.glimpse-bars span:nth-child(5) { height: 56%; }
+
+/* by the numbers (not a link: no surface, no hover) */
+.glimpse-numbers-in { gap: 18px; }
+.glimpse-number { display: flex; align-items: baseline; gap: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.glimpse-number:last-child { padding-bottom: 0; border-bottom: 0; }
+.glimpse-number-n { font-family: var(--serif); font-size: 48px; line-height: 1; }
+.glimpse-number-text { font-size: 14px; color: var(--muted); }
+
+/* writing + reading */
+.glimpse-writing .glimpse-tile-in, .glimpse-reading .glimpse-tile-in { min-height: 240px; }
+.glimpse-title-sm { margin-top: 6px; line-height: 1.15; }
+.glimpse-tags { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.glimpse-reading .glimpse-tile-in { flex-direction: row; }
+.glimpse-reading-text { min-width: 0; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; }
+.glimpse-reading-top { display: block; }
+.glimpse-reading-top .glimpse-arrow { margin-left: 8px; }
+.glimpse-author { margin-top: 2px; font-size: 14px; color: var(--muted); }
+.glimpse-spines { display: flex; align-items: flex-end; gap: 4px; padding: 0 4px; border-bottom: 2px solid var(--text); }
+.glimpse-spines span {
+  border: 1px solid var(--border); border-bottom: 0; border-radius: 3px 3px 0 0; background: var(--bg);
+  transition: transform 0.25s ease;
+}
+.glimpse-spines span:nth-child(1) { width: 22px; height: 150px; box-shadow: inset 0 14px 0 -12px var(--accent); }
+.glimpse-spines span:nth-child(2) { width: 18px; height: 128px; transition-delay: 0.04s; }
+.glimpse-spines span:nth-child(3) { width: 26px; height: 162px; transition-delay: 0.08s; }
+.glimpse-spines span:nth-child(4) { width: 16px; height: 136px; transition-delay: 0.12s; }
+.glimpse-tile:hover .glimpse-spines span { transform: translateY(-6px); }
+
+/* phones: numbered list instead of the bento */
+.glimpse-list-title, .glimpse-list { display: none; }
+.glimpse-list { margin: 14px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--border); }
+.glimpse-item {
+  display: flex; align-items: center; gap: 14px; min-height: 44px; padding: 20px 0;
+  border-bottom: 1px solid var(--border); color: var(--text);
+}
+.glimpse-item:hover { text-decoration: none; }
+.glimpse-item-n { flex: 0 0 24px; font-family: var(--mono); font-size: 11px; color: var(--faint); }
+.glimpse-item-body { flex: 1 1 auto; min-width: 0; }
+.glimpse-item-title { display: block; font-family: var(--serif); font-size: 36px; line-height: 1; }
+.glimpse-item-line { display: block; margin-top: 6px; font-size: 14px; line-height: 1.5; color: var(--muted); }
+.glimpse-item-arrow { flex: 0 0 auto; font-size: 20px; color: var(--muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  .glimpse-tile-in, .glimpse-arrow, .glimpse-spines span { transition: none; }
+}
+
+@media (max-width: 640px) {
+  .glimpse { padding-top: 56px; }
+  .glimpse-head, .glimpse-bento { display: none; }
+  .glimpse-list-title {
+    display: block; font-family: var(--mono); font-weight: 400; font-size: 11px; letter-spacing: 0.08em; color: var(--faint);
+  }
+  .glimpse-list { display: block; }
+}
