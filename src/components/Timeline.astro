@@ -1,0 +1,81 @@
+---
+/**
+ * LinkedIn-style timeline, shared by Education and Experience. One entry per organisation;
+ * several roles in one entry are joined by a line ("connected dots"). Order comes from the YAML
+ * file (newest first) and is never re-sorted here.
+ */
+interface Role {
+  title: string; type?: string; start: string; end?: string; current: boolean;
+  summary?: string; bullets: string[];
+  link?: { label: string; href: string }; // optional link after the summary, e.g. "see research →"
+  badge?: string; // badge text for this current role; overrides currentLabel ('' = no badge)
+  details: { label: string; value: string; href?: string }[];
+  courses: { name: string; note: string }[];
+}
+interface Entry { org: string; short: string; url?: string; location: string; span: string; roles: Role[] }
+interface Props {
+  id: string; // id of the section heading (aria-labelledby)
+  label: string; // section label, e.g. "01 · timeline"
+  hint: string; // right-hand note in the section head
+  entries: Entry[];
+  currentLabel?: string; // badge on the role marked current: true
+  class?: string; // extra class on the section, for page-level spacing tweaks
+}
+
+const { id, label, hint, entries, currentLabel = 'current', class: className } = Astro.props;
+const when = (r: Role) =>
+  (r.end || r.current ? `${r.start} → ${r.current ? 'present' : r.end}` : r.start) + (r.type ? ` · ${r.type}` : '');
+---
+
+<section class:list={['tl-section', className]} aria-labelledby={id}>
+  <div class="tl-section-head" data-anim="up">
+    <h2 id={id} class="label">{label}</h2>
+    <span class="tl-hint">{hint}</span>
+  </div>
+  <ol class="tl-orgs">
+    {entries.map((e) => (
+      <li class:list={['tl-org', e.roles.length > 1 && 'tl-multi']} data-anim="up">
+        <div class:list={['tl-logo', e.short.length > 1 && 'tl-logo-text']} aria-hidden="true">{e.short}</div>
+        <div class="tl-body">
+          <div class="tl-head">
+            <h3 class="tl-org-name">{e.url ? <a href={e.url}>{e.org}</a> : e.org}</h3>
+            <span class="tl-meta">{e.location} · {e.span}</span>
+          </div>
+          {e.roles.map((r, i) => (
+            <div class="tl-role">
+              <span class:list={['tl-dot', r.current && 'tl-dot-current']} aria-hidden="true"></span>
+              {i < e.roles.length - 1 && <span class="tl-line" aria-hidden="true"></span>}
+              <div class="tl-title">
+                <span>{r.title}</span>
+                {r.current && (r.badge ?? currentLabel) && <span class="tl-badge">{r.badge ?? currentLabel}</span>}
+              </div>
+              <div class="tl-when">{when(r)}</div>
+              {r.summary && <p class="tl-text">{r.summary}{r.link && <> <a class="tl-link" href={r.link.href}>{r.link.label}</a></>}</p>}
+              {r.bullets.length > 0 && <ul class="tl-bullets">{r.bullets.map((b) => <li>{b}</li>)}</ul>}
+              {r.details.length > 0 && (
+                <div class="tl-details">
+                  {r.details.map((d) => (
+                    <div>
+                      <span class="tl-detail-label">{d.label} · </span>
+                      {d.href ? <a class="tl-detail-link" href={d.href}>{d.value}</a> : d.value}
+                    </div>
+                  ))}
+                </div>
+              )}
+              {r.courses.length > 0 && (
+                <div class="tl-courses">
+                  {r.courses.map((c) => (
+                    <div class="tl-course">
+                      <div class="tl-course-name">{c.name}</div>
+                      <div class="tl-course-note">{c.note}</div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </li>
+    ))}
+  </ol>
+</section>

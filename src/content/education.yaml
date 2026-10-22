@@ -23,6 +23,8 @@
       type: "CGPA [x.xx] / 4.00"
       details:
         - { label: capstone (SPL-3), value: Voices of Care }
+        # {projects} is replaced with the number of entries in course-projects.yaml.
+        - { label: course projects, value: "{projects} on GitHub ↓", href: "#h-arch" }
 
 - id: college
   org: "[College name]"

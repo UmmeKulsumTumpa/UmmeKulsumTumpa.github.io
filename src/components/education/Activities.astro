@@ -1,0 +1,41 @@
+---
+// Awards & activities (owner placeholders) and hackathons & contests, copied verbatim from
+// Education.dc.html. Entrance delays 0 / 0.08 / 0.16s map to no class / d1 / d2.
+const stagger = ['', 'd1', 'd2'];
+const awards = [
+  { text: '[Award, scholarship or contest result]', year: '[YYYY]' },
+  { text: '[Club, TA role or volunteering]', year: '[YYYY]' },
+];
+const hackathons = [
+  { text: 'Code Samurai 2024 · team DU_ALGORHYTHMS', href: 'https://github.com/UmmeKulsumTumpa/cs24-p2-DU_ALGORHYTHMS' },
+  { text: 'Cosmo Scope AI · [event name]', href: 'https://github.com/UmmeKulsumTumpa/cosmo-scope-ai' },
+  { text: 'KC Fest · preliminary round', href: 'https://github.com/UmmeKulsumTumpa/KC_FEST_preli' },
+];
+---
+
+<div class="edu-extra">
+  <section class="edu-col" aria-labelledby="h-awards">
+    <h2 id="h-awards" class="label edu-col-label" data-anim="up">03 · awards &amp; activities</h2>
+    <ul class="edu-rows">
+      {awards.map((a, i) => (
+        <li class:list={['edu-row', stagger[i]]} data-anim="from-left">
+          <span>{a.text}</span>
+          <span class="edu-row-meta">{a.year}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+  <section class="edu-col" aria-labelledby="h-hack">
+    <h2 id="h-hack" class="label edu-col-label" data-anim="up">04 · hackathons &amp; contests</h2>
+    <ul class="edu-rows">
+      {hackathons.map((h, i) => (
+        <li class:list={[stagger[i]]} data-anim="from-right">
+          <a class="edu-row" href={h.href}>
+            <span>{h.text}</span>
+            <span class="edu-row-meta edu-row-link">code ↗</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</div>

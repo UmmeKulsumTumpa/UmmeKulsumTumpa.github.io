@@ -1,0 +1,11 @@
+---
+import { getCollection } from 'astro:content';
+import ProjectArchive from '../../islands/ProjectArchive.tsx';
+
+// course-projects.yaml in file order. The heading id is the target of the B.Sc. "on GitHub ↓" link.
+const projects = (await getCollection('projects'))
+  .sort((a, b) => a.data.order - b.data.order)
+  .map(({ data: { id, category, lang, desc, course } }) => ({ id, category, lang, desc, course }));
+---
+
+<ProjectArchive client:visible projects={projects} heading="h-arch" />
