@@ -318,6 +318,8 @@
   .contact-title { font-size: 64px; }
   .contact-actions { margin-top: 22px; }
   .contact-email { display: flex; justify-content: space-between; padding: 0 18px; font-size: 14px; }
-  .contact-links { gap: 8px 18px; font-size: 12px; }
-  .contact-desktop-only { display: none; }
+  /* 44px touch targets (SPEC §6); margins absorb the extra height so the text sits where MobileHome.dc.html has it. */
+  .contact-links { margin-top: 4px; margin-bottom: -12px; gap: 0 18px; font-size: 12px; }
+  .contact-links a { display: inline-flex; align-items: center; min-height: 44px; }
+  .contact-links .contact-desktop-only { display: none; }
 }
