@@ -45,6 +45,13 @@
   .proj-card:hover .proj-shot { transform: none; }
 }
 
+/* ---------- 03 · toolbox (src/components/experience/Toolbox.astro) ---------- */
+.tool-heading { font-weight: 400; }
+.tool-grid { margin-top: 24px; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 28px; }
+.tool-col { border-top: 1px solid var(--text); padding-top: 16px; }
+.tool-name { font-family: var(--serif); font-weight: 400; font-size: 26px; }
+.tool-list { margin: 8px 0 0; padding: 0; list-style: none; font-family: var(--mono); font-size: 13px; line-height: 2; color: var(--muted); }
+
 /* Phones: 44px touch targets (SPEC §6). */
 @media (max-width: 640px) {
   .proj-all { display: inline-flex; align-items: center; min-height: 44px; }

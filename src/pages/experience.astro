@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import SelectedProjects from '../components/experience/SelectedProjects.astro';
+import Toolbox from '../components/experience/Toolbox.astro';
 ---
 <Base title="Experience" active="experience">
   <PageHead slug="experience" title="Experience" ghost="ship it">
@@ -10,5 +11,6 @@ import SelectedProjects from '../components/experience/SelectedProjects.astro';
   <main class="container">
     {/* 01 · roles: the Timeline section (#15) goes here, first. */}
     <SelectedProjects />
+    <Toolbox />
   </main>
 </Base>
