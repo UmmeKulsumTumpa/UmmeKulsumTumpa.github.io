@@ -62,5 +62,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <slot />
 
     <Dock active={active} />
+    <script>
+      import '../scripts/motion.ts';
+    </script>
   </body>
 </html>

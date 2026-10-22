@@ -3,7 +3,7 @@
  *
  * Usage in markup:
  *   data-anim="up | from-left | from-right | zoom | blur | mask"
- *   style="transition-delay: 0.1s"          (optional stagger)
+ *   class="d1" … class="d8"                 (optional stagger, see motion.css)
  *   data-parallax="0.3"                     (moves at 30% of scroll speed)
  *
  * Elements re-animate when they scroll back into view. Everything is skipped
