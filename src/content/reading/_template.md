@@ -9,6 +9,7 @@ topic: history       # optional short tag
 year: 2026           # optional
 url: https://example.com   # optional link
 why: "Optional one line: why it matters to you."
+draft: false         # optional; true keeps it off the built site (npm run dev still shows it)
 ---
 
 Your notes go here in Markdown. They appear on the item's page.
