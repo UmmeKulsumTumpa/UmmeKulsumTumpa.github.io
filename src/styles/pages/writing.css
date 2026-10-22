@@ -1,0 +1,3 @@
+/* Writing page (src/pages/writing.astro). */
+.writing-feeds { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 6px 22px; font-family: var(--mono); font-size: 13px; }
+.writing-feeds a { color: var(--text); }

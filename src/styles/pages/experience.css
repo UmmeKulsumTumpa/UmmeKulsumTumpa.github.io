@@ -1,0 +1,4 @@
+/* Experience page (src/pages/experience.astro). Head lead spacing per Experience.dc.html. */
+@media (min-width: 641px) {
+  .ph-experience .ph-lead { margin-top: 20px; max-width: 38em; }
+}

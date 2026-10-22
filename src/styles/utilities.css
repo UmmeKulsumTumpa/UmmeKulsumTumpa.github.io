@@ -19,3 +19,5 @@
   background: transparent; color: var(--muted); font-family: var(--mono); font-size: 13px; cursor: pointer;
 }
 .pill-btn[aria-pressed='true'], .pill-btn[aria-selected='true'] { background: var(--text); border-color: var(--text); color: var(--bg); }
+/* Page body wrapper: the bottom space keeps the fixed dock off the last line (SPEC §5). */
+.page-main { padding-bottom: 160px; }
