@@ -1,9 +1,10 @@
 ---
-// Timeline and course-project archive; awards and hackathons come in #14.
+// Timeline, course-project archive, then awards & activities + hackathons & contests.
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import EducationTimeline from '../components/education/EducationTimeline.astro';
 import CourseArchive from '../components/education/CourseArchive.astro';
+import Activities from '../components/education/Activities.astro';
 ---
 <Base title="Education" active="education">
   <PageHead slug="education" title="Education" ghost="learning" italicGhost>
@@ -12,5 +13,6 @@ import CourseArchive from '../components/education/CourseArchive.astro';
   <main class="container">
     <EducationTimeline />
     <CourseArchive />
+    <Activities />
   </main>
 </Base>
