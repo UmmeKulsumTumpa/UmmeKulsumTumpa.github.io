@@ -59,6 +59,7 @@ const role = z.object({
   current: z.boolean().default(false),
   summary: z.string().optional(),
   bullets: z.array(z.string()).default([]),
+  link: z.object({ label: z.string(), href: z.string() }).optional(), // shown after the summary
   details: z.array(z.object({ label: z.string(), value: z.string(), href: z.string().optional() })).default([]),
   courses: z.array(z.object({ name: z.string(), note: z.string() })).default([]),
 });
