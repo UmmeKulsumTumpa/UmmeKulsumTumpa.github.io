@@ -1,0 +1,22 @@
+---
+import { getCollection } from 'astro:content';
+
+// Head counters (SPEC §5.6), computed from the reading collection at build time; drafts never count.
+// "books in <year>": books being read or finished whose `year` is the build year.
+const entries = await getCollection('reading', ({ data }) => !data.draft);
+const thisYear = new Date().getFullYear();
+const stats = [
+  {
+    n: entries.filter(({ data }) => data.kind === 'book' && data.status !== 'queued' && String(data.year) === String(thisYear)).length,
+    label: `books in ${thisYear}`,
+  },
+  { n: entries.filter(({ data }) => data.kind === 'paper' && data.status === 'finished').length, label: 'papers read' },
+  { n: entries.filter((entry) => entry.body?.trim()).length, label: 'notes written' },
+];
+---
+
+<div class="reading-stats d5" data-anim="from-left">
+  {stats.map((s) => (
+    <div class="reading-stat"><div class="reading-stat-n">{s.n}</div><div class="reading-stat-label">{s.label}</div></div>
+  ))}
+</div>

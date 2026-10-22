@@ -9,3 +9,87 @@
   .reading-stat-label { margin-top: 0; font-size: 11px; }
   .reading-stat:nth-child(3) { display: none; }
 }
+
+/* ---------- library (src/islands/ReadingLibrary.tsx) ---------- */
+.rd-bar { padding-top: 40px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; }
+.rd-tabs { display: inline-flex; padding: 4px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
+.rd-tab {
+  min-height: 40px; padding: 0 18px; border: 0; border-radius: 9px; background: transparent;
+  color: var(--muted); font-family: var(--mono); font-size: 13px; cursor: pointer;
+}
+.rd-tab[aria-selected='true'] { background: var(--bg); color: var(--text); }
+.rd-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.rd-pill { min-height: 36px; }
+.rd-empty { margin-top: 40px; font-family: var(--mono); font-size: 13px; color: var(--faint); }
+
+/* status: pill on desktop, plain coloured text on phones */
+.rd-status { font-family: var(--mono); font-size: 11px; border: 1px solid var(--border); border-radius: 999px; padding: 2px 10px; }
+.rd-status-reading { color: var(--accent); }
+.rd-status-finished { color: var(--text); }
+.rd-status-queued { color: var(--muted); }
+
+/* books: 2:3 covers with a spine edge and a rule (accent while reading); shade, edge and rule height cycle */
+.rd-books { margin: 40px 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 40px 28px; }
+.rd-book { display: block; color: var(--text); }
+a.rd-book { transition: transform 0.3s ease; }
+a.rd-book:hover { transform: translateY(-6px) rotate(-1deg); text-decoration: none; }
+.rd-cover-v1 { --rd-shade: var(--cover-1); --rd-edge: var(--cover-edge-1); --rd-rule-top: 62%; }
+.rd-cover-v2 { --rd-shade: var(--cover-2); --rd-edge: var(--cover-edge-2); --rd-rule-top: 28%; }
+.rd-cover-v3 { --rd-shade: var(--cover-3); --rd-edge: var(--cover-edge-1); --rd-rule-top: 74%; }
+.rd-cover-v4 { --rd-shade: var(--cover-4); --rd-edge: var(--cover-edge-2); --rd-rule-top: 45%; }
+.rd-cover {
+  position: relative; aspect-ratio: 2 / 3; padding: 20px 18px 18px 24px; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: space-between;
+  border: 1px solid var(--border); border-radius: 4px 10px 10px 4px; background: var(--rd-shade); box-shadow: inset 6px 0 0 var(--rd-edge);
+}
+.rd-cover-rule { position: absolute; left: 24px; right: 18px; top: var(--rd-rule-top); height: 1px; background: var(--border); }
+.rd-is-reading .rd-cover-rule { background: var(--accent); }
+.rd-cover-title { font-family: var(--serif); font-size: 24px; line-height: 1.1; }
+.rd-cover-author { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.rd-book-meta { margin-top: 12px; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.rd-book-topic { font-family: var(--mono); font-size: 12px; color: var(--faint); }
+
+/* papers / articles: rows */
+.rd-rows { margin: 32px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--border); }
+.rd-row { display: flex; flex-wrap: wrap; gap: 6px 28px; align-items: baseline; padding: 24px 0; border-bottom: 1px solid var(--border); }
+.rd-row-year { flex: 0 0 64px; font-family: var(--mono); font-size: 13px; color: var(--faint); }
+.rd-row-main { flex: 1 1 460px; min-width: 0; }
+.rd-row-title { display: block; font-size: 18px; font-weight: 500; }
+.rd-row-source { display: block; margin-top: 4px; font-size: 14px; color: var(--muted); }
+.rd-row-why { display: block; margin-top: 8px; font-family: var(--serif); font-style: italic; font-size: 18px; color: var(--muted); }
+.rd-row-side { flex: 0 0 auto; display: flex; gap: 14px; align-items: center; }
+.rd-notes { font-family: var(--mono); font-size: 12px; color: var(--text); }
+
+/* phones (MobileReading.dc.html); tabs and pills grow to 44px touch targets (SPEC §6) */
+@media (max-width: 640px) {
+  .rd-bar { padding-top: 18px; display: block; }
+  .rd-tabs { display: flex; }
+  .rd-tab { flex: 1 1 0; min-height: 44px; padding: 0; }
+  .rd-pills { margin-top: 12px; flex-wrap: nowrap; overflow-x: auto; }
+  .rd-pill { flex: 0 0 auto; min-height: 44px; padding: 0 16px; }
+  .rd-empty { margin-top: 28px; }
+  .rd-status { border: 0; padding: 0; }
+
+  .rd-books { margin-top: 22px; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 16px; }
+  .rd-cover { padding: 14px 12px 12px 18px; border-radius: 3px 8px 8px 3px; box-shadow: inset 5px 0 0 var(--rd-edge); }
+  .rd-cover-rule { left: 18px; right: 12px; }
+  .rd-cover-title { font-size: 20px; }
+  .rd-cover-author { font-size: 10px; }
+  .rd-book-meta { margin-top: 8px; gap: 6px; }
+  .rd-book-topic { font-size: 11px; }
+
+  .rd-rows { margin-top: 18px; }
+  .rd-row { display: grid; grid-template-columns: 1fr auto; grid-template-areas: 'year status' 'main main' 'notes notes'; gap: 0; padding: 18px 0; }
+  .rd-row-year { font-size: 11px; grid-area: year; }
+  .rd-row-side { display: contents; }
+  .rd-row-side .rd-status { grid-area: status; }
+  .rd-row-main { grid-area: main; margin-top: 4px; }
+  .rd-row-title { font-size: 17px; }
+  .rd-row-source { margin-top: 2px; font-size: 13px; }
+  .rd-row-why { margin-top: 6px; font-size: 17px; }
+  .rd-notes { grid-area: notes; justify-self: start; display: inline-flex; align-items: center; min-height: 44px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a.rd-book { transition: none; }
+}
