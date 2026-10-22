@@ -27,6 +27,7 @@ const reading = defineCollection({
     year: z.union([z.number(), z.string()]).optional(),
     url: z.string().url().optional(),
     why: z.string().optional(),
+    draft: z.boolean().default(false),
   }),
 });
 
