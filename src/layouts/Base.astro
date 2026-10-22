@@ -9,8 +9,10 @@ interface Props {
   description?: string;
   /** Page highlighted in the dock (none on the 404 page). */
   active?: NavId;
+  /** Keep the page out of search results (the 404 page). */
+  noindex?: boolean;
 }
-const { title, description = site.description, active } = Astro.props;
+const { title, description = site.description, active, noindex = false } = Astro.props;
 const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.role}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 // Shared social preview card (public/og.png, 1200×630): name + role on the dark background.
@@ -61,6 +63,7 @@ const ogImage = new URL('/og.png', Astro.site);
     </script>
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
     <link rel="canonical" href={canonical} />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta property="og:title" content={fullTitle} />
