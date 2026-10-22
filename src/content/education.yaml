@@ -5,7 +5,7 @@
   short: IIT
   url: https://iit.du.ac.bd
   location: Dhaka
-  span: "2 degrees · [YYYY] → now"
+  span: "[YYYY] → now"
   roles:
     - title: M.Sc. in Software Engineering (thesis)
       start: "[YYYY]"
