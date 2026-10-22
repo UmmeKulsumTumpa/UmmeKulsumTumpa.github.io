@@ -1,0 +1,11 @@
+/* Reading page (src/pages/reading.astro). Counters in the head; phones per MobileReading.dc.html. */
+.reading-stats { margin-top: 36px; display: flex; flex-wrap: wrap; gap: 24px 56px; }
+.reading-stat-n { font-family: var(--serif); font-size: 48px; line-height: 1; }
+.reading-stat-label { margin-top: 6px; font-family: var(--mono); font-size: 12px; color: var(--faint); }
+
+@media (max-width: 640px) {
+  .reading-stats { margin-top: 22px; gap: 28px; }
+  .reading-stat-n { font-size: 34px; }
+  .reading-stat-label { margin-top: 0; font-size: 11px; }
+  .reading-stat:nth-child(3) { display: none; }
+}

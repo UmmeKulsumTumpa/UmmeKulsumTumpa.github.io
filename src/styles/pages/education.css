@@ -1,0 +1,6 @@
+/* Education page (src/pages/education.astro). Head differs from the shared sizes (Education.dc.html). */
+@media (min-width: 641px) {
+  .ph-education .ph-ghost { font-size: 360px; }
+  .ph-education .ph-title { margin-top: 12px; font-size: clamp(64px, 9vw, 120px); }
+  .ph-education .ph-lead { margin-top: 20px; max-width: 38em; }
+}

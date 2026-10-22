@@ -1,0 +1,15 @@
+---
+// Stub: page head only. Featured post, tag filter and post rows come in Phase 5.
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+---
+<Base title="Writing" active="writing">
+  <PageHead slug="writing" title="Writing" ghost="notes" italicGhost>
+    Notes on LLMs, building software, and the books and ideas I can't stop thinking about. [Posting cadence, if you want to commit to one.]
+    <div class="writing-feeds" slot="after-lead">
+      <a href="/rss.xml">rss ↗</a>
+      <a href="#">subscribe by email ↗</a>
+    </div>
+  </PageHead>
+  <main class="container"></main>
+</Base>

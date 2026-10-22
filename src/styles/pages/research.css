@@ -1,0 +1,4 @@
+/* Research page (src/pages/research.astro). Ghost word per Research.dc.html. */
+@media (min-width: 641px) {
+  .ph-research .ph-ghost { right: -40px; font-size: 360px; }
+}

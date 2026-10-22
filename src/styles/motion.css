@@ -19,11 +19,10 @@
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .bg .glow, .caret, .pulse { animation: none; }
+  .caret, .pulse { animation: none; }
   [data-anim], [data-anim='mask'] > * { transition: none; }
 }
 
 /* Stagger helpers: add d1…d8 to any [data-anim] element (or its mask child). */
 .d1 { transition-delay: 0.08s; } .d2 { transition-delay: 0.16s; } .d3 { transition-delay: 0.24s; } .d4 { transition-delay: 0.32s; }
 .d5 { transition-delay: 0.45s; } .d6 { transition-delay: 0.6s; } .d7 { transition-delay: 0.75s; } .d8 { transition-delay: 1s; }
-.dock-wrap[data-anim] { transition-delay: 0.6s; }
