@@ -2,3 +2,15 @@
 @media (min-width: 641px) {
   .ph-research .ph-ghost { right: -40px; font-size: 360px; }
 }
+
+/* Sections in <main> (Research.dc.html): interests sit 72px under the head, the rest 96px apart. */
+.res-section { padding-top: 96px; }
+.res-section.res-int { padding-top: 72px; }
+.res-label { font-weight: 400; }
+
+/* ---------- 01 · interests (src/components/research/Interests.astro) ---------- */
+.res-int-grid { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 32px; }
+.res-int-col { flex: 1 1 280px; min-width: 0; border-top: 1px solid var(--text); padding-top: 20px; }
+.res-int-name { font-family: var(--serif); font-weight: 400; font-size: 34px; line-height: 1.1; }
+.res-int-line { margin-top: 10px; font-size: 15px; color: var(--muted); }
+.res-int-ask { margin-top: 14px; font-family: var(--mono); font-size: 12px; color: var(--faint); }
