@@ -158,7 +158,8 @@ org is the newest. `[Bracketed text]` is placeholder content the owner will fill
 ## 5. Pages
 
 All pages: `Base` layout, shared background, dock, footer (© year · last updated · "hosted on GitHub Pages" · top ↑),
-bottom padding ≥ 150px so the dock never covers the last line.
+bottom padding ≥ 150px so the dock never covers the last line. On pages shorter than the viewport (the 404) the footer
+sits at the bottom of the viewport.
 
 ### 5.1 Home `/` (prototype: `docs/design/Main.dc.html`; screenshots `home-desktop-01…07`, `home-light-01`, `mobile-home-01…04`)
 
