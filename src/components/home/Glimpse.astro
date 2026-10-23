@@ -9,7 +9,7 @@ const publications = await getCollection('publications');
 // Education tile: thesis progress (%) from the education.yaml role that sets it.
 const thesis = (await getCollection('education')).flatMap(({ data }) => data.roles).find((r) => r.progress !== undefined);
 // Research tile: the newest paper (first in publications.yaml), in its short wording when given.
-const [paper] = publications.sort((a, b) => a.data.order - b.data.order);
+const [paper] = [...publications].sort((a, b) => a.data.order - b.data.order);
 const [latest] = await getPosts(); // newest first, drafts left out of production builds
 const book = (await getReading()).find(({ data }) => data.status === 'reading');
 
