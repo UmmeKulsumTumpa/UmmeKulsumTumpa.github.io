@@ -40,7 +40,10 @@
 .rd-books { margin: 40px 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 40px 28px; }
 .rd-book { display: block; color: var(--text); }
 a.rd-book { transition: transform 0.3s ease; }
-a.rd-book:hover { transform: translateY(-6px) rotate(-1deg); text-decoration: none; }
+a.rd-book:hover, a.rd-book:focus-visible { transform: translateY(-6px) rotate(-1deg); text-decoration: none; }
+/* Keyboard focus: the ring goes on the cover, so it follows the cover's corners (the meta line sits below). */
+a.rd-book:focus-visible { outline: none; }
+a.rd-book:focus-visible .rd-cover { outline: 2px solid var(--accent); outline-offset: 3px; }
 .rd-cover-v1 { --rd-shade: var(--cover-1); --rd-edge: var(--cover-edge-1); --rd-rule-top: 62%; }
 .rd-cover-v2 { --rd-shade: var(--cover-2); --rd-edge: var(--cover-edge-2); --rd-rule-top: 28%; }
 .rd-cover-v3 { --rd-shade: var(--cover-3); --rd-edge: var(--cover-edge-1); --rd-rule-top: 74%; }
