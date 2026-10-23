@@ -76,9 +76,6 @@ a.rd-book:focus-visible .rd-cover { outline: 2px solid var(--accent); outline-of
 .rd-row-year { flex: 0 0 64px; font-family: var(--mono); font-size: 13px; color: var(--faint); }
 .rd-row-main { flex: 1 1 460px; min-width: 0; }
 .rd-row-title { display: block; font-size: 18px; font-weight: 500; }
-/* A title linked to its `url` keeps a thin underline at rest, so it reads as a link (same values as the
-   site's other colour-only links; unify with a shared class once one exists). */
-.rd-row-title a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; text-decoration-color: currentColor; }
 .rd-row-source { display: block; margin-top: 4px; font-size: 14px; color: var(--muted); }
 .rd-row-why { display: block; margin-top: 8px; font-family: var(--serif); font-style: italic; font-size: 18px; color: var(--muted); }
 .rd-row-side { flex: 0 0 auto; display: flex; gap: 14px; align-items: center; }

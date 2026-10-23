@@ -71,7 +71,7 @@ function Rows({ list }: { list: Item[] }) {
           <span className="rd-row-main">
             <span className="rd-row-title">
               {r.url ? (
-                <a href={r.url} rel="noopener">{r.title}</a>
+                <a className="link-underline" href={r.url} rel="noopener">{r.title}</a>
               ) : (
                 r.title
               )}
