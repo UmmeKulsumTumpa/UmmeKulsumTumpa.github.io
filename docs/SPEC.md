@@ -95,7 +95,7 @@ ThemeToggle, LocalTime, Base layout, and CSS). Reuse them as a starting point, b
 | `--border` | `#22252c` | `#dedee3` |
 | `--text` | `#ececef` | `#131418` |
 | `--muted` | `#a3a6b0` | `#4b4d56` |
-| `--faint` | `#82858f` (5.1:1 on bg) | `#666873` (5.3:1) |
+| `--faint` | `#9597a0` (6.7:1 on bg) | `#5d5f69` (5.9:1) |
 | `--accent` | `#b9a6ff` | `#5b32d6` |
 
 Fonts (self-hosted with Astro's Fonts API, Google Fonts files): **Instrument Serif** (display: name, page titles, section titles, big numbers),
