@@ -26,7 +26,7 @@ const projects = (await getCollection('selectedProjects')).sort((a, b) => a.data
             <a class="proj-link" href={p.href}>{p.title} <span aria-hidden="true">↗</span></a>
           </h3>
           <p class="proj-line">
-            {p.line.map((part) => (typeof part === 'string' ? part : <a class="proj-inline" href={part.href}>{part.text}</a>))}
+            {p.line.map((part) => (typeof part === 'string' ? part : <a class="proj-inline link-underline" href={part.href}>{part.text}</a>))}
           </p>
           <div class="proj-stack">{p.stack}</div>
         </div>
