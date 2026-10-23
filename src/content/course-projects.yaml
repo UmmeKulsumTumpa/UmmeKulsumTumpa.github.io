@@ -1,8 +1,8 @@
 # Public course repos. `id` must be the exact GitHub repo name.
 # category: spl | ai | sys | fund
 - { id: SPL-1, category: spl, lang: C++, course: "SPL-1 · 3rd semester", desc: "Code analyzer: builds control-flow graphs and computes cyclomatic complexity, SLOC and WMC." }
-- { id: SPL_02, category: spl, lang: JavaScript, course: "SPL-2 · [semester]", desc: "Second Software Project Lab." }
-- { id: VoicesOfCare-SPL3, category: spl, lang: Python, course: "SPL-3 · [semester]", desc: "Third Software Project Lab: LLM-assisted analysis of dementia discourse on Reddit." }
+- { id: SPL_02, category: spl, lang: JavaScript, course: "SPL-2 · 5th semester", desc: "Second Software Project Lab." }
+- { id: VoicesOfCare-SPL3, category: spl, lang: Python, course: "SPL-3 · 8th semester", desc: "Third Software Project Lab: LLM-assisted analysis of dementia discourse on Reddit." }
 - { id: Wumpus-Quest, category: ai, lang: Python, course: "[course]", desc: "An agent explores a 10×10 Wumpus world using propositional or first-order logic." }
 - { id: MiniChess, category: ai, lang: JavaScript, course: "[course]", desc: "[One line on what it does.]" }
 - { id: AI-project3, category: ai, lang: TypeScript, course: "[course]", desc: "[One line on what it does.]" }
