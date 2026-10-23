@@ -4,13 +4,16 @@ import { z } from 'astro/zod';
 
 /* Markdown collections: one file = one entry ------------------------------ */
 
+/** Writing tags, in the order of the filter pills on /writing/ (src/lib/posts.ts re-exports it as TAGS). */
+export const WRITING_TAGS = ['llm', 'engineering', 'notes', 'essays'] as const;
+
 const writing = defineCollection({
   loader: glob({ base: './src/content/writing', pattern: '**/[^_]*.md' }),
   schema: z.object({
     title: z.string(),
     date: z.coerce.date(),
     summary: z.string(),
-    tags: z.array(z.enum(['llm', 'engineering', 'notes', 'essays'])).default([]),
+    tags: z.array(z.enum(WRITING_TAGS)).default([]),
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
   }),
