@@ -73,7 +73,7 @@ src/
     global.css         @import manifest only
   content/      all text & data (see §4)
   data/site.ts  name, links, nav order
-public/         bg/ (background images), grain.png, favicon.svg, portrait, cv.pdf, og image
+public/         bg/ (background images), grain.webp, favicon.svg, portrait, cv.pdf, og image
 docs/           SPEC.md, PLAN.md, design/, reference/
 ```
 
@@ -115,7 +115,7 @@ Fixed layer behind all content, built from pre-rendered high-resolution images (
 | `public/bg/background-dark-1920.webp` | 1920×1200 | dark theme, ≤1100px |
 | `public/bg/background-light.avif` / `.webp` | 3840×2400 | light theme, ≥1101px |
 | `public/bg/background-light-1920.webp` | 1920×1200 | light theme, ≤1100px |
-| `public/grain.png` | 128px tile | film grain overlay, opacity 0.6, both themes |
+| `public/grain.webp` | 128px tile, lossless | film grain overlay, opacity 0.6, both themes |
 
 The images bake in the three glows of the prototype (violet `#7c6bff` top-left, slate `#3e5c8f` right,
 deep violet `#5b4fa8` bottom; dark opacity ≈ 0.30, light ≈ 0.16) on the page colour, so no CSS blur is needed.

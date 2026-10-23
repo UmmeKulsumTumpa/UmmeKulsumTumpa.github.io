@@ -23,7 +23,7 @@ TypeScript strict, Markdown/YAML content, deployed to GitHub Pages by `.github/w
 - Content lives in `src/content/`; adding a post, role, project or book must never need a code change.
 - Keep `[bracket placeholders]` until the owner supplies the real text. Do not invent facts about her.
 - Git (details in `docs/GIT-WORKFLOW.md`): one issue → one `feature/<issue#>-<slug>` branch off `develop` → Conventional Commits →
-  PR into `develop` → CI green → merge commit. Never commit directly to `main` or `develop` after Phase 0, never force-push them.
+  PR into `develop` → CI green → squash merge (release and back-merge PRs keep merge commits). Never commit directly to `main` or `develop` after Phase 0, never force-push them.
   Releases to `main` deploy the public site: **ask the owner before merging any PR into `main`.**
 - Work found mid-task becomes a new issue, not extra commits on the current branch.
 
