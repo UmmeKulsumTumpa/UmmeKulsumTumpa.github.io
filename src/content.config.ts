@@ -66,6 +66,7 @@ const role = z.object({
   link: z.object({ label: z.string(), href: z.string() }).optional(), // shown after the summary
   details: z.array(z.object({ label: z.string(), value: z.string(), href: z.string().optional() })).default([]),
   courses: z.array(z.object({ name: z.string(), note: z.string() })).default([]),
+  progress: z.number().min(0).max(100).optional(), // thesis progress in %, shown on the Home education tile
 });
 
 const org = z.object({

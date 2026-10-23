@@ -6,6 +6,8 @@ import { getPosts } from '../../lib/posts';
 // Live numbers (SPEC §5.1 item 3): counts and latest entries come from the collections.
 const projects = await getCollection('projects');
 const publications = await getCollection('publications');
+// Education tile: thesis progress (%) from the education.yaml role that sets it.
+const thesis = (await getCollection('education')).flatMap(({ data }) => data.roles).find((r) => r.progress !== undefined);
 // Research tile: the newest paper (first in publications.yaml), in its short wording when given.
 const [paper] = publications.sort((a, b) => a.data.order - b.data.order);
 const [latest] = await getPosts(); // newest first, drafts left out of production builds
@@ -49,7 +51,7 @@ const list = [
         </div>
         <div>
           <div class="glimpse-progress-label"><span>thesis · adaptive inference</span><span>in progress</span></div>
-          <div class="glimpse-progress" aria-hidden="true"><div class="glimpse-progress-bar"></div></div>
+          {thesis && <progress class="glimpse-progress" max="100" value={thesis.progress} aria-hidden="true"></progress>}
         </div>
       </div>
     </a>

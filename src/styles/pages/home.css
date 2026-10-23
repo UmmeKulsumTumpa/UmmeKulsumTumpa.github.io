@@ -194,10 +194,15 @@
 .glimpse-serif-30 { font-family: var(--serif); font-size: 30px; line-height: 1.1; }
 .glimpse-edu .glimpse-sub { margin-top: 8px; }
 
-/* education: thesis progress (30% as in Main.dc.html; no content field yet) */
+/* education: thesis progress, a <progress> whose value comes from education.yaml (`progress` on the M.Sc. role) */
 .glimpse-progress-label { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 11px; color: var(--faint); }
-.glimpse-progress { margin-top: 8px; height: 3px; border-radius: 2px; background: var(--border); }
-.glimpse-progress-bar { width: 30%; height: 3px; border-radius: 2px; background: var(--accent); }
+.glimpse-progress {
+  display: block; width: 100%; height: 3px; margin-top: 8px; border: 0; border-radius: 2px;
+  -webkit-appearance: none; appearance: none; background: var(--border); color: var(--accent); overflow: hidden;
+}
+.glimpse-progress::-webkit-progress-bar { border-radius: 2px; background: var(--border); }
+.glimpse-progress::-webkit-progress-value { border-radius: 2px; background: var(--accent); }
+.glimpse-progress::-moz-progress-bar { border-radius: 2px; background: var(--accent); }
 
 /* experience */
 .glimpse-exp-row { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 20px; }
