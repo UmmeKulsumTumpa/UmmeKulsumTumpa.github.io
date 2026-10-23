@@ -7,7 +7,7 @@
   items: [Flutter, Dart, Firebase]
 - id: research
   name: Research
-  items: [LLMs · NLP, AI agents, "[your ML stack]"]
+  items: [LLMs · NLP, AI agents, RAG, Scikit-learn · Pandas]
 - id: practice
   name: Practice
   items: [spec-driven development, agent-assisted workflows, skills · hooks · plugins, code review]

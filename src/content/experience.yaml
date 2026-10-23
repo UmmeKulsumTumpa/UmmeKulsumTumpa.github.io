@@ -13,9 +13,9 @@
       start: "Feb 2026"
       current: true
       bullets:
-        - "Production features across four projects, two in-house and two for clients: backend services, web apps (React, Next.js, Node.js, TypeScript) and cross-platform mobile apps (Flutter, Firebase)."
-        - "Spec-driven, agent-assisted development: LLM agents help turn requirements into specs, implement them and review the code."
-        - "Custom skills, hooks and plugins, and the workflows that keep agent output reliable."
+        - "Four production systems, two in-house and two for clients. Now the full-stack developer (backend, frontend and mobile) on a booking platform live in several European countries: group bookings with partial-failure recovery, saved payment methods charged later with Stripe, and a token-authenticated API for a partner system."
+        - "Internal web platforms in Next.js and TypeScript: modules built from Figma designs, a layered frontend architecture, role-based access control, and server state with TanStack Query and Redux."
+        - "Spec-driven, agent-assisted development: Claude Code skills that standardise how backend functions and their tests are generated, saving about 20% of the time on repetitive backend work."
     - title: Software Engineering Trainee
       type: part-time, alongside the B.Sc.
       start: "Sep 2025"
@@ -35,7 +35,7 @@
   roles:
     - title: Data Science Fellow
       type: professional certificate
-      start: "[Mon YYYY]"
+      start: "Oct 2024"
       end: "Dec 2024"
       summary: "Capstone project: Causal Competitor Analysis for Retail. Completed the program and earned the certification."
 
@@ -48,5 +48,5 @@
     - title: Researcher
       start: "Nov 2023"
       current: true
-      summary: "NLP, LLMs and AI agents: LLM-based analysis of health discussions on social media (IEEE BigData 2025), and cross-lingual evaluation of LLM agents in Bangla."
+      summary: "NLP, LLMs and AI agents: LLM-based analysis of health discussions on social media (first author, IEEE BigData 2025), cross-lingual evaluation of LLM agents in Bangla, and RAG and LLM fine-tuning for Bangla NLP tasks. Also contributed to a survey of stemming approaches across 11 languages."
       link: { label: "see research →", href: /research/ }

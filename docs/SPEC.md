@@ -62,7 +62,7 @@ src/
   pages/        routes only; compose components; no <style>, no inline style=""
   layouts/      Base.astro: <head>, background, dock, motion script
   components/   *.astro, markup only (props in, HTML out); no inline styles/scripts
-    home/       Hero, News, SiteIndex, IconLinks, TokenStrip, Contact
+    home/       Hero, News, SiteIndex, IconLinks, TokenStrip
   islands/      *.tsx React components that need client JS; nothing else
   scripts/      *.ts browser behaviour (motion.ts); no DOM building
   styles/
@@ -75,7 +75,7 @@ src/
     global.css         @import manifest only
   content/      all text & data (see §4)
   data/site.ts  name, links, nav order
-public/         bg/ (background images), grain.webp, favicon.svg, portrait, cv.pdf, og image
+public/         bg/ (background images), grain.webp, favicon.svg, cv.pdf, og image (portrait: src/assets/portrait.jpg)
 docs/           SPEC.md, PLAN.md, GIT-WORKFLOW.md, design/
 ```
 
@@ -130,6 +130,7 @@ Compare against `docs/design/screenshots/home-desktop-01.jpg` (dark) and `home-l
 
 Floating glass pill, bottom-centre, fixed. Order: **Home, Education, Experience, Research, Writing, Reading** | Email, Theme.
 macOS-style hover magnification (hovered 1.22×, neighbours 1.08×), tooltip label above, active page gets a dot + tint, `aria-current="page"`.
+Hover effects apply only on devices that hover (`@media (hover: hover)`), so one tap navigates on touch screens; keyboard focus keeps them.
 Under 520px: 42px items, no tooltips, Email hidden. On touch screens an item shrinks to 0.92× while pressed (off under reduced motion). Slides up on load. No top nav bar anywhere.
 
 ### 3.4 Motion vocabulary
@@ -168,8 +169,7 @@ invent replacements. **Production builds hide placeholders; `npm run dev` shows 
 - a placeholder inside a string is removed together with its neighbouring separator (` · `, ` → `);
 - a section whose items are all placeholders is not rendered.
 
-Two frames stay on purpose, without their bracket text in production: the Home portrait frame (it holds the hero layout
-until `public/portrait.jpg` exists; the caption stays) and the project screenshot frame on Experience.
+One frame stays on purpose, without its bracket text in production: the project screenshot frame on Experience.
 Components use the helper in `src/lib/placeholder.ts`; no ad-hoc regexes.
 
 ## 5. Pages
@@ -183,14 +183,16 @@ Page heads (every page but Home): terminal breadcrumb `~/ummekulsumtumpa/<page>`
 
 ### 5.1 Home `/` (screenshots `v2/home-after-view`, `v2/home-after-full`; phones and light theme: `mobile-home-01…04`, `home-light-01`)
 
-Order: Hero → News → "around the site" → Token strip → Contact. No About, off-the-clock tiles, quote or bento.
+Order: Hero → News → "around the site" → Token strip. No About, off-the-clock tiles, quote, bento or "Say hello." section
+(the hero's icon links and the dock's email cover contact).
 
 1. **Hero:** top line `~/ummekulsumtumpa` + "Dhaka, BD · HH:MM (UTC+6)" live clock island (12px); "hello, I'm" (mono, accent);
    **name on one line**, Instrument Serif, `clamp(52px, 7.2vw, 104px)`, blinking accent caret; "SOFTWARE ENGINEER · RESEARCHER"
-   tracked mono; bio (`site.bio`, named entities in `--text`); italic serif statement; icon links (email, Google Scholar,
-   GitHub, LinkedIn, CV), each with an `aria-label` and a dock-style tooltip on hover/focus (none on touch).
-   **Portrait** on the right (4:5, placeholder frame until `public/portrait.jpg` exists, caption "Umme Kulsum Tumpa · Dhaka, 2026").
-   No ghost word, no dot grid, no "currently" block. On phones (≤640px) the top line is the short one from `MobileHome.dc.html`: `~/ukt` + "Dhaka · HH:MM".
+   tracked mono; bio (`site.bio`, named entities in `--text`); italic serif statement; icon links (Google Scholar
+   first and accented, then email, GitHub, LinkedIn, CV), each with an `aria-label` and a dock-style tooltip on hover/focus (none on touch).
+   **Portrait** on the right (4:5, `src/assets/portrait.jpg` through Astro `<Image>`, caption "Umme Kulsum Tumpa · Dhaka, 2026").
+   No ghost word, no dot grid, no "currently" block. On phones (≤640px) the top line keeps the full `~/ummekulsumtumpa`
+   (like the other pages' breadcrumb) with "Dhaka · HH:MM".
 2. **News:** from `news.yaml`, newest first. Label `news` in the left rail; rows of date (mono) and text; a row links to `href` when set.
 3. **Around the site:** an index list, one row per page in dock order (Education, Experience, Research, Writing, Reading).
    Row = number, serif title, one live line, arrow; the whole row is one link. Live lines:
@@ -199,7 +201,6 @@ Order: Hero → News → "around the site" → Token strip → Contact. No About
    (`short` / `venueShort` when set, else title / venue); Writing the latest post or "First post coming soon";
    Reading the current read (first book with `status: reading`, else the first entry of any kind with it) or "What's on my desk".
 4. **Token strip:** "fig. 0 — me, tokenized": two rows of tokenizer-style chips sliding in opposite directions; keywords in accent.
-5. **Contact:** "Say hello." (mask) + email button + icon links (the hero's set without email).
 
 Phones: the same order in a single column (name on two lines, portrait after the icon links, the index as a numbered list).
 
@@ -282,5 +283,5 @@ On-brand: serif "Lost in context.", link home, dock.
 
 ## 9. Open content (owner to fill)
 
-Portrait, cv.pdf, Fellowship.AI start month + location, interest one-liners, paper TL;DR + PDF/DOI, course names and
+cv.pdf (a personal CV, owner to prepare), Fellowship.AI location, interest one-liners, paper PDF, course names and
 one-liners per repo, awards & activities, current book, first posts and reading list.
