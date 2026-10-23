@@ -36,9 +36,28 @@ function startEntrances(root: HTMLElement) {
   // elements down by up to 64px, so leaving right at the edge would pull an element parked just above
   // the top back into view, where it re-enters, leaves again, and flickers in a loop.
   const OUT_MARGIN = 80;
+  // When each entered element's entrance started (document timeline ms), so a copy that replaces it can carry
+  // on from the same point (below). null: starting with the next frame; -Infinity: it entered without a
+  // transition, already at rest.
+  const startedAt = new WeakMap<Element, number | null>();
+  const track = (el: Element) => {
+    try {
+      const t = el.getAnimations({ subtree: true }).find((a) => a instanceof CSSTransition);
+      startedAt.set(el, t ? null : -Infinity);
+      t?.ready.then(
+        () => { if (startedAt.get(el) === null && typeof t.startTime === 'number') startedAt.set(el, t.startTime); },
+        () => {}, // cancelled: it left or was removed before it started
+      );
+    } catch {
+      el.setAttribute('data-in', ''); // no timing known: a copy of it will simply start entered
+      startedAt.set(el, -Infinity);
+    }
+  };
   const enter = new IntersectionObserver(
     (entries) => {
-      for (const e of entries) if (e.intersectionRatio >= 0.12) e.target.setAttribute('data-in', '');
+      const entered = entries.filter((e) => e.intersectionRatio >= 0.12 && !e.target.hasAttribute('data-in')).map((e) => e.target);
+      entered.forEach((el) => el.setAttribute('data-in', ''));
+      entered.forEach(track); // after all are set, so style is recomputed once
     },
     { threshold: [0, 0.12] },
   );
@@ -49,13 +68,57 @@ function startEntrances(root: HTMLElement) {
     { rootMargin: `${OUT_MARGIN}px 0px` },
   );
   const observe = (el: HTMLElement) => { enter.observe(el); leave.observe(el); };
-  const scan = (scope: ParentNode = document) =>
-    scope.querySelectorAll<HTMLElement>('[data-anim]').forEach(observe);
-  scan();
+  const animated = (n: HTMLElement) => [...(n.matches('[data-anim]') ? [n] : []), ...n.querySelectorAll<HTMLElement>('[data-anim]')];
+  animated(document.body).forEach(observe);
 
-  // React islands render later or re-render on filter changes: watch for new nodes.
+  // A copy of an element that had already entered starts where that element was, so its entrance never plays
+  // twice. This runs in the mutation callback, before the copy is first painted.
+  const carryOn = (el: HTMLElement, start: number | null) => {
+    try {
+      if (start === -Infinity) { // set before its first style: shown at rest, no transition
+        el.setAttribute('data-in', '');
+        startedAt.set(el, start);
+        return;
+      }
+      void getComputedStyle(el).opacity; // compute the hidden state first, so setting data-in starts the transitions
+      el.setAttribute('data-in', '');
+      if (start === null) return track(el); // the original had not started either
+      // Share the original's start time: same progress from the first frame (finished transitions end at once).
+      for (const a of el.getAnimations({ subtree: true })) if (a instanceof CSSTransition) a.startTime = start;
+      startedAt.set(el, start);
+    } catch {
+      el.setAttribute('data-in', ''); // never leave a copy hidden: show it entered, without the carried-over timing
+    }
+  };
+
+  // React islands render later or re-render on filter changes: watch for new nodes. Hydrating islands may also
+  // swap server-rendered elements for client-rendered copies (Reading's library going from its no-JS view to
+  // tabs). A copy is matched to the entered element it replaces, removed in the same batch, by its animation
+  // and text; genuinely new content (a filter change) has no such twin and animates in as usual.
+  const twinKey = (el: HTMLElement) => `${el.dataset.anim}|${el.textContent}`;
   new MutationObserver((records) => {
-    for (const r of records) r.addedNodes.forEach((n) => n instanceof HTMLElement && (n.matches('[data-anim]') ? observe(n) : scan(n)));
+    const replaced = new Map<string, number | null>();
+    for (const r of records) {
+      r.removedNodes.forEach((n) => {
+        if (!(n instanceof HTMLElement)) return;
+        for (const el of animated(n)) {
+          enter.unobserve(el);
+          leave.unobserve(el);
+          const start = startedAt.get(el);
+          if (start !== undefined && el.hasAttribute('data-in')) replaced.set(twinKey(el), start);
+        }
+      });
+    }
+    for (const r of records) {
+      r.addedNodes.forEach((n) => {
+        if (!(n instanceof HTMLElement) || !n.isConnected) return;
+        for (const el of animated(n)) {
+          observe(el);
+          const start = replaced.get(twinKey(el));
+          if (start !== undefined && !el.hasAttribute('data-in')) carryOn(el, start);
+        }
+      });
+    }
   }).observe(document.body, { childList: true, subtree: true });
 
   // Only now is motion really running; until then the head script's fallback may still show everything.
