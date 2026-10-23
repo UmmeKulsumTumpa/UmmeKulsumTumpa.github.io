@@ -1,0 +1,11 @@
+# Education "05 · certifications", newest first. `id` is any unique slug.
+# image: the certificate as a JPEG/PNG in src/assets/certificates/ (path relative to this file); the
+# page shows a thumbnail that links to the full-size image. alt describes the certificate for screen readers.
+# note (optional) is one line under the title; url (optional) links the issuer's verification page.
+- id: fellowship-ai-data-science-fellow
+  title: Data Science Fellow
+  issuer: Fellowship.AI
+  date: Dec 2024
+  note: "Capstone: Causal Competitor Analysis for Retail"
+  image: ../assets/certificates/fellowship-ai-data-science-fellow.jpg
+  alt: Fellowship.AI Data Science Fellow certificate, Umme Kulsum Tumpa, 23 December 2024
