@@ -1,10 +1,11 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
+import { WRITING_TAGS } from '../content.config';
 
 type Post = CollectionEntry<'writing'>;
 export type Tag = Post['data']['tags'][number];
 
-/** Filter order on /writing/; the same values as the `tags` enum in content.config.ts. */
-export const TAGS = ['llm', 'engineering', 'notes', 'essays'] as const satisfies readonly Tag[];
+/** Filter order on /writing/: the `tags` enum itself (content.config.ts), so a new tag gets a pill. */
+export const TAGS: readonly Tag[] = WRITING_TAGS;
 
 /**
  * Posts newest first. Drafts are left out of production builds (SPEC §5.5) and shown by `npm run dev`

@@ -22,8 +22,14 @@
 .prose pre { overflow-x: auto; padding: 18px 20px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface); font-size: 14px; line-height: 1.6; }
 .prose pre code { background: none; border: 0; padding: 0; font-size: inherit; }
 .prose blockquote { font-family: var(--serif); font-style: italic; font-size: 26px; line-height: 1.35; border-left: 2px solid var(--accent); padding-left: 20px; color: var(--text); }
-.prose img { border-radius: 12px; border: 1px solid var(--border); }
+.prose img { height: auto; border-radius: 12px; border: 1px solid var(--border); } /* height: auto keeps the aspect ratio when the img has width/height attributes */
 .prose hr { border: 0; border-top: 1px solid var(--border); margin: 2.4em 0; }
+/* Tables: label-style header row, hairline rows; wide tables scroll sideways instead of widening the page. */
+.prose table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; font-size: 15px; line-height: 1.6; }
+.prose th, .prose td { padding: 10px 16px 10px 0; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+.prose th { font-family: var(--mono); font-size: 12px; font-weight: 400; letter-spacing: 0.08em; color: var(--faint); border-bottom-color: var(--text); }
+/* Figures (raw HTML in Markdown): caption as a small mono label under the image. */
+.prose figcaption { margin-top: 10px; font-family: var(--mono); font-size: 12px; color: var(--faint); }
 
 @media (max-width: 640px) {
   .prose-page { padding-top: 14px; }
