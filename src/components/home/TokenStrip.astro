@@ -2,6 +2,8 @@
 // "fig. 0 — me, tokenized": tokenizer-style chips (copy from Main.dc.html; phones use MobileHome.dc.html's shorter rows).
 // Each row loops by sliding its track by half; the first copy is readable, the repeats are aria-hidden.
 // Chip shading alternates over the whole track (as in the prototype), so the half-way loop point lines up.
+// The loop pauses while hovered or focused (WCAG 2.2.2): the figure is focusable, so Tab or a tap pauses it
+// until focus moves on, without any visible control.
 const hot = ['less', 'context', 'inference', 'history', 'philosophy', 'books', 'agents', 'Bangla'];
 const rows = {
   desktop: [
@@ -17,7 +19,7 @@ const COPIES = 4; // enough track for the loop to cover wide screens (it moves b
 const tokens = (row: string) => row.split('|').map((s) => ({ s, hot: hot.includes(s.trim()) }));
 ---
 
-<figure class="tokens" aria-labelledby="tokens-fig">
+<figure class="tokens" aria-labelledby="tokens-fig" tabindex="0">
   <div class="container tokens-caption" data-anim="up">
     <span id="tokens-fig">fig. 0 — me, tokenized</span>
     <span class="tokens-aside">off the clock: history · philosophy · books</span>

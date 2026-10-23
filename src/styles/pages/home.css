@@ -288,7 +288,8 @@
 .tokens-row + .tokens-row { margin-top: 10px; margin-left: -240px; }
 .tokens-track { display: flex; width: max-content; animation: tokens-left 90s linear infinite; }
 .tokens-track-reverse { animation-name: tokens-right; }
-.tokens:hover .tokens-track { animation-play-state: paused; }
+/* Pause (WCAG 2.2.2) without adding visible UI: hover, or focus on the figure (Tab, or a tap on touch screens). */
+.tokens:hover .tokens-track, .tokens:focus-within .tokens-track { animation-play-state: paused; }
 .tokens-copy { display: flex; }
 .tokens-chip {
   padding: 10px 3px; border-right: 1px solid var(--border); background: var(--tok-a);
