@@ -65,7 +65,8 @@ gitGraph
 6. Add `.github/workflows/ci.yml` through the normal feature loop for backlog issue 1 ("ci: build check on pull requests"): runs `npm ci` and `npm run build`
    on `pull_request` to `develop` and `main` and on `push` to `develop`. Use the current major versions of the actions
    (check their READMEs; do not guess) and Node from `.nvmrc`.
-7. Branch protection on `main` and `develop`: changes only through PRs, the CI check must pass, branch up to date before merge,
+7. Branch protection on `main` and `develop`: changes only through PRs, the CI check must pass (branches need **not** be up to date with `develop`, so
+   independent PRs merge without re-running CI; CI on `develop` after each merge catches a broken combination),
    no force-push, no deletion, **0 required approvals** (so you can merge your own PRs). Check the current GitHub REST docs for
    branch protection or rulesets before calling the API, then read the settings back with `gh api` to confirm.
 8. `git tag v0.0.1 main && git push origin v0.0.1` and `gh release create v0.0.1 --title "v0.0.1 · bootstrap" --notes "Scaffold, spec, design reference, first deploy."`
@@ -101,8 +102,9 @@ gitGraph
    `gh pr create --base develop --title "<type>(<scope>): <summary>" --body-file <tmp>` with this body:
    `Closes #<issue#>` · what changed · acceptance-criteria results (pass/fail + evidence) · visual-check differences fixed and remaining.
 7. `gh pr checks --watch`. If CI fails, fix with new commits (never amend pushed commits).
-8. Self-review `gh pr diff` against `CLAUDE.md`: only what the issue asks, no inline styles, hex only in `tokens.css`,
-   no stray files (`dist/`, `.shots/`, `node_modules/`).
+8. Review `gh pr diff` against `CLAUDE.md`: only what the issue asks, no inline styles, hex only in `tokens.css`,
+   no stray files (`dist/`, `.shots/`, `node_modules/`). Code, CSS and config PRs get an independent review;
+   content-only PRs (Markdown/YAML, images) are checked in the built HTML and screenshots instead. No auto-merge.
 9. `gh pr merge <pr#> --squash --delete-branch`
 10. `git switch develop && git pull --ff-only`; confirm the issue is closed. Post a one-line status to the owner and take the next issue.
 
@@ -111,7 +113,9 @@ Blocked on the owner (missing text, a decision): keep the `[placeholder]`, add `
 
 ## Release loop (end of each phase)
 
-1. All issues in the phase milestone are closed (or moved, with the owner's agreement).
+1. All issues in the phase milestone are closed (or moved, with the owner's agreement). Pre-release checks scale with
+   the change: a full review (code, accessibility, Lighthouse, visual at every width and theme) when code or CSS changed
+   since the last release; Lighthouse on Home, a console sweep and one visual pass when only content changed.
 2. `git switch develop && git pull --ff-only && git switch -c release/v0.N.0`
 3. `npm version 0.N.0 --no-git-tag-version`, commit `chore(release): v0.N.0`, push.
 4. `gh pr create --base main --title "release: v0.N.0 · Phase N: <name>"`; body lists the merged PRs and closed issues.
