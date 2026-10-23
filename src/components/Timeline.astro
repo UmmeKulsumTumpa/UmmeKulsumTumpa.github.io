@@ -56,7 +56,7 @@ const when = (r: Role) =>
                 {r.current && (r.badge ?? currentLabel) && <span class="tl-badge">{r.badge ?? currentLabel}</span>}
               </div>
               <div class="tl-when">{when(r)}</div>
-              {r.summary && <p class="tl-text">{r.summary}{r.link && <> <a class="tl-link" href={r.link.href}>{arrow(r.link.label).text}{arrow(r.link.label).mark && <> <span aria-hidden="true">{arrow(r.link.label).mark}</span></>}</a></>}</p>}
+              {r.summary && <p class="tl-text">{r.summary}{r.link && <> <a class="tl-link link-underline" href={r.link.href}>{arrow(r.link.label).text}{arrow(r.link.label).mark && <> <span aria-hidden="true">{arrow(r.link.label).mark}</span></>}</a></>}</p>}
               {r.bullets.length > 0 && <ul class="tl-bullets">{r.bullets.map((b) => <li>{b}</li>)}</ul>}
               {r.details.length > 0 && (
                 <div class="tl-details">

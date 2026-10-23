@@ -109,4 +109,29 @@ const publications = defineCollection({
   }),
 });
 
-export const collections = { writing, reading, experience, education, projects, publications };
+/** Experience "02 · selected projects": a `line` piece is plain text or a link shown inside the line. */
+const selectedProjects = defineCollection({
+  loader: ordered('src/content/selected-projects.yaml'),
+  schema: z.object({
+    id: z.string(),
+    title: z.string(),
+    href: z.string(),
+    meta: z.string().optional(),
+    line: z.array(z.union([z.string(), z.object({ text: z.string(), href: z.string() })])).min(1),
+    stack: z.string(),
+    order: z.number(), // set by ordered(): position in the YAML file, not written by hand
+  }),
+});
+
+/** Experience "03 · toolbox": one entry per column. */
+const toolbox = defineCollection({
+  loader: ordered('src/content/toolbox.yaml'),
+  schema: z.object({
+    id: z.string(),
+    name: z.string(),
+    items: z.array(z.string()).min(1),
+    order: z.number(), // set by ordered(): position in the YAML file, not written by hand
+  }),
+});
+
+export const collections = { writing, reading, experience, education, projects, publications, selectedProjects, toolbox };

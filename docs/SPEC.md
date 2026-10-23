@@ -93,9 +93,10 @@ ThemeToggle, LocalTime, Base layout, and CSS). Reuse them as a starting point, b
 | `--bg` | `#0b0c0f` | `#f7f7f8` |
 | `--surface` | `#121418` | `#eeeef1` |
 | `--border` | `#22252c` | `#dedee3` |
+| `--pill-border` | `#3c3f48` (inactive pills and status chips) | `#c3c3cb` |
 | `--text` | `#ececef` | `#131418` |
 | `--muted` | `#a3a6b0` | `#4b4d56` |
-| `--faint` | `#82858f` (5.1:1 on bg) | `#666873` (5.3:1) |
+| `--faint` | `#9597a0` (6.7:1 on bg) | `#5d5f69` (5.9:1) |
 | `--accent` | `#b9a6ff` | `#5b32d6` |
 
 Fonts (self-hosted with Astro's Fonts API, Google Fonts files): **Instrument Serif** (display: name, page titles, section titles, big numbers),
@@ -151,6 +152,8 @@ script applies the saved theme before paint (no flash).
 | `education` | `src/content/education.yaml` | same shape; roles = degrees (+ details[], courses[]) |
 | `projects` | `src/content/course-projects.yaml` | id = GitHub repo name, category[spl/ai/sys/fund], lang, desc, course |
 | `publications` | `src/content/publications.yaml` | title, authors[], venue, year, tldr, links[] |
+| `selectedProjects` | `src/content/selected-projects.yaml` | Experience project cards: id, title, href, meta?, line[] (text, or { text, href } links inside the line), stack |
+| `toolbox` | `src/content/toolbox.yaml` | Experience toolbox columns, in page order: id, name, items[] |
 
 Files starting with `_` are templates and are ignored. YAML lists are **newest first**; the first role inside an
 org is the newest. `[Bracketed text]` is placeholder content the owner will fill in. Render it as-is; never invent replacements.

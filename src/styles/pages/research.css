@@ -54,7 +54,7 @@
 .res-prog-link { margin-left: 8px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
 .res-status {
   font-family: var(--mono); font-size: 12px; color: var(--muted);
-  border: 1px solid var(--border); border-radius: 999px; padding: 3px 12px;
+  border: 1px solid var(--pill-border); border-radius: 999px; padding: 3px 12px;
 }
 .res-status-current { color: var(--accent); }
 

@@ -34,7 +34,7 @@
 .rd-kind-label { margin-top: 40px; font-weight: 400; }
 
 /* status: pill on desktop, plain coloured text on phones */
-.rd-status { font-family: var(--mono); font-size: 11px; border: 1px solid var(--border); border-radius: 999px; padding: 2px 10px; }
+.rd-status { font-family: var(--mono); font-size: 11px; border: 1px solid var(--pill-border); border-radius: 999px; padding: 2px 10px; }
 .rd-status-reading { color: var(--accent); }
 .rd-status-finished { color: var(--text); }
 .rd-status-queued { color: var(--muted); }

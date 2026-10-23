@@ -6,9 +6,10 @@
   --bg: #0b0c0f;
   --surface: #121418;
   --border: #22252c;
+  --pill-border: #3c3f48; /* inactive pills and status chips: reads over the background grain (#86) */
   --text: #ececef;
   --muted: #a3a6b0;
-  --faint: #82858f;
+  --faint: #9597a0;
   --accent: #b9a6ff;
   --ring: rgba(185, 166, 255, 0.18);
   --dot: rgba(255, 255, 255, 0.09);
@@ -46,9 +47,10 @@
   --bg: #f7f7f8;
   --surface: #eeeef1;
   --border: #dedee3;
+  --pill-border: #c3c3cb;
   --text: #131418;
   --muted: #4b4d56;
-  --faint: #666873;
+  --faint: #5d5f69;
   --accent: #5b32d6;
   --ring: rgba(91, 50, 214, 0.14);
   --dot: rgba(0, 0, 0, 0.1);
