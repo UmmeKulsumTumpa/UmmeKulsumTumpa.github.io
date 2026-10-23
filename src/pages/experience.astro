@@ -6,12 +6,14 @@ import SelectedProjects from '../components/experience/SelectedProjects.astro';
 import Toolbox from '../components/experience/Toolbox.astro';
 ---
 <Base title="Experience" active="experience">
-  <PageHead slug="experience" title="Experience" ghost="ship it">
-    Three roles at Cefalo Bangladesh, from intern to full-time engineer, a fellowship at Fellowship.AI, and research at BARTA Lab.
-  </PageHead>
-  <main class="container">
-    <ExperienceTimeline />
-    <SelectedProjects />
-    <Toolbox />
+  <main>
+    <PageHead slug="experience" title="Experience" ghost="ship it">
+      Three roles at Cefalo Bangladesh, from intern to full-time engineer, a fellowship at Fellowship.AI, and research at BARTA Lab.
+    </PageHead>
+    <div class="container">
+      <ExperienceTimeline />
+      <SelectedProjects />
+      <Toolbox />
+    </div>
   </main>
 </Base>

@@ -6,15 +6,17 @@ import FeaturedPost from '../components/writing/FeaturedPost.astro';
 import PostList from '../components/writing/PostList.astro';
 ---
 <Base title="Writing" active="writing">
-  <PageHead slug="writing" title="Writing" ghost="notes" italicGhost>
-    Notes on LLMs, building software, and the books and ideas I can't stop thinking about. [Posting cadence, if you want to commit to one.]
-    <div class="writing-feeds" slot="after-lead">
-      <a class="tap-target" href="/rss.xml">rss ↗</a>
-      <a class="tap-target" href="#">subscribe by email ↗</a>
+  <main>
+    <PageHead slug="writing" title="Writing" ghost="notes" italicGhost>
+      Notes on LLMs, building software, and the books and ideas I can't stop thinking about. [Posting cadence, if you want to commit to one.]
+      <div class="writing-feeds" slot="after-lead">
+        <a class="tap-target" href="/rss.xml">rss ↗</a>
+        <a class="tap-target" href="#">subscribe by email ↗</a>
+      </div>
+    </PageHead>
+    <div class="container">
+      <FeaturedPost />
+      <PostList />
     </div>
-  </PageHead>
-  <main class="container">
-    <FeaturedPost />
-    <PostList />
   </main>
 </Base>
