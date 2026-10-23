@@ -131,7 +131,7 @@ export default function ReadingLibrary({ items, heading }: Props) {
               type="button"
               role="tab"
               id={tabId(t.id)}
-              className="rd-tab"
+              className="rd-tab tap-target"
               aria-selected={t.id === kind}
               aria-controls={panelId}
               tabIndex={t.id === kind ? 0 : -1}
