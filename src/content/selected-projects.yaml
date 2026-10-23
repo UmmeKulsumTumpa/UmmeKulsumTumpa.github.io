@@ -1,0 +1,18 @@
+# Experience "02 · selected projects", newest first. `id` is any unique slug.
+# meta (optional) is the small line above the title. `line` is the one-line description: a list of
+# text pieces, where a piece can also be a link ({ text, href }) that shows inside the line.
+- id: cefalo-travel-connect
+  title: Cefalo Travel Connect
+  href: https://github.com/UmmeKulsumTumpa/CefaloTravelConnect
+  meta: "Cefalo · [training / in-house]"
+  line:
+    - "[One line: what it does.] API plus a "
+    - { text: React frontend, href: https://github.com/UmmeKulsumTumpa/ctc-frontend }
+    - "."
+  stack: Express · TypeScript · Knex · PostgreSQL · React · Tailwind
+- id: project-name
+  title: "[Project name]"
+  href: "#"
+  line:
+    - "[One line: what it does, for whom, and the result.]"
+  stack: "[stack]"
