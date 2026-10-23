@@ -24,7 +24,7 @@ const { post, previous, next } = Astro.props;
 const { Content } = await render(post);
 const meta = [postDate(post), ...post.data.tags, `${readingTime(post)} min`].join(' · ');
 ---
-<Base title={post.data.title} description={post.data.summary} active="writing">
+<Base title={post.data.title} description={post.data.summary} ogType="article" active="writing">
   <main>
     <ProseArticle back={{ href: '/writing/', label: 'all posts' }} meta={meta} date={post.data.date} title={post.data.title} lead={post.data.summary}>
       <Content />

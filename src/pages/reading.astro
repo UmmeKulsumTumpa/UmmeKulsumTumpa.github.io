@@ -5,7 +5,11 @@ import PageHead from '../components/PageHead.astro';
 import ReadingStats from '../components/reading/ReadingStats.astro';
 import Library from '../components/reading/Library.astro';
 ---
-<Base title="Reading" active="reading">
+<Base
+  title="Reading"
+  description="Books, papers and articles I'm reading, have read, or mean to. Each one links to my notes when I have them."
+  active="reading"
+>
   <PageHead slug="reading" title="The library" ghost="library" italicGhost>
     Books, papers and articles I'm reading, have read, or mean to. Each one links to my notes when I have them.
     <ReadingStats slot="after" />
