@@ -73,7 +73,7 @@ function Rows({ list }: { list: Item[] }) {
             <span className={cx('rd-status', `rd-status-${r.status}`)}>{r.status}</span>
             {r.notes && (
               <a className="rd-notes" href={r.href}>
-                notes<span className="visually-hidden"> on {r.title}</span> →
+                notes<span className="visually-hidden"> on {r.title}</span> <span aria-hidden="true">→</span>
               </a>
             )}
           </span>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface Row { id: string; href: string; date: string; title: string; summary: string; tags: string[]; minutes: number }
 interface Props {
@@ -13,16 +13,19 @@ const STAGGER = ['', 'd1', 'd2', 'd2', 'd3', 'd4'];
 /**
  * "All posts": tag filter pills over the post rows. The server renders every row, so the list
  * works without JS; the pills filter once hydrated. Posts can carry several tags; a pill matches any.
+ * The pills do nothing without JS, so (as in ReadingLibrary) they stay hidden until the island is ready.
  */
 export default function WritingFilter({ posts, tags, heading }: Props) {
+  const [ready, setReady] = useState(false);
   const [tag, setTag] = useState('all');
+  useEffect(() => setReady(true), []);
   const shown = tag === 'all' ? posts : posts.filter((p) => p.tags.includes(tag));
 
   return (
     <section className="wr-all" aria-labelledby={heading}>
       <div className="wr-all-head">
         <h2 id={heading} className="label wr-all-label">all posts · {shown.length}</h2>
-        <div className="wr-filters" role="group" aria-label="Filter by topic">
+        <div className="wr-filters" role="group" aria-label="Filter by topic" hidden={!ready}>
           {['all', ...tags].map((t) => (
             <button key={t} type="button" className="pill-btn wr-pill" aria-pressed={t === tag} onClick={() => setTag(t)}>
               {t}

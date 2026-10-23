@@ -1,6 +1,8 @@
 /* ---------- base ---------- */
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; overflow-x: clip; }
+/* scroll-padding-bottom: the fixed dock (dock.css) covers the bottom ~88px, so keyboard focus and
+   anchor jumps stop above it instead of leaving the target half hidden underneath. */
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; overflow-x: clip; scroll-padding-bottom: 104px; }
 body {
   margin: 0;
   background: var(--bg);

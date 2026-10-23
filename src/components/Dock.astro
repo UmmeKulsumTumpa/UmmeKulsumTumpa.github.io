@@ -18,14 +18,14 @@ const icons: Record<NavId, string> = {
 <div class="dock-wrap">
   <nav class="dock" aria-label="Site">
     {nav.map((item) => (
-      <a class="dock-item" href={item.href} aria-label={item.label} aria-current={item.id === active ? 'page' : undefined}>
+      <a class="dock-item tap-target" href={item.href} aria-label={item.label} aria-current={item.id === active ? 'page' : undefined}>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={icons[item.id]} /></svg>
         <span class="dock-dot" aria-hidden="true"></span>
         <span class="dock-tip" aria-hidden="true">{item.label}</span>
       </a>
     ))}
     <span class="dock-sep" aria-hidden="true"></span>
-    <a class="dock-item dock-email" href={`mailto:${site.email}`} aria-label="Email me">
+    <a class="dock-item dock-email tap-target" href={`mailto:${site.email}`} aria-label="Email me">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zM3 7l9 6 9-6" /></svg>
       <span class="dock-tip" aria-hidden="true">Email</span>
     </a>

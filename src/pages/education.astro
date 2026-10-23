@@ -11,12 +11,14 @@ import Activities from '../components/education/Activities.astro';
   description="A thesis-based M.Sc. in progress and a B.Sc. in Software Engineering at IIT, University of Dhaka, after SSC and HSC in science."
   active="education"
 >
-  <PageHead slug="education" title="Education" ghost="learning" italicGhost>
-    A thesis-based M.Sc. in progress and a B.Sc. in Software Engineering at IIT, University of Dhaka, after SSC and HSC in science.
-  </PageHead>
-  <main class="container">
-    <EducationTimeline />
-    <CourseArchive />
-    <Activities />
+  <main>
+    <PageHead slug="education" title="Education" ghost="learning" italicGhost>
+      A thesis-based M.Sc. in progress and a B.Sc. in Software Engineering at IIT, University of Dhaka, after SSC and HSC in science.
+    </PageHead>
+    <div class="container">
+      <EducationTimeline />
+      <CourseArchive />
+      <Activities />
+    </div>
   </main>
 </Base>

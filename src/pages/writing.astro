@@ -10,15 +10,17 @@ import PostList from '../components/writing/PostList.astro';
   description="Notes on LLMs, building software, and the books and ideas I can't stop thinking about."
   active="writing"
 >
-  <PageHead slug="writing" title="Writing" ghost="notes" italicGhost>
-    Notes on LLMs, building software, and the books and ideas I can't stop thinking about. [Posting cadence, if you want to commit to one.]
-    <div class="writing-feeds" slot="after-lead">
-      <a href="/rss.xml">rss ↗</a>
-      <a href="#">subscribe by email ↗</a>
+  <main>
+    <PageHead slug="writing" title="Writing" ghost="notes" italicGhost>
+      Notes on LLMs, building software, and the books and ideas I can't stop thinking about. [Posting cadence, if you want to commit to one.]
+      <div class="writing-feeds" slot="after-lead">
+        <a class="tap-target" href="/rss.xml">rss <span aria-hidden="true">↗</span></a>
+        <a class="tap-target" href="#">subscribe by email <span aria-hidden="true">↗</span></a>
+      </div>
+    </PageHead>
+    <div class="container">
+      <FeaturedPost />
+      <PostList />
     </div>
-  </PageHead>
-  <main class="container">
-    <FeaturedPost />
-    <PostList />
   </main>
 </Base>

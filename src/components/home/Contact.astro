@@ -2,9 +2,9 @@
 import { site } from '../../data/site';
 
 const links = [
-  { label: 'scholar ↗', href: site.links.scholar },
-  { label: 'github ↗', href: site.links.github },
-  { label: 'linkedin ↗', href: site.links.linkedin },
+  { label: 'scholar', icon: '↗', href: site.links.scholar },
+  { label: 'github', icon: '↗', href: site.links.github },
+  { label: 'linkedin', icon: '↗', href: site.links.linkedin },
   { label: 'cv.pdf', href: site.links.cv, desktopOnly: true }, // MobileHome.dc.html leaves it out
 ];
 ---
@@ -14,7 +14,7 @@ const links = [
   <div class="contact-actions d2" data-anim="from-right">
     <a class="btn contact-email" href={`mailto:${site.email}`}>{site.email} <span aria-hidden="true">→</span></a>
     <div class="contact-links">
-      {links.map((l) => <a class:list={[l.desktopOnly && 'contact-desktop-only']} href={l.href}>{l.label}</a>)}
+      {links.map((l) => <a class:list={[l.desktopOnly && 'contact-desktop-only']} href={l.href}>{l.label}{l.icon && <>&nbsp;<span aria-hidden="true">{l.icon}</span></>}</a>)}
     </div>
   </div>
 </section>
