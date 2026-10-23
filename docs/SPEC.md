@@ -151,6 +151,8 @@ script applies the saved theme before paint (no flash).
 | `education` | `src/content/education.yaml` | same shape; roles = degrees (+ details[], courses[]) |
 | `projects` | `src/content/course-projects.yaml` | id = GitHub repo name, category[spl/ai/sys/fund], lang, desc, course |
 | `publications` | `src/content/publications.yaml` | title, authors[], venue, year, tldr, links[] |
+| `selectedProjects` | `src/content/selected-projects.yaml` | Experience project cards: id, title, href, meta?, line[] (text, or { text, href } links inside the line), stack |
+| `toolbox` | `src/content/toolbox.yaml` | Experience toolbox columns, in page order: id, name, items[] |
 
 Files starting with `_` are templates and are ignored. YAML lists are **newest first**; the first role inside an
 org is the newest. `[Bracketed text]` is placeholder content the owner will fill in. Render it as-is; never invent replacements.
