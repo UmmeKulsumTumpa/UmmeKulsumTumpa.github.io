@@ -1,11 +1,11 @@
 ---
-import { getReading } from '../../lib/reading';
+import { getCurrentRead } from '../../lib/reading';
 import { site } from '../../data/site';
 import LocalTime from '../../islands/LocalTime.tsx';
 
 // Phones show "reading <current book>" in place of the thesis line (MobileHome.dc.html).
-// Until a reading entry has status "reading", keep the prototype's placeholder.
-const current = (await getReading()).find(({ data }) => data.status === 'reading');
+// Same pick as the Glimpse tile (a book first); until an entry has status "reading", keep the prototype's placeholder.
+const current = await getCurrentRead();
 const book = current?.data.title ?? '[book title]';
 
 // Top line: phones show the short one from MobileHome.dc.html, "~/ukt" and "Dhaka · HH:MM" (.hero-wide / .hero-phone).

@@ -1,15 +1,13 @@
 ---
 import { getCollection } from 'astro:content';
-import { getReading } from '../../lib/reading';
+import { getCurrentRead } from '../../lib/reading';
 import { getPosts } from '../../lib/posts';
 
 // Live numbers (SPEC §5.1 item 3): counts and latest entries come from the collections.
 const projects = await getCollection('projects');
 const publications = await getCollection('publications');
 const [latest] = await getPosts(); // newest first, drafts left out of production builds
-// "on my desk": the first book being read, else the first entry of any kind being read.
-const reading = (await getReading()).filter(({ data }) => data.status === 'reading');
-const book = reading.find(({ data }) => data.kind === 'book') ?? reading[0];
+const book = await getCurrentRead(); // "on my desk": a book first (lib/reading.ts)
 
 const numbers = [
   // "2 degrees" stays literal (SPEC §5.1); no collection field states it.
