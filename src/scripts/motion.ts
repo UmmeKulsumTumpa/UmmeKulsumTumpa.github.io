@@ -6,9 +6,13 @@
  *   class="d1" … class="d8"                 (optional stagger, see motion.css)
  *   data-parallax="0.3"                     (moves at 30% of scroll speed)
  *
- * An element animates once, the first time it enters the viewport, and then stays entered: scrolling
- * back never replays it. Everything is skipped for visitors who ask for reduced motion, and content
- * stays visible if JS fails.
+ * Entrances replay in both scroll directions. An element animates in once about 12% of it is visible: from below
+ * when it comes in at the bottom of the viewport (scrolling down), mirrored from above when it comes in at the top
+ * (scrolling up). `from-left`/`from-right` and `zoom` look the same either way. Once it is fully out of the viewport it
+ * is reset, without a transition, to its hidden state on the side it left by, so it plays again the next time it
+ * enters. Between 12% visible and fully out nothing changes, so nothing flickers at the edge. First-screen content
+ * enters from below on load. Everything is skipped for visitors who ask for reduced motion, and content stays visible
+ * if JS fails.
  */
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -32,7 +36,6 @@ function init() {
 }
 
 function startEntrances(root: HTMLElement) {
-  // Enter when 12% is visible, once: an entered element is no longer observed and never leaves.
   // When each entered element's entrance started (document timeline ms), so a copy that replaces it can carry
   // on from the same point (below). null: starting with the next frame; -Infinity: it entered without a
   // transition, already at rest.
@@ -43,24 +46,72 @@ function startEntrances(root: HTMLElement) {
       startedAt.set(el, t ? null : -Infinity);
       t?.ready.then(
         () => { if (startedAt.get(el) === null && typeof t.startTime === 'number') startedAt.set(el, t.startTime); },
-        () => {}, // cancelled: it was removed before it started
+        () => {}, // cancelled: it was removed (or reset) before it started
       );
     } catch {
       el.setAttribute('data-in', ''); // no timing known: a copy of it will simply start entered
       startedAt.set(el, -Infinity);
     }
   };
+
+  // Which way the page is scrolling: content that enters while scrolling up comes in from above. Only a recent
+  // scroll counts; otherwise (a filter change, a layout shift) an element uses the side it last left by.
+  let lastY = window.scrollY;
+  let up = false;
+  let scrolledAt = -Infinity;
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    if (y !== lastY) { up = y < lastY; scrolledAt = performance.now(); }
+    lastY = y;
+  }, { passive: true });
+  const isAbove = (e: IntersectionObserverEntry) => {
+    const r = e.boundingClientRect;
+    return r.top + r.height / 2 < (e.rootBounds?.height ?? window.innerHeight) / 2;
+  };
+
+  // Hysteresis: enter at 12% visible, reset only once fully out. data-from-top mirrors the vertical offset of the
+  // hidden state (motion.css). Side changes and resets happen with transitions off (data-anim-reset), all in one
+  // style flush per batch, so a reset element never animates out and a flipped one starts from the new side.
+  const seen = new WeakSet<Element>();
   const enter = new IntersectionObserver(
     (entries) => {
-      const entered = entries.filter((e) => e.intersectionRatio >= 0.12 && !e.target.hasAttribute('data-in')).map((e) => e.target);
-      entered.forEach((el) => { el.setAttribute('data-in', ''); enter.unobserve(el); });
-      entered.forEach(track); // after all are set, so style is recomputed once
+      const recent = performance.now() - scrolledAt < 400;
+      const jumps: [Element, boolean][] = []; // [element, enters/rests on the top side]
+      const resets: Element[] = [];
+      const entering: Element[] = [];
+      for (const e of entries) {
+        const el = e.target;
+        const first = !seen.has(el);
+        seen.add(el);
+        const fromTop = el.hasAttribute('data-from-top');
+        if (!e.isIntersecting) {
+          // Fully out: hidden again, on the side it left by (not rendered, e.g. in a closed <details>: keep it).
+          const r = e.boundingClientRect;
+          const top = r.width || r.height ? isAbove(e) : fromTop;
+          if (el.hasAttribute('data-in')) resets.push(el);
+          if (top !== fromTop || el.hasAttribute('data-in')) jumps.push([el, top]);
+        } else if (e.intersectionRatio >= 0.12 && !el.hasAttribute('data-in')) {
+          // First screen on load: from below, as before. Later: the scroll direction, else the side it left by.
+          const top = first ? fromTop : recent ? up : fromTop;
+          if (top !== fromTop) jumps.push([el, top]);
+          entering.push(el);
+        } else if (first && e.intersectionRatio < 0.12 && isAbove(e) !== fromTop) {
+          jumps.push([el, isAbove(e)]); // partly visible at the top edge on load: it will come in from above
+        }
+      }
+      if (jumps.length) {
+        for (const [el, top] of jumps) { el.setAttribute('data-anim-reset', ''); el.toggleAttribute('data-from-top', top); }
+        resets.forEach((el) => el.removeAttribute('data-in'));
+        void document.body.getBoundingClientRect(); // apply the jumps now, without transitions
+        for (const [el] of jumps) el.removeAttribute('data-anim-reset');
+      }
+      entering.forEach((el) => el.setAttribute('data-in', ''));
+      entering.forEach(track); // after all are set, so style is recomputed once
     },
     { threshold: [0, 0.12] },
   );
-  const observe = (el: HTMLElement) => { if (!el.hasAttribute('data-in')) enter.observe(el); };
   const animated = (n: HTMLElement) => [...(n.matches('[data-anim]') ? [n] : []), ...n.querySelectorAll<HTMLElement>('[data-anim]')];
-  animated(document.body).forEach(observe);
+  animated(document.body).forEach((el) => enter.observe(el));
 
   // A copy of an element that had already entered starts where that element was, so its entrance never plays
   // twice. This runs in the mutation callback, before the copy is first painted.
@@ -103,7 +154,7 @@ function startEntrances(root: HTMLElement) {
       r.addedNodes.forEach((n) => {
         if (!(n instanceof HTMLElement) || !n.isConnected) return;
         for (const el of animated(n)) {
-          observe(el);
+          enter.observe(el);
           const start = replaced.get(twinKey(el));
           if (start !== undefined && !el.hasAttribute('data-in')) carryOn(el, start);
         }

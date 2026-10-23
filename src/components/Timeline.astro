@@ -45,15 +45,15 @@ const when = (r: Role) =>
   </div>
   <ol class="tl-orgs">
     {entries.map((e) => (
-      <li class:list={['tl-org', e.roles.length > 1 && 'tl-multi']} data-anim="up">
-        <div class:list={['tl-logo', e.short.length > 1 && 'tl-logo-text']} aria-hidden="true">{e.short}</div>
+      <li class:list={['tl-org', e.roles.length > 1 && 'tl-multi']}>
+        <div class:list={['tl-logo', e.short.length > 1 && 'tl-logo-text']} data-anim="zoom" aria-hidden="true">{e.short}</div>
         <div class="tl-body">
-          <div class="tl-head">
+          <div class="tl-head" data-anim="up">
             <h3 class="tl-org-name">{e.url ? <a class="tap-target" href={e.url}>{e.org}</a> : e.org}</h3>
             {(multiMeta || e.roles.length < 2) && <span class="tl-meta">{clean(`${e.location} · ${e.span}`)}</span>}
           </div>
           {e.roles.map((r, i) => (
-            <div class="tl-role">
+            <div class:list={['tl-role', i === 0 ? 'd1' : 'd2']} data-anim="up">
               <span class:list={['tl-dot', r.current && 'tl-dot-current']} aria-hidden="true"></span>
               {i < e.roles.length - 1 && <span class="tl-line" aria-hidden="true"></span>}
               <div class="tl-title">
