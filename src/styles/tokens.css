@@ -29,9 +29,11 @@
   --cover-edge-1: #0e0f13; /* cover spine edge, alternating */
   --cover-edge-2: #101216;
 
-  --serif: 'Instrument Serif', Georgia, serif;
-  --sans: 'IBM Plex Sans', system-ui, sans-serif;
-  --mono: 'IBM Plex Mono', ui-monospace, monospace;
+  /* Self-hosted by Astro's Fonts API (astro.config.mjs); each variable is the family plus the same fallbacks:
+     Instrument Serif, Georgia, serif · IBM Plex Sans, system-ui, sans-serif · IBM Plex Mono, ui-monospace, monospace. */
+  --serif: var(--font-instrument-serif);
+  --sans: var(--font-plex-sans);
+  --mono: var(--font-plex-mono);
 
   --container: 1280px;
   --gutter: 32px;
