@@ -10,7 +10,7 @@ Execute Phase $ARGUMENTS of `docs/PLAN.md`, following `docs/GIT-WORKFLOW.md` exa
    and show me the order you will work them in, with a one-line plan per issue. Then start without waiting unless something is unclear.
 4. For each issue, run the feature loop: branch off `develop`, read the screenshots it names, implement in small Conventional
    Commits, `npm run build` before each commit, visual check, PR into `develop` with `Closes #n`, CI green, self-review the diff,
-   merge commit, delete the branch. After each merge send me one line: issue, PR link, what changed, checks.
+   squash merge, delete the branch. After each merge send me one line: issue, PR link, what changed, checks.
 5. When every issue in the milestone is closed, check every item under Phase $ARGUMENTS in `docs/PLAN.md` on `develop`
    and report each as pass/fail with evidence. Fix failures as new issues in the same milestone.
 6. Run the release loop up to the release PR into `main`, then stop and ask me before merging it.
