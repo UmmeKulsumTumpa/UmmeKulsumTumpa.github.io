@@ -11,13 +11,6 @@ import { SHOW_PLACEHOLDERS, clean, keep, visible } from '../../lib/placeholder';
 const all = (await getCollection('selectedProjects')).sort((a, b) => a.data.order - b.data.order).map((p) => p.data);
 const projects = keep(all, (p) => p.title);
 const single = projects.length === 1;
-
-// clean() a text piece of the line, keeping the space that joins it to a neighbouring link.
-const piece = (s: string) => {
-  const c = clean(s).trim();
-  if (!c) return '';
-  return (/^\s/.test(s) ? ' ' : '') + c + (/\s$/.test(s) ? ' ' : '');
-};
 ---
 
 {projects.length > 0 && (
@@ -39,7 +32,7 @@ const piece = (s: string) => {
               <a class="proj-link" href={p.href}>{p.title} <span aria-hidden="true">↗</span></a>
             </h3>
             <p class="proj-line">
-              {p.line.map((part) => (typeof part === 'string' ? piece(part) : <a class="proj-inline link-underline" href={part.href}>{part.text}</a>))}
+              {p.line.map((part) => (typeof part === 'string' ? clean(part) : <a class="proj-inline link-underline" href={part.href}>{part.text}</a>))}
             </p>
             <div class="proj-stack">{clean(p.stack)}</div>
           </div>
