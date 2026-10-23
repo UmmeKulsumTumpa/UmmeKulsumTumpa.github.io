@@ -12,7 +12,12 @@
 
 /* ---------- library (src/islands/ReadingLibrary.tsx) ---------- */
 .rd-bar { padding-top: 40px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; }
-.rd-bar[hidden] { display: none; }
+/* Hidden until the island is ready. Without JS it takes no space. With JS (html[data-js], Base.astro) it keeps
+   its space, and only Books shows, without the kind headings, so the page is already laid out as the hydrated
+   library and nothing moves when the tabs take over (CLS). */
+:root:not([data-js]) .rd-bar[hidden] { display: none; }
+.rd-bar[hidden] { visibility: hidden; }
+[data-js] .rd-kind + .rd-kind, [data-js] .rd-kind-label { display: none; }
 .rd-tabs { display: inline-flex; padding: 4px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
 .rd-tab {
   min-height: 40px; padding: 0 18px; border: 0; border-radius: 9px; background: transparent;
@@ -22,7 +27,7 @@
 .rd-pills { display: flex; flex-wrap: wrap; gap: 8px; }
 .rd-pill { min-height: 36px; }
 .rd-empty { margin-top: 40px; font-family: var(--mono); font-size: 13px; color: var(--faint); }
-/* before hydration (and without JS) every kind is stacked under its own heading */
+/* without JS every kind is stacked under its own heading */
 .rd-kind-label { margin-top: 40px; font-weight: 400; }
 
 /* status: pill on desktop, plain coloured text on phones */
@@ -35,7 +40,10 @@
 .rd-books { margin: 40px 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 40px 28px; }
 .rd-book { display: block; color: var(--text); }
 a.rd-book { transition: transform 0.3s ease; }
-a.rd-book:hover { transform: translateY(-6px) rotate(-1deg); text-decoration: none; }
+a.rd-book:hover, a.rd-book:focus-visible { transform: translateY(-6px) rotate(-1deg); text-decoration: none; }
+/* Keyboard focus: the ring goes on the cover, so it follows the cover's corners (the meta line sits below). */
+a.rd-book:focus-visible { outline: none; }
+a.rd-book:focus-visible .rd-cover { outline: 2px solid var(--accent); outline-offset: 3px; }
 .rd-cover-v1 { --rd-shade: var(--cover-1); --rd-edge: var(--cover-edge-1); --rd-rule-top: 62%; }
 .rd-cover-v2 { --rd-shade: var(--cover-2); --rd-edge: var(--cover-edge-2); --rd-rule-top: 28%; }
 .rd-cover-v3 { --rd-shade: var(--cover-3); --rd-edge: var(--cover-edge-1); --rd-rule-top: 74%; }
@@ -67,7 +75,7 @@ a.rd-book:hover { transform: translateY(-6px) rotate(-1deg); text-decoration: no
 @media (max-width: 640px) {
   .rd-bar { padding-top: 18px; display: block; }
   .rd-tabs { display: flex; }
-  .rd-tab { flex: 1 1 0; min-height: 44px; padding: 0; }
+  .rd-tab { flex: 1 1 0; padding: 0; } /* drawn 40px (MobileReading.dc.html); .tap-target makes the hit area 44px */
   .rd-pills { margin-top: 12px; flex-wrap: nowrap; overflow-x: auto; }
   .rd-pill { flex: 0 0 auto; min-height: 44px; padding: 0 16px; }
   .rd-empty { margin-top: 28px; }

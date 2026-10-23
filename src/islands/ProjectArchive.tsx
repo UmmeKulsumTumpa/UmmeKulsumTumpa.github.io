@@ -36,7 +36,7 @@ export default function ProjectArchive({ projects, id, heading }: Props) {
           </h2>
           <p className="arc-title">Course projects</p>
         </div>
-        <a className="arc-all" href="https://github.com/UmmeKulsumTumpa?tab=repositories">all repos ↗</a>
+        <a className="arc-all" href="https://github.com/UmmeKulsumTumpa?tab=repositories">all repos&nbsp;<span aria-hidden="true">↗</span></a>
       </div>
       <div className="arc-filters" role="group" aria-label="Filter projects">
         {FILTERS.map((f) => (
@@ -57,7 +57,7 @@ export default function ProjectArchive({ projects, id, heading }: Props) {
               <div className="arc-desc">{p.desc}</div>
               <div className="arc-foot">
                 <span>{p.course}</span>
-                <span className="arc-gh">github ↗</span>
+                <span className="arc-gh">github <span aria-hidden="true">↗</span></span>
               </div>
             </div>
           </a>

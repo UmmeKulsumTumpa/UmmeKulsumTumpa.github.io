@@ -23,6 +23,12 @@ interface Props {
 }
 
 const { id, label, hint, entries, currentLabel = 'current', class: className } = Astro.props;
+// A trailing arrow in a link label from the YAML (e.g. "see research →", "19 on GitHub ↓") is decoration:
+// render it aria-hidden, like the arrows the components add themselves.
+const arrow = (label: string) => {
+  const m = label.match(/^(.*?)\s*([↗↓→←↑])$/u);
+  return m ? { text: m[1], mark: m[2] } : { text: label, mark: '' };
+};
 const when = (r: Role) =>
   (r.end || r.current ? `${r.start} → ${r.current ? 'present' : r.end}` : r.start) + (r.type ? ` · ${r.type}` : '');
 ---
@@ -38,7 +44,7 @@ const when = (r: Role) =>
         <div class:list={['tl-logo', e.short.length > 1 && 'tl-logo-text']} aria-hidden="true">{e.short}</div>
         <div class="tl-body">
           <div class="tl-head">
-            <h3 class="tl-org-name">{e.url ? <a href={e.url}>{e.org}</a> : e.org}</h3>
+            <h3 class="tl-org-name">{e.url ? <a class="tap-target" href={e.url}>{e.org}</a> : e.org}</h3>
             <span class="tl-meta">{e.location} · {e.span}</span>
           </div>
           {e.roles.map((r, i) => (
@@ -50,14 +56,14 @@ const when = (r: Role) =>
                 {r.current && (r.badge ?? currentLabel) && <span class="tl-badge">{r.badge ?? currentLabel}</span>}
               </div>
               <div class="tl-when">{when(r)}</div>
-              {r.summary && <p class="tl-text">{r.summary}{r.link && <> <a class="tl-link" href={r.link.href}>{r.link.label}</a></>}</p>}
+              {r.summary && <p class="tl-text">{r.summary}{r.link && <> <a class="tl-link" href={r.link.href}>{arrow(r.link.label).text}{arrow(r.link.label).mark && <> <span aria-hidden="true">{arrow(r.link.label).mark}</span></>}</a></>}</p>}
               {r.bullets.length > 0 && <ul class="tl-bullets">{r.bullets.map((b) => <li>{b}</li>)}</ul>}
               {r.details.length > 0 && (
                 <div class="tl-details">
                   {r.details.map((d) => (
                     <div>
                       <span class="tl-detail-label">{d.label} · </span>
-                      {d.href ? <a class="tl-detail-link" href={d.href}>{d.value}</a> : d.value}
+                      {d.href ? <a class="tl-detail-link" href={d.href}>{arrow(d.value).text}{arrow(d.value).mark && <> <span aria-hidden="true">{arrow(d.value).mark}</span></>}</a> : d.value}
                     </div>
                   ))}
                 </div>

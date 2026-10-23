@@ -4,6 +4,7 @@
 // venue in italic serif, TL;DR and one link pill per entry in `links`. The schema has no paper URL, so the
 // title is plain text (the prototype's href="#" is not carried over); external pills get the ↗ mark.
 import { getCollection } from 'astro:content';
+import { site } from '../../data/site';
 
 const SELF = 'U. K. Tumpa';
 const papers = (await getCollection('publications')).sort((a, b) => a.data.order - b.data.order);
@@ -20,7 +21,7 @@ const external = (href: string) => /^https?:\/\//.test(href);
 <section class="res-section res-pub" data-anim="up" aria-labelledby="h-pub">
   <div class="pub-head">
     <h2 id="h-pub" class="label res-label">02 · publications</h2>
-    <a class="pub-scholar" href="https://scholar.google.com/citations?user=3iF7aUQAAAAJ&hl=en">google scholar ↗</a>
+    <a class="pub-scholar" href={site.links.scholar}>google scholar&nbsp;<span aria-hidden="true">↗</span></a>
   </div>
   {years.map((g) => (
     <div class="pub-group">

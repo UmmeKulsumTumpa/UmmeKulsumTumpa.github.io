@@ -4,13 +4,21 @@ import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import ReadingStats from '../components/reading/ReadingStats.astro';
 import Library from '../components/reading/Library.astro';
+// Page lead: shown under the title and used as the meta description.
+const lead = "Books, papers and articles I'm reading, have read, or mean to. Each one links to my notes when I have them.";
 ---
-<Base title="Reading" active="reading">
-  <PageHead slug="reading" title="The library" ghost="library" italicGhost>
-    Books, papers and articles I'm reading, have read, or mean to. Each one links to my notes when I have them.
-    <ReadingStats slot="after" />
-  </PageHead>
-  <main class="container">
-    <Library />
+<Base
+  title="Reading"
+  description={lead}
+  active="reading"
+>
+  <main>
+    <PageHead slug="reading" title="The library" ghost="library" italicGhost>
+      {lead}
+      <ReadingStats slot="after" />
+    </PageHead>
+    <div class="container">
+      <Library />
+    </div>
   </main>
 </Base>

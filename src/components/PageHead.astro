@@ -11,7 +11,7 @@ const { slug, title, ghost, italicGhost = false } = Astro.props;
 <header class:list={['ph', `ph-${slug}`]}>
   <div class:list={['ph-ghost', italicGhost && 'ph-ghost-italic']} data-parallax="0.4" aria-hidden="true">{ghost}</div>
   <div class="container ph-inner">
-    <a class="ph-crumb" data-anim="blur" href="/">~/ummekulsumtumpa/{slug}</a>
+    <a class="ph-crumb tap-target" data-anim="blur" href="/">~/ummekulsumtumpa/{slug}</a>
     <div class="ph-text">
       <div class="label ph-label" data-anim="blur">§ {slug}</div>
       <h1 class="ph-title" data-anim="mask"><span class="d1">{title}</span></h1>

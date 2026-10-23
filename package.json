@@ -1,12 +1,13 @@
 {
   "name": "ummekulsumtumpa.github.io",
   "type": "module",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "private": true,
   "description": "Personal website of Umme Kulsum Tumpa: software engineer and LLM researcher.",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "check": "astro check",
     "preview": "astro preview",
     "sync": "astro sync",
     "shots": "node scripts/shots.mjs"
@@ -14,14 +15,17 @@
   "dependencies": {
     "@astrojs/react": "^7.1.1",
     "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.4",
     "astro": "^7.4.2",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.12",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "playwright": "^1.64.1"
+    "playwright": "^1.64.1",
+    "typescript": "^6.0.3"
   },
   "engines": {
     "node": ">=22.23.4"

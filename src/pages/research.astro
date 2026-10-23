@@ -6,15 +6,22 @@ import Interests from '../components/research/Interests.astro';
 import Publications from '../components/research/Publications.astro';
 import InProgress from '../components/research/InProgress.astro';
 import TalksCollaborators from '../components/research/TalksCollaborators.astro';
+// The meta description is the lead's first clause (the full lead is about 260 characters), so it is a separate literal.
 ---
-<Base title="Research" active="research">
-  <PageHead slug="research" title="Research" ghost="inference">
-    At <span class="ph-em">BARTA Research Lab</span>, IIT, University of Dhaka, I work on NLP, large language models and AI agents: LLM-based analysis of health discussions on social media, cross-lingual evaluation of LLM agents in Bangla, and, for my M.Sc. thesis, adaptive inference for efficient LLMs.
-  </PageHead>
-  <main class="container">
-    <Interests />
-    <Publications />
-    <InProgress />
-    <TalksCollaborators />
+<Base
+  title="Research"
+  description="At BARTA Research Lab, IIT, University of Dhaka, I work on NLP, large language models and AI agents."
+  active="research"
+>
+  <main>
+    <PageHead slug="research" title="Research" ghost="inference">
+      At <span class="ph-em">BARTA Research Lab</span>, IIT, University of Dhaka, I work on NLP, large language models and AI agents: LLM-based analysis of health discussions on social media, cross-lingual evaluation of LLM agents in Bangla, and, for my M.Sc. thesis, adaptive inference for efficient LLMs.
+    </PageHead>
+    <div class="container">
+      <Interests />
+      <Publications />
+      <InProgress />
+      <TalksCollaborators />
+    </div>
   </main>
 </Base>

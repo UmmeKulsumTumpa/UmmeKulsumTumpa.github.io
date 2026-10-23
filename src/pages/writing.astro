@@ -1,20 +1,27 @@
 ---
-// Featured post, then all posts with the tag filter. The post page and RSS come in #20.
+// Featured post, then all posts with the tag filter. Post pages: writing/[...slug].astro; feed: rss.xml.ts.
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import FeaturedPost from '../components/writing/FeaturedPost.astro';
 import PostList from '../components/writing/PostList.astro';
+// The meta description is the lead without its [placeholder] sentence, so it is a separate literal.
 ---
-<Base title="Writing" active="writing">
-  <PageHead slug="writing" title="Writing" ghost="notes" italicGhost>
-    Notes on LLMs, building software, and the books and ideas I can't stop thinking about. [Posting cadence, if you want to commit to one.]
-    <div class="writing-feeds" slot="after-lead">
-      <a href="/rss.xml">rss ↗</a>
-      <a href="#">subscribe by email ↗</a>
+<Base
+  title="Writing"
+  description="Notes on LLMs, building software, and the books and ideas I can't stop thinking about."
+  active="writing"
+>
+  <main>
+    <PageHead slug="writing" title="Writing" ghost="notes" italicGhost>
+      Notes on LLMs, building software, and the books and ideas I can't stop thinking about. [Posting cadence, if you want to commit to one.]
+      <div class="writing-feeds" slot="after-lead">
+        <a class="tap-target" href="/rss.xml">rss <span aria-hidden="true">↗</span></a>
+        <a class="tap-target" href="#">subscribe by email <span aria-hidden="true">↗</span></a>
+      </div>
+    </PageHead>
+    <div class="container">
+      <FeaturedPost />
+      <PostList />
     </div>
-  </PageHead>
-  <main class="container">
-    <FeaturedPost />
-    <PostList />
   </main>
 </Base>

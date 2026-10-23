@@ -98,7 +98,7 @@ ThemeToggle, LocalTime, Base layout, and CSS). Reuse them as a starting point, b
 | `--faint` | `#82858f` (5.1:1 on bg) | `#666873` (5.3:1) |
 | `--accent` | `#b9a6ff` | `#5b32d6` |
 
-Fonts (Google Fonts): **Instrument Serif** (display: name, page titles, section titles, big numbers),
+Fonts (self-hosted with Astro's Fonts API, Google Fonts files): **Instrument Serif** (display: name, page titles, section titles, big numbers),
 **IBM Plex Sans** (body), **IBM Plex Mono** (labels, meta, code). Labels are mono 11–12px, letter-spacing 0.08em.
 Container max-width 1280px, gutter 32px (20px under 640px). Card radius 16px; tiles 14–22px.
 
@@ -229,7 +229,7 @@ On-brand: serif "Lost in context.", link home, dock.
 ## 7. Performance & SEO
 
 - Ship zero JS except islands + `motion.ts`; islands use `client:visible` / `client:idle` (theme toggle `client:load`).
-- Fonts: `display=swap`, preconnect. Images: Astro `<Image>` for portrait/screenshots.
+- Fonts: self-hosted with Astro's Fonts API (Google Fonts files), `display: swap`, preloaded. Images: Astro `<Image>` for portrait/screenshots.
 - `<title>`, meta description, canonical, Open Graph per page; `@astrojs/sitemap`; `robots.txt`; favicon.svg.
 
 ## 8. Acceptance (whole site)

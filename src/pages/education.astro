@@ -5,14 +5,22 @@ import PageHead from '../components/PageHead.astro';
 import EducationTimeline from '../components/education/EducationTimeline.astro';
 import CourseArchive from '../components/education/CourseArchive.astro';
 import Activities from '../components/education/Activities.astro';
+// Page lead: shown under the title and used as the meta description.
+const lead = 'A thesis-based M.Sc. in progress and a B.Sc. in Software Engineering at IIT, University of Dhaka, after SSC and HSC in science.';
 ---
-<Base title="Education" active="education">
-  <PageHead slug="education" title="Education" ghost="learning" italicGhost>
-    A thesis-based M.Sc. in progress and a B.Sc. in Software Engineering at IIT, University of Dhaka, after SSC and HSC in science.
-  </PageHead>
-  <main class="container">
-    <EducationTimeline />
-    <CourseArchive />
-    <Activities />
+<Base
+  title="Education"
+  description={lead}
+  active="education"
+>
+  <main>
+    <PageHead slug="education" title="Education" ghost="learning" italicGhost>
+      {lead}
+    </PageHead>
+    <div class="container">
+      <EducationTimeline />
+      <CourseArchive />
+      <Activities />
+    </div>
   </main>
 </Base>

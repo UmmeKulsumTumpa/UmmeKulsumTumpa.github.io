@@ -1,14 +1,12 @@
 ---
 import { getCollection } from 'astro:content';
 import { getReading } from '../../lib/reading';
+import { getPosts } from '../../lib/posts';
 
 // Live numbers (SPEC §5.1 item 3): counts and latest entries come from the collections.
 const projects = await getCollection('projects');
 const publications = await getCollection('publications');
-const posts = (await getCollection('writing', ({ data }) => !data.draft)).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-);
-const [latest] = posts;
+const [latest] = await getPosts(); // newest first, drafts left out of production builds
 const book = (await getReading()).find(({ data }) => data.status === 'reading');
 
 const numbers = [
@@ -79,7 +77,7 @@ const list = [
             <div class="glimpse-meta">published · IEEE BigData 2025</div>
             <div class="glimpse-research-title">Voices of Care: LLM-assisted analysis of dementia discourse on Reddit</div>
           </div>
-          <div class="glimpse-sub"><span class="accent">now →</span> cross-lingual evaluation of LLM agents in Bangla</div>
+          <div class="glimpse-sub"><span class="accent">now <span aria-hidden="true">→</span></span> cross-lingual evaluation of LLM agents in Bangla</div>
         </div>
         <div class="glimpse-bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
       </div>

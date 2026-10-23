@@ -73,7 +73,7 @@ function Rows({ list }: { list: Item[] }) {
             <span className={cx('rd-status', `rd-status-${r.status}`)}>{r.status}</span>
             {r.notes && (
               <a className="rd-notes" href={r.href}>
-                notes<span className="visually-hidden"> on {r.title}</span> →
+                notes<span className="visually-hidden"> on {r.title}</span> <span aria-hidden="true">→</span>
               </a>
             )}
           </span>
@@ -131,7 +131,7 @@ export default function ReadingLibrary({ items, heading }: Props) {
               type="button"
               role="tab"
               id={tabId(t.id)}
-              className="rd-tab"
+              className="rd-tab tap-target"
               aria-selected={t.id === kind}
               aria-controls={panelId}
               tabIndex={t.id === kind ? 0 : -1}

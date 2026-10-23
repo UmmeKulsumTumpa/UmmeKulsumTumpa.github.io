@@ -31,10 +31,10 @@
 .tl-text { margin-top: 8px; max-width: 46em; font-size: 15px; line-height: 1.7; color: var(--muted); }
 .tl-link { color: var(--accent); }
 .tl-bullets { box-sizing: content-box; margin: 10px 0 0; padding-left: 18px; max-width: 46em; font-size: 15px; line-height: 1.7; color: var(--muted); }
-.tl-details { margin-top: 12px; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px 32px; font-size: 15px; }
+.tl-details { margin-top: 12px; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); gap: 10px 32px; font-size: 15px; }
 .tl-details > :only-child { grid-column: 1 / -1; }
 .tl-detail-label { font-family: var(--mono); font-size: 12px; color: var(--faint); }
-.tl-courses { margin-top: 14px; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
+.tl-courses { margin-top: 14px; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 10px; }
 .tl-course { padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
 .tl-course-name { font-size: 15px; font-weight: 500; }
 .tl-course-note { margin-top: 2px; font-size: 13px; color: var(--muted); }

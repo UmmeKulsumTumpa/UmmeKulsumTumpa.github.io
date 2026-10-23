@@ -32,23 +32,28 @@
   font-family: var(--mono); font-size: 12px; color: var(--faint);
   transition: transform 0.7s var(--ease);
 }
-.proj-card:hover .proj-shot { transform: scale(1.05); }
+.proj-card:hover .proj-shot, .proj-card:has(.proj-link:focus-visible) .proj-shot { transform: scale(1.05); }
 .proj-body { padding: 22px 24px 24px; }
 .proj-meta { font-family: var(--mono); font-size: 11px; color: var(--faint); }
 .proj-meta + .proj-title { margin-top: 4px; }
 .proj-title { font-size: 19px; font-weight: 600; line-height: 1.65; }
 /* Stretched link: the title link covers the whole card. */
 .proj-link::after { content: ''; position: absolute; inset: 0; border-radius: inherit; }
-.proj-card:hover .proj-link { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+.proj-card:hover .proj-link, .proj-link:focus-visible { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
 .proj-link:focus-visible { outline: none; }
 .proj-card:has(.proj-link:focus-visible) { outline: 2px solid var(--accent); outline-offset: 3px; }
+/* The ring is on the card, but focus scrolls only the link into view, so a tall card's top could stay off screen.
+   The scroll margin reaches from the link up past the card's top edge and ring: the 16:10 media is 62.5% of the
+   card's inner width (cqi), plus ~50px of border, padding and meta line above the title, plus 14px of room. */
+.proj-card { container-type: inline-size; }
+.proj-link { scroll-margin-top: calc(62.5cqi + 64px); }
 .proj-line { margin-top: 6px; font-size: 15px; color: var(--muted); }
 .proj-inline { position: relative; z-index: 1; color: var(--text); }
 .proj-stack { margin-top: 12px; font-family: var(--mono); font-size: 12px; color: var(--faint); }
 
 @media (prefers-reduced-motion: reduce) {
   .proj-shot { transition: none; }
-  .proj-card:hover .proj-shot { transform: none; }
+  .proj-card:hover .proj-shot, .proj-card:has(.proj-link:focus-visible) .proj-shot { transform: none; }
 }
 
 /* ---------- 03 · toolbox (src/components/experience/Toolbox.astro) ---------- */

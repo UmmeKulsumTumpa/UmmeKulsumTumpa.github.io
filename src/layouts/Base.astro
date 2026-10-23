@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { Font } from 'astro:assets';
 import Dock from '../components/Dock.astro';
 import Footer from '../components/Footer.astro';
 import { site, type NavId } from '../data/site';
@@ -9,10 +10,17 @@ interface Props {
   description?: string;
   /** Page highlighted in the dock (none on the 404 page). */
   active?: NavId;
+  /** Keep the page out of search results (the 404 page). */
+  noindex?: boolean;
+  /** Open Graph type: `article` for writing posts, `website` everywhere else. */
+  ogType?: 'website' | 'article';
 }
-const { title, description = site.description, active } = Astro.props;
+const { title, description = site.description, active, noindex = false, ogType = 'website' } = Astro.props;
 const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.role}`;
+// Not on noindex pages: the 404 page has no real URL of its own to point at.
 const canonical = new URL(Astro.url.pathname, Astro.site);
+// Shared social preview card (public/og.png, 1200×630): name + role on the dark background.
+const ogImage = new URL('/og.png', Astro.site);
 ---
 
 <!doctype html>
@@ -20,11 +28,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Before paint: apply the saved theme (no flash of the wrong colours), then preload
+    <!-- Before paint: mark that JS runs (html[data-js]: CSS can lay islands out as they will hydrate),
+         apply the saved theme (no flash of the wrong colours), then preload
          the full-size background for that theme (phones use the 1920 WebP instead). -->
     <script is:inline>
       (function () {
         var root = document.documentElement;
+        root.setAttribute('data-js', '');
         try {
           var saved = localStorage.getItem('theme');
           if (saved === 'light' || saved === 'dark') root.dataset.theme = saved;
@@ -59,18 +69,24 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     </script>
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    {!noindex && <link rel="canonical" href={canonical} />}
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="application/rss+xml" title={`Writing · ${site.name}`} href="/rss.xml" />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonical} />
+    <meta property="og:type" content={ogType} />
+    {!noindex && <meta property="og:url" content={canonical} />}
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${site.name} · ${site.role}`} />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
-    />
+    <Font cssVariable="--font-instrument-serif" preload />
+    <Font cssVariable="--font-plex-sans" preload />
+    <Font cssVariable="--font-plex-mono" preload />
   </head>
   <body id="top">
     <div class="bg" aria-hidden="true">
