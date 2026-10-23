@@ -213,7 +213,7 @@ styles, back link, date, tags, reading time, previous/next. Add `/rss.xml` (`@as
 Header (ghost "library"), counts (books in <year>, papers read, notes written, all computed; "books in <year>" counts books whose
 `finished` date is in the current year). React island: tabs Books / Papers / Articles, status pills all / reading / finished / queued.
 Books render as covers (2:3, spine edge, rule below the title, accent on "reading"); papers/articles as rows with year, title
-(links to the entry's `url` in a new tab when it has one), source, italic "why", status, "notes →" (links to `/reading/<slug>/` when
+(links to the entry's `url` when it has one), source, italic "why", status, "notes →" (links to `/reading/<slug>/` when
 the entry has a body).
 On phones (≤640px) the head follows `MobileReading.dc.html`: crumb "← ~/reading", the one-line lead "Books, papers and articles:
 reading, read, or next.", no "§ reading" label and two counters (no "notes written"). Other pages keep their desktop head copy
