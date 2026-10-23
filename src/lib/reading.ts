@@ -18,3 +18,12 @@ export async function getReading(): Promise<Entry[]> {
 export const hasNotes = (entry: Entry) => Boolean(entry.body?.trim());
 
 export const notesHref = (entry: Entry) => `/reading/${entry.id}/`;
+
+/**
+ * What's on the desk (Home hero "reading" line and Glimpse tile): the first book being read, else the
+ * first entry of any kind being read, else undefined.
+ */
+export async function getCurrentRead(): Promise<Entry | undefined> {
+  const reading = (await getReading()).filter(({ data }) => data.status === 'reading');
+  return reading.find(({ data }) => data.kind === 'book') ?? reading[0];
+}

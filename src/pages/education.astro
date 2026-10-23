@@ -1,10 +1,11 @@
 ---
-// Timeline, course-project archive, then awards & activities + hackathons & contests.
+// Timeline, course-project archive, awards & activities + hackathons & contests, then certifications.
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import EducationTimeline from '../components/education/EducationTimeline.astro';
 import CourseArchive from '../components/education/CourseArchive.astro';
 import Activities from '../components/education/Activities.astro';
+import Certifications from '../components/education/Certifications.astro';
 // Page lead: shown under the title and used as the meta description.
 const lead = 'A thesis-based M.Sc. in progress and a B.Sc. in Software Engineering at IIT, University of Dhaka, after SSC and HSC in science.';
 ---
@@ -21,6 +22,7 @@ const lead = 'A thesis-based M.Sc. in progress and a B.Sc. in Software Engineeri
       <EducationTimeline />
       <CourseArchive />
       <Activities />
+      <Certifications />
     </div>
   </main>
 </Base>

@@ -28,6 +28,7 @@ const reading = defineCollection({
     status: z.enum(['reading', 'finished', 'queued']),
     topic: z.string().optional(),
     year: z.union([z.number(), z.string()]).optional(),
+    finished: z.coerce.date().optional(), // the day you finished it; books finished this year count in "books in <year>"
     url: z.url().optional(),
     why: z.string().optional(),
     draft: z.boolean().default(false),
@@ -66,6 +67,7 @@ const role = z.object({
   link: z.object({ label: z.string(), href: z.string() }).optional(), // shown after the summary
   details: z.array(z.object({ label: z.string(), value: z.string(), href: z.string().optional() })).default([]),
   courses: z.array(z.object({ name: z.string(), note: z.string() })).default([]),
+  progress: z.number().min(0).max(100).optional(), // thesis progress in %, shown on the Home education tile
 });
 
 const org = z.object({
@@ -102,10 +104,54 @@ const publications = defineCollection({
     authors: z.array(z.string()),
     venue: z.string(),
     year: z.number(),
+    short: z.string().optional(), // shorter title for the Home research tile (falls back to title)
+    venueShort: z.string().optional(), // shorter venue for the Home research tile (falls back to venue)
     tldr: z.string().optional(),
     links: z.array(z.object({ label: z.string(), href: z.string() })).default([]),
     order: z.number(), // set by ordered(): position in the YAML file, not written by hand
   }),
 });
 
-export const collections = { writing, reading, experience, education, projects, publications };
+/** Experience "02 · selected projects": a `line` piece is plain text or a link shown inside the line. */
+const selectedProjects = defineCollection({
+  loader: ordered('src/content/selected-projects.yaml'),
+  schema: z.object({
+    id: z.string(),
+    title: z.string(),
+    href: z.string(),
+    meta: z.string().optional(),
+    line: z.array(z.union([z.string(), z.object({ text: z.string(), href: z.string() })])).min(1),
+    stack: z.string(),
+    order: z.number(), // set by ordered(): position in the YAML file, not written by hand
+  }),
+});
+
+/** Experience "03 · toolbox": one entry per column. */
+const toolbox = defineCollection({
+  loader: ordered('src/content/toolbox.yaml'),
+  schema: z.object({
+    id: z.string(),
+    name: z.string(),
+    items: z.array(z.string()).min(1),
+    order: z.number(), // set by ordered(): position in the YAML file, not written by hand
+  }),
+});
+
+/** Education "05 · certifications": thumbnail links to the full-size certificate image. */
+const certifications = defineCollection({
+  loader: ordered('src/content/certifications.yaml'),
+  schema: ({ image }) =>
+    z.object({
+      id: z.string(),
+      title: z.string(),
+      issuer: z.string(),
+      date: z.string(), // shown as written, e.g. "Dec 2024"
+      note: z.string().optional(), // one line under the title
+      image: image(), // path relative to the YAML file, e.g. ../assets/certificates/<file>.jpg
+      alt: z.string(), // describes the certificate image
+      url: z.url().optional(), // issuer's verification page, shown as a link
+      order: z.number(), // set by ordered(): position in the YAML file, not written by hand
+    }),
+});
+
+export const collections = { writing, reading, experience, education, projects, publications, selectedProjects, toolbox, certifications };

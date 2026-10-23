@@ -2,12 +2,12 @@
 import { getReading, hasNotes } from '../../lib/reading';
 
 // Head counters (SPEC §5.6), computed from the reading collection at build time; drafts never count.
-// "books in <year>": books being read or finished whose `year` is the build year.
+// "books in <year>": books whose `finished` date falls in the build year.
 const entries = await getReading();
 const thisYear = new Date().getFullYear();
 const stats = [
   {
-    n: entries.filter(({ data }) => data.kind === 'book' && data.status !== 'queued' && String(data.year) === String(thisYear)).length,
+    n: entries.filter(({ data }) => data.kind === 'book' && data.finished?.getUTCFullYear() === thisYear).length,
     label: `books in ${thisYear}`,
   },
   { n: entries.filter(({ data }) => data.kind === 'paper' && data.status === 'finished').length, label: 'papers read' },

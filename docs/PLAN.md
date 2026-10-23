@@ -55,7 +55,7 @@ release `v0.0.1` exists.
 
 ## Phase 1: shell (layout, background, dock, theme, motion, page head, 404)
 
-Move from `docs/reference/` (see its README): `Base.astro`, `Dock.astro`, `PageHead.astro`, `ThemeToggle.tsx`,
+Move from the design-time drafts (formerly `docs/reference/`, removed after Phase 6): `Base.astro`, `Dock.astro`, `PageHead.astro`, `ThemeToggle.tsx`,
 `LocalTime.tsx`, all `styles/`. Write `src/components/Footer.astro`, `src/pages/404.astro`, `public/favicon.svg`.
 Create empty-but-valid stubs for the other routes (`education`, `experience`, `research`, `writing`, `reading`)
 using `Base` + `PageHead` only, so the dock links work.

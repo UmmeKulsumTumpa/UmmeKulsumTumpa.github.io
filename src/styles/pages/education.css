@@ -12,7 +12,9 @@
 .arc-title { margin-top: 8px; font-family: var(--serif); font-size: 34px; line-height: 1.15; }
 .arc-all { font-family: var(--mono); font-size: 13px; color: var(--muted); }
 .arc-filters { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 8px; }
-.arc-pill-n { opacity: 0.6; }
+/* Counts at full --faint (AA, #86); in the pressed pill they take its colour, full strength. */
+.arc-pill-n { color: var(--faint); }
+.arc-pill[aria-pressed='true'] .arc-pill-n { color: inherit; }
 .arc-grid { margin-top: 24px; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 16px; }
 .arc-card { display: block; color: var(--text); }
 .arc-card:hover { text-decoration: none; }
@@ -52,3 +54,29 @@
 a.edu-row { color: var(--text); }
 .edu-row-meta { font-family: var(--mono); font-size: 12px; color: var(--faint); }
 .edu-row-link { color: var(--muted); }
+
+/* ---------- certifications (src/components/education/Certifications.astro) ---------- */
+/* A full-width row under the two columns above (48px = their row gap). Rows reuse .edu-row; the
+   thumbnail (4:3 certificate) is the link to the full-size image. */
+.edu-cert { padding-top: 48px; }
+.edu-cert-row { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: 'thumb body date'; align-items: start; gap: 12px 20px; }
+.edu-cert-thumb { grid-area: thumb; display: block; width: 160px; border-radius: 8px; }
+.edu-cert-img {
+  display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 8px;
+  transition: transform 0.4s var(--ease), box-shadow 0.3s ease;
+}
+.edu-cert-thumb:hover .edu-cert-img, .edu-cert-thumb:focus-visible .edu-cert-img { transform: translateY(-3px); box-shadow: 0 0 0 1px var(--muted); }
+.edu-cert-body { grid-area: body; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.edu-cert-note { font-size: 14px; line-height: 1.55; color: var(--muted); }
+.edu-cert-verify { align-self: flex-start; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.edu-cert-date { grid-area: date; }
+
+@media (max-width: 640px) {
+  /* Date moves under the text; the 120×90 thumbnail stays a ≥44px touch target (SPEC §6). */
+  .edu-cert-row { grid-template-columns: auto minmax(0, 1fr); grid-template-areas: 'thumb body' 'thumb date'; gap: 8px 16px; }
+  .edu-cert-thumb { width: 120px; }
+  .edu-cert-verify { display: inline-flex; align-items: center; min-height: 44px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .edu-cert-img { transition: none; }
+}

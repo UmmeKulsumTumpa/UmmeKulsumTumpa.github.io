@@ -23,10 +23,13 @@ npm run dev        # http://localhost:4321
 | Degree | edit `src/content/education.yaml` |
 | Course project | edit `src/content/course-projects.yaml` |
 | Paper | edit `src/content/publications.yaml` |
+| Selected project (Experience) | edit `src/content/selected-projects.yaml` (newest first) |
+| Toolbox item (Experience) | edit `src/content/toolbox.yaml` |
+| Certificate (Education) | put the image in `src/assets/certificates/`, then edit `src/content/certifications.yaml` (newest first) |
 
 Open a PR into `develop`; the site updates when `develop` is released to `main` (see `docs/GIT-WORKFLOW.md`).
 
 ## Docs
 
 `docs/SPEC.md` (what to build), `docs/PLAN.md` (build phases), `docs/design/` (approved design screenshots), `CLAUDE.md` (rules for Claude Code).
-`docs/GIT-WORKFLOW.md` (Gitflow: issues, branches, commits, PRs, releases), `docs/KICKOFF-PROMPT.md` (the prompt that starts Claude Code).
+`docs/GIT-WORKFLOW.md` (Gitflow: issues, branches, commits, PRs, releases).

@@ -7,6 +7,7 @@ kind: book           # book | paper | article
 status: reading      # reading | finished | queued
 topic: history       # optional short tag
 year: 2026           # optional
+# finished: 2026-03-14 # optional (uncomment); the day you finished it (books finished this year count in "books in <year>")
 url: https://example.com   # optional link
 why: "Optional one line: why it matters to you."
 draft: false         # optional; true keeps it off the built site (npm run dev still shows it)

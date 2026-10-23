@@ -74,15 +74,15 @@ src/
   content/      all text & data (see §4)
   data/site.ts  name, links, nav order
 public/         bg/ (background images), grain.webp, favicon.svg, portrait, cv.pdf, og image
-docs/           SPEC.md, PLAN.md, design/, reference/
+docs/           SPEC.md, PLAN.md, GIT-WORKFLOW.md, design/
 ```
 
 Rules: class names are kebab-case and scoped by component prefix (`.tl-*`, `.dock-*`, `.about-*`).
 No colour literals outside `tokens.css`.
 No `!important`. No CSS-in-JS. Islands use the same global classes.
 
-`docs/reference/` holds draft components written during design (Dock, Timeline, PageHead, Hero, About,
-ThemeToggle, LocalTime, Base layout, and CSS). Reuse them as a starting point, but check them against this spec.
+The draft components written during design (formerly `docs/reference/`) were moved into `src/` in Phase 1 and removed
+after Phase 6; `src/` is the implementation.
 
 ## 3. Design system
 
@@ -93,9 +93,10 @@ ThemeToggle, LocalTime, Base layout, and CSS). Reuse them as a starting point, b
 | `--bg` | `#0b0c0f` | `#f7f7f8` |
 | `--surface` | `#121418` | `#eeeef1` |
 | `--border` | `#22252c` | `#dedee3` |
+| `--pill-border` | `#3c3f48` (inactive pills and status chips) | `#c3c3cb` |
 | `--text` | `#ececef` | `#131418` |
 | `--muted` | `#a3a6b0` | `#4b4d56` |
-| `--faint` | `#82858f` (5.1:1 on bg) | `#666873` (5.3:1) |
+| `--faint` | `#9597a0` (6.7:1 on bg) | `#5d5f69` (5.9:1) |
 | `--accent` | `#b9a6ff` | `#5b32d6` |
 
 Fonts (self-hosted with Astro's Fonts API, Google Fonts files): **Instrument Serif** (display: name, page titles, section titles, big numbers),
@@ -120,14 +121,14 @@ The images bake in the three glows of the prototype (violet `#7c6bff` top-left, 
 deep violet `#5b4fa8` bottom; dark opacity ≈ 0.30, light ≈ 0.16) on the page colour, so no CSS blur is needed.
 Layers back to front: `body` background `var(--bg)` → `.bg-image` (`background-size: cover`, `image-set()` AVIF→WebP,
 slow 40s drift of 2% translate + 4% scale) → `.grain`. Drift stops under `prefers-reduced-motion`.
-Reference implementation: `docs/reference/styles/components/background.css` + `docs/reference/layouts/Base.astro`.
+Implementation: `src/styles/components/background.css` + `src/layouts/Base.astro`.
 Compare against `docs/design/screenshots/home-desktop-01.jpg` (dark) and `home-light-01.jpg` (light).
 
 ### 3.3 Dock (navigation)
 
 Floating glass pill, bottom-centre, fixed. Order: **Home, Education, Experience, Research, Writing, Reading** | Email, Theme.
 macOS-style hover magnification (hovered 1.22×, neighbours 1.08×), tooltip label above, active page gets a dot + tint, `aria-current="page"`.
-Under 520px: 42px items, no tooltips, Email hidden. Slides up on load. No top nav bar anywhere.
+Under 520px: 42px items, no tooltips, Email hidden. On touch screens an item shrinks to 0.92× while pressed (off under reduced motion). Slides up on load. No top nav bar anywhere.
 
 ### 3.4 Motion vocabulary
 
@@ -146,11 +147,14 @@ script applies the saved theme before paint (no flash).
 | Collection | Source | Shape |
 |---|---|---|
 | `writing` | `src/content/writing/*.md` | title, date, summary, tags[llm/engineering/notes/essays], featured, draft |
-| `reading` | `src/content/reading/*.md` | title, author, kind[book/paper/article], status[reading/finished/queued], topic?, year?, url?, why? (+ Markdown notes) |
+| `reading` | `src/content/reading/*.md` | title, author, kind[book/paper/article], status[reading/finished/queued], topic?, year?, finished? (date), url?, why? (+ Markdown notes) |
 | `experience` | `src/content/experience.yaml` | org entries with `roles[]` (title, type, start, end, current, summary, bullets) |
-| `education` | `src/content/education.yaml` | same shape; roles = degrees (+ details[], courses[]) |
+| `education` | `src/content/education.yaml` | same shape; roles = degrees (+ details[], courses[], progress? = thesis progress in % for the Home education tile) |
 | `projects` | `src/content/course-projects.yaml` | id = GitHub repo name, category[spl/ai/sys/fund], lang, desc, course |
-| `publications` | `src/content/publications.yaml` | title, authors[], venue, year, tldr, links[] |
+| `publications` | `src/content/publications.yaml` | title, authors[], venue, year, tldr, links[], short?, venueShort? (shorter title and venue for the Home research tile) |
+| `selectedProjects` | `src/content/selected-projects.yaml` | Experience project cards: id, title, href, meta?, line[] (text, or { text, href } links inside the line), stack |
+| `toolbox` | `src/content/toolbox.yaml` | Experience toolbox columns, in page order: id, name, items[] |
+| `certifications` | `src/content/certifications.yaml` | Education certifications: id, title, issuer, date (as shown, e.g. "Dec 2024"), note?, image (certificate in `src/assets/certificates/`), alt, url? (verification page) |
 
 Files starting with `_` are templates and are ignored. YAML lists are **newest first**; the first role inside an
 org is the newest. `[Bracketed text]` is placeholder content the owner will fill in. Render it as-is; never invent replacements.
@@ -158,24 +162,25 @@ org is the newest. `[Bracketed text]` is placeholder content the owner will fill
 ## 5. Pages
 
 All pages: `Base` layout, shared background, dock, footer (© year · last updated · "hosted on GitHub Pages" · top ↑),
-bottom padding ≥ 150px so the dock never covers the last line.
+bottom padding ≥ 150px so the dock never covers the last line. On pages shorter than the viewport (the 404) the footer
+sits at the bottom of the viewport.
 
 ### 5.1 Home `/` (prototype: `docs/design/Main.dc.html`; screenshots `home-desktop-01…07`, `home-light-01`, `mobile-home-01…04`)
 
 1. **Hero:** top line `~/ummekulsumtumpa` + "Dhaka, BD · HH:MM (UTC+6)" live clock island; "hello, I'm" (mono, accent);
-   **name on one line**, Instrument Serif, `clamp(52px, 11.4vw, 172px)`, blinking accent caret; "SOFTWARE ENGINEER · RESEARCHER"
+   **name on one line**, Instrument Serif, `clamp(52px, 11.4vw, 163px)` (the cap keeps name + caret inside the 1280px container at any width), blinking accent caret; "SOFTWARE ENGINEER · RESEARCHER"
    tracked mono; italic serif statement (left) + "currently" block with pulsing dot (right). Faint dot grid + outlined
-   "context" ghost word with parallax.
+   "context" ghost word with parallax. On phones (≤640px) the top line is the short one from `MobileHome.dc.html`: `~/ukt` + "Dhaka · HH:MM".
 2. **About (§ 01):** heading "A little about me." on one line + `~/about.md · engineer · researcher · reader`.
    - Row: left `aside` (at-a-glance facts list, then "find me" links: email, scholar, github, linkedin, cv.pdf) and right the text:
      lead sentence (22px) + three paragraphs (17px, single column). **This layout is approved; do not restructure it.**
    - Row: **off the clock** (2×2 tiles: History, Philosophy, Books, Learning: index top-right, serif word, one-line note)
      on the left, **portrait** (4:5, placeholder until `public/portrait.jpg` exists, caption "Umme Kulsum Tumpa · Dhaka, 2026") on the right; equal height.
    - Row: full-width italic serif quote "Working with LLMs as both a researcher and an engineer…" with caption "— why I do both".
-3. **Glimpse (§ 02):** bento tiles linking to pages, in dock order: Education (M.Sc. + thesis progress bar), Experience
-   ("4 production projects", stack chips), Research (paper title + "now → Bangla agents"), By the numbers
+3. **Glimpse (§ 02):** bento tiles linking to pages, in dock order: Education (M.Sc. + thesis progress bar, value from `progress` in `education.yaml`), Experience
+   ("4 production projects", stack chips), Research (newest `publications.yaml` entry: `short` / `venueShort` when set, else title / venue; + "now → Bangla agents"), By the numbers
    (2 degrees, 1 paper, N course projects, where N comes from the collection), Writing (latest post or "first post coming soon"),
-   Reading (current book from `status: reading` + spines). Hover: lift + ring, arrow rotates.
+   Reading (current book: the first book with `status: reading`, else the first entry of any kind with it; + spines). Hover: lift + ring, arrow rotates.
    **On phones (<640px) the bento becomes a numbered list** (`01 Education → … 05 Reading`, serif title, one-line note, arrow), see `mobile-home-03.jpg`.
 4. **Token strip:** "fig. 0 — me, tokenized": two rows of tokenizer-style chips sliding in opposite directions; keywords in accent.
 5. **Contact:** "Say hello." (mask) + email button + links.
@@ -187,13 +192,15 @@ IIT DU [M.Sc. (current, thesis, supervisor, semester-1 course cards) → B.Sc. (
 Then **Course projects** archive: React island with filter pills (all / project labs / AI & ML / systems & SE / fundamentals, with counts),
 responsive card grid, each card links to `https://github.com/UmmeKulsumTumpa/<id>`. Then hackathons & contests
 (Code Samurai 2024, Cosmo Scope AI, KC Fest; links in prototype) and awards & activities (placeholders).
+Then **05 · certifications**, a full-width list in the same row style: per certificate a thumbnail (Astro `<Image>`)
+that links to the full-size image, title · issuer, an optional one-line note, and the date in the meta column.
 
 ### 5.3 Experience `/experience/` (`Experience.dc.html`; screenshots `experience-desktop-01…05`)
 
-Header (ghost "ship it"). Timeline newest first: Cefalo [Associate SE (current, full-time) → SE part-time → Intern], Fellowship.AI, BARTA Research Lab.
+Header (ghost "ship it"). Timeline newest first: Cefalo [Associate Software Engineer I (current, full-time) → Software Engineering Trainee (part-time) → Software Engineer Trainee (academic internship)], Fellowship.AI, BARTA Research Lab.
 Then selected projects (Cefalo Travel Connect + placeholders, image cards with zoom) and toolbox (Web, Mobile, Research, Practice).
 **Known prototype glitch:** in `experience-desktop-04-projects-GLITCH.jpg` the Cefalo Travel Connect text floats in the right column with
-stray boxes. Do not copy that. Every project card is one card: screenshot (16:10) on top, then meta line, title ↗, one line, stack;
+stray boxes. Do not copy that. Every project card is one card: screenshot (fixed 240px tall, as in `Experience.dc.html`) on top, then meta line, title ↗, one line, stack;
 two cards per row on desktop, one on phones. The "[Project name]" card in that same screenshot shows the correct card.
 
 ### 5.4 Research `/research/` (`Research.dc.html`; screenshots `research-desktop-01…04`)
@@ -204,15 +211,20 @@ talks & posters (placeholder), collaborators (from Scholar co-authors).
 
 ### 5.5 Writing `/writing/` and `/writing/<slug>/` (`Writing.dc.html`; screenshots `writing-desktop-01…03`)
 
-List: featured post card (first `featured: true`), tag filter pills (React island), rows with date, title, summary, tag, reading
+List: featured post card (first `featured: true`), tag filter pills (React island; on phones one horizontally scrolling row), rows with date, title, summary, tag, reading
 time (words / 220, rounded up). Drafts are hidden in production builds. Empty state when no posts. Post page uses `.prose`
 styles, back link, date, tags, reading time, previous/next. Add `/rss.xml` (`@astrojs/rss`).
 
 ### 5.6 Reading `/reading/` (`Reading.dc.html`, mobile: `MobileReading.dc.html`; screenshots `reading-desktop-01…04`, `reading-light-01-papers`, `mobile-reading-light-01…02`)
 
-Header (ghost "library"), counts (books this year, papers read, notes written, all computed). React island: tabs Books / Papers / Articles,
-status pills all / reading / finished / queued. Books render as covers (2:3, spine edge, accent rule on "reading"); papers/articles as rows
-with year, source, italic "why", status, "notes →" (links to `/reading/<slug>/` when the entry has a body).
+Header (ghost "library"), counts (books in <year>, papers read, notes written, all computed; "books in <year>" counts books whose
+`finished` date is in the current year). React island: tabs Books / Papers / Articles, status pills all / reading / finished / queued.
+Books render as covers (2:3, spine edge, rule below the title, accent on "reading"); papers/articles as rows with year, title
+(links to the entry's `url` when it has one), source, italic "why", status, "notes →" (links to `/reading/<slug>/` when
+the entry has a body).
+On phones (≤640px) the head follows `MobileReading.dc.html`: crumb "← ~/reading", the one-line lead "Books, papers and articles:
+reading, read, or next.", no "§ reading" label and two counters (no "notes written"). Other pages keep their desktop head copy
+and § label on phones.
 
 ### 5.7 404
 
@@ -221,7 +233,7 @@ On-brand: serif "Lost in context.", link home, dock.
 ## 6. Responsive & accessibility
 
 - Breakpoints by content, mainly 520 / 640 / 900 / 1280. Mobile reference: `docs/design/MobileHome.dc.html`, `MobileReading.dc.html`.
-- Name stays one line on desktop; two lines allowed on phones.
+- Name stays one line on desktop and never overflows the content box (capped at 163px); two lines allowed on phones.
 - Semantic landmarks (`header`, `main`, `nav`, `section` with `aria-labelledby`, `footer`), one `h1` per page.
 - Contrast AA in both themes; visible focus ring; all interactive controls are real `<a>`/`<button>`; touch targets ≥ 44px on mobile.
 - `prefers-reduced-motion`: no entrance motion, no parallax, no background drift, no caret blink.
@@ -242,5 +254,5 @@ On-brand: serif "Lost in context.", link home, dock.
 
 ## 9. Open content (owner to fill)
 
-Portrait, cv.pdf, SSC/HSC institutions + years + GPA, B.Sc. CGPA, M.Sc. supervisor/start year, Cefalo role dates,
-Fellowship.AI program/cohort/dates, BARTA start date, interest one-liners, paper TL;DR + PDF/DOI, course names per repo, first posts and reading list.
+Portrait, cv.pdf, Fellowship.AI start month + location, interest one-liners, paper TL;DR + PDF/DOI, course names and
+one-liners per repo, awards & activities, About tiles, current book, first posts and reading list.

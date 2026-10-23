@@ -1,13 +1,17 @@
 ---
 import { getCollection } from 'astro:content';
-import { getReading } from '../../lib/reading';
+import { getCurrentRead } from '../../lib/reading';
 import { getPosts } from '../../lib/posts';
 
 // Live numbers (SPEC §5.1 item 3): counts and latest entries come from the collections.
 const projects = await getCollection('projects');
 const publications = await getCollection('publications');
+// Education tile: thesis progress (%) from the education.yaml role that sets it.
+const thesis = (await getCollection('education')).flatMap(({ data }) => data.roles).find((r) => r.progress !== undefined);
+// Research tile: the newest paper (first in publications.yaml), in its short wording when given.
+const [paper] = [...publications].sort((a, b) => a.data.order - b.data.order);
 const [latest] = await getPosts(); // newest first, drafts left out of production builds
-const book = (await getReading()).find(({ data }) => data.status === 'reading');
+const book = await getCurrentRead(); // "on my desk": a book first (lib/reading.ts)
 
 const numbers = [
   // "2 degrees" stays literal (SPEC §5.1); no collection field states it.
@@ -47,7 +51,7 @@ const list = [
         </div>
         <div>
           <div class="glimpse-progress-label"><span>thesis · adaptive inference</span><span>in progress</span></div>
-          <div class="glimpse-progress" aria-hidden="true"><div class="glimpse-progress-bar"></div></div>
+          {thesis && <progress class="glimpse-progress" max="100" value={thesis.progress} aria-hidden="true"></progress>}
         </div>
       </div>
     </a>
@@ -73,10 +77,12 @@ const list = [
       <div class="glimpse-tile-in">
         <div class="glimpse-research-text">
           <div class="glimpse-tile-top"><span>03 · research</span><span class="glimpse-arrow" aria-hidden="true">→</span></div>
-          <div>
-            <div class="glimpse-meta">published · IEEE BigData 2025</div>
-            <div class="glimpse-research-title">Voices of Care: LLM-assisted analysis of dementia discourse on Reddit</div>
-          </div>
+          {paper && (
+            <div>
+              <div class="glimpse-meta">published · {paper.data.venueShort ?? paper.data.venue}</div>
+              <div class="glimpse-research-title">{paper.data.short ?? paper.data.title}</div>
+            </div>
+          )}
           <div class="glimpse-sub"><span class="accent">now <span aria-hidden="true">→</span></span> cross-lingual evaluation of LLM agents in Bangla</div>
         </div>
         <div class="glimpse-bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>

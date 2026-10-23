@@ -12,7 +12,14 @@ body {
   line-height: 1.65;
   overflow-x: clip;
   isolation: isolate;
+  /* Short pages (the 404): main grows so the footer sits at the bottom of the viewport. Taller pages are unchanged. */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100svh;
 }
+/* width: 100% so a main that is also a .container (404) keeps its width; auto side margins would shrink it. */
+body > main { flex: 1 0 auto; width: 100%; }
 a { color: inherit; text-decoration: none; }
 a:hover { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
 img { max-width: 100%; display: block; }

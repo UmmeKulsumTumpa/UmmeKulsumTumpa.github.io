@@ -13,13 +13,16 @@
 .ph-title { margin-top: 14px; font-family: var(--serif); font-weight: 400; font-size: clamp(64px, 9vw, 128px); line-height: 1; letter-spacing: -0.02em; }
 .ph-lead { margin-top: 28px; max-width: 36em; font-size: 19px; line-height: 1.7; color: var(--muted); }
 .ph-em { color: var(--text); }
+/* Optional phone variants of the crumb and lead (PageHead phoneCrumb, "lead-phone" slot). */
+.ph-phone { display: none; }
 
 @media (max-width: 640px) {
   .ph-ghost { right: auto; left: 60px; top: 50px; font-size: 200px; }
   .ph-inner { padding-top: 14px; padding-bottom: 24px; }
   .ph-crumb { font-size: 12px; }
   .ph-text { margin-top: 28px; }
-  .ph-label { display: none; }
-  .ph-title { margin-top: 0; font-size: 60px; }
+  .ph-title { font-size: 60px; }
   .ph-lead { margin-top: 14px; font-size: 15px; line-height: 1.65; }
+  .ph-wide { display: none; }
+  .ph-phone { display: inline; }
 }

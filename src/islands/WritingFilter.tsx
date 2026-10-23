@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type FocusEvent } from 'react';
 
 interface Row { id: string; href: string; date: string; title: string; summary: string; tags: string[]; minutes: number }
 interface Props {
@@ -9,6 +9,11 @@ interface Props {
 
 // Rows enter from alternate sides, 0.06s apart (Writing.dc.html), mapped to the nearest stagger class.
 const STAGGER = ['', 'd1', 'd2', 'd2', 'd3', 'd4'];
+
+// On phones the pills are one horizontally scrolling row, and Chrome does not scroll a partly hidden button into
+// view on focus, so its focus ring would stay cut off. Bring the focused pill fully into the row (instant, no smooth
+// scrolling, so nothing animates under reduced motion). Desktop rows wrap and never scroll, so this is a no-op there.
+const reveal = (e: FocusEvent<HTMLButtonElement>) => e.currentTarget.scrollIntoView({ block: 'nearest', inline: 'nearest' });
 
 /**
  * "All posts": tag filter pills over the post rows. The server renders every row, so the list
@@ -27,7 +32,7 @@ export default function WritingFilter({ posts, tags, heading }: Props) {
         <h2 id={heading} className="label wr-all-label">all posts · {shown.length}</h2>
         <div className="wr-filters" role="group" aria-label="Filter by topic" hidden={!ready}>
           {['all', ...tags].map((t) => (
-            <button key={t} type="button" className="pill-btn wr-pill" aria-pressed={t === tag} onClick={() => setTag(t)}>
+            <button key={t} type="button" className="pill-btn wr-pill" aria-pressed={t === tag} onClick={() => setTag(t)} onFocus={reveal}>
               {t}
             </button>
           ))}

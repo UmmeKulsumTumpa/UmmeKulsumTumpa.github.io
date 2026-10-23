@@ -55,8 +55,11 @@
 .wr-empty { padding: 26px 0; border-bottom: 1px solid var(--border); font-family: var(--mono); font-size: 13px; color: var(--faint); }
 
 @media (max-width: 640px) {
-  /* 44px touch targets (SPEC §6). */
-  .wr-pill { min-height: 44px; }
+  /* 44px touch targets (SPEC §6). The pills are one horizontally scrolling row, like Reading's phone pills (#93). */
+  /* The scroll box clips overflow, so 5px of padding (cancelled by -5px margin: no change at rest) leaves room for
+     the 2px + 3px focus ring; scroll-padding keeps it in view when focus scrolls the row. Same as .rd-pills. */
+  .wr-filters { flex-wrap: nowrap; overflow-x: auto; padding: 5px; margin: -5px; scroll-padding-inline: 5px; }
+  .wr-pill { flex: 0 0 auto; min-height: 44px; }
   /* No phone prototype for Writing: a tighter card so the 44px title does not fill the screen. */
   .wr-card { padding: 24px; }
   .wr-card-title { font-size: 34px; }
