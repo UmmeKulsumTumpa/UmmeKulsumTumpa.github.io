@@ -1,36 +1,50 @@
 ---
 import { getCollection } from 'astro:content';
+import { SHOW_PLACEHOLDERS, clean, keep, visible } from '../../lib/placeholder';
 
 // "02 · selected projects" (Experience.dc.html; SPEC §5.3), from src/content/selected-projects.yaml in file order.
 // Every card is one card: screenshot (240px tall), meta, title ↗, one line, stack.
 // The whole card is clickable through the title link's stretched ::after, so links inside the line
 // (e.g. "React frontend") are siblings, not nested anchors (the nesting caused the prototype glitch).
-const projects = (await getCollection('selectedProjects')).sort((a, b) => a.data.order - b.data.order).map((p) => p.data);
+// Placeholders (src/lib/placeholder.ts): a project whose title is a placeholder is not rendered in production,
+// and meta / line text goes through clean(). One project left: one full-width card (media left, text right).
+const all = (await getCollection('selectedProjects')).sort((a, b) => a.data.order - b.data.order).map((p) => p.data);
+const projects = keep(all, (p) => p.title);
+const single = projects.length === 1;
+
+// clean() a text piece of the line, keeping the space that joins it to a neighbouring link.
+const piece = (s: string) => {
+  const c = clean(s).trim();
+  if (!c) return '';
+  return (/^\s/.test(s) ? ' ' : '') + c + (/\s$/.test(s) ? ' ' : '');
+};
 ---
 
-<section class="exp-section proj" aria-labelledby="h-proj">
-  <div class="proj-head" data-anim="up">
-    <h2 id="h-proj" class="label proj-heading">02 · selected projects</h2>
-    <a class="proj-all" href="https://github.com/UmmeKulsumTumpa?tab=repositories">all repos&nbsp;<span aria-hidden="true">↗</span></a>
-  </div>
-  <div class="proj-grid">
-    {projects.map((p, i) => (
-      <article class:list={['proj-card', i % 2 === 1 && 'd1']} data-anim="zoom">
-        {/* No screenshots yet: dotted 240px placeholder. Swap in Astro <Image> once real images exist. */}
-        <div class="proj-media">
-          <div class="proj-shot" role="img" aria-label="Project screenshot placeholder">[screenshot]</div>
-        </div>
-        <div class="proj-body">
-          {p.meta && <div class="proj-meta">{p.meta}</div>}
-          <h3 class="proj-title">
-            <a class="proj-link" href={p.href}>{p.title} <span aria-hidden="true">↗</span></a>
-          </h3>
-          <p class="proj-line">
-            {p.line.map((part) => (typeof part === 'string' ? part : <a class="proj-inline link-underline" href={part.href}>{part.text}</a>))}
-          </p>
-          <div class="proj-stack">{p.stack}</div>
-        </div>
-      </article>
-    ))}
-  </div>
-</section>
+{projects.length > 0 && (
+  <section class="exp-section proj" aria-labelledby="h-proj">
+    <div class="proj-head" data-anim="up">
+      <h2 id="h-proj" class="label proj-heading">02 · selected projects</h2>
+      <a class="proj-all" href="https://github.com/UmmeKulsumTumpa?tab=repositories">all repos&nbsp;<span aria-hidden="true">↗</span></a>
+    </div>
+    <div class:list={['proj-grid', single && 'proj-grid-single']}>
+      {projects.map((p, i) => (
+        <article class:list={['proj-card', single && 'proj-card-wide', i % 2 === 1 && 'd1']} data-anim="zoom">
+          {/* No screenshots yet: dotted 240px frame (its bracket text shows in dev only). Swap in Astro <Image> once real images exist. */}
+          <div class="proj-media">
+            <div class="proj-shot" role="img" aria-label="Project screenshot placeholder">{SHOW_PLACEHOLDERS && '[screenshot]'}</div>
+          </div>
+          <div class="proj-body">
+            {p.meta && visible(clean(p.meta)) && <div class="proj-meta">{clean(p.meta)}</div>}
+            <h3 class="proj-title">
+              <a class="proj-link" href={p.href}>{p.title} <span aria-hidden="true">↗</span></a>
+            </h3>
+            <p class="proj-line">
+              {p.line.map((part) => (typeof part === 'string' ? piece(part) : <a class="proj-inline link-underline" href={part.href}>{part.text}</a>))}
+            </p>
+            <div class="proj-stack">{clean(p.stack)}</div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+)}
