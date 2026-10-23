@@ -64,9 +64,15 @@ function startEntrances(root: HTMLElement) {
     if (y !== lastY) { up = y < lastY; scrolledAt = performance.now(); }
     lastY = y;
   }, { passive: true });
-  const isAbove = (e: IntersectionObserverEntry) => {
+  // Where a non-intersecting element is: wholly above or below the viewport, not rendered (e.g. in a closed
+  // <details>), or inside the viewport but clipped by an ancestor (its own hidden offset can push it past a
+  // clipping parent, which would otherwise keep it from ever intersecting).
+  const where = (e: IntersectionObserverEntry) => {
     const r = e.boundingClientRect;
-    return r.top + r.height / 2 < (e.rootBounds?.height ?? window.innerHeight) / 2;
+    if (!r.width && !r.height) return 'none';
+    if (r.bottom <= (e.rootBounds?.top ?? 0)) return 'above';
+    if (r.top >= (e.rootBounds?.bottom ?? window.innerHeight)) return 'below';
+    return 'clipped';
   };
 
   // Hysteresis: enter at 12% visible, reset only once fully out. data-from-top mirrors the vertical offset of the
@@ -86,8 +92,12 @@ function startEntrances(root: HTMLElement) {
         const fromTop = el.hasAttribute('data-from-top');
         if (!e.isIntersecting) {
           // Fully out: hidden again, on the side it left by (not rendered, e.g. in a closed <details>: keep it).
-          const r = e.boundingClientRect;
-          const top = r.width || r.height ? isAbove(e) : fromTop;
+          const at = where(e);
+          if (at === 'clipped') { // on screen, hidden only by a clipping ancestor: enter it from where it is
+            if (!el.hasAttribute('data-in')) entering.push(el);
+            continue;
+          }
+          const top = at === 'none' ? fromTop : at === 'above';
           if (el.hasAttribute('data-in')) resets.push(el);
           if (top !== fromTop || el.hasAttribute('data-in')) jumps.push([el, top]);
         } else if (e.intersectionRatio >= 0.12 && !el.hasAttribute('data-in')) {
@@ -95,8 +105,8 @@ function startEntrances(root: HTMLElement) {
           const top = first ? fromTop : recent ? up : fromTop;
           if (top !== fromTop) jumps.push([el, top]);
           entering.push(el);
-        } else if (first && e.intersectionRatio < 0.12 && isAbove(e) !== fromTop) {
-          jumps.push([el, isAbove(e)]); // partly visible at the top edge on load: it will come in from above
+        } else if (first && e.intersectionRatio < 0.12 && e.boundingClientRect.top < (e.rootBounds?.top ?? 0) && !fromTop) {
+          jumps.push([el, true]); // cut by the top edge on load (restored scroll): it will come in from above
         }
       }
       if (jumps.length) {
