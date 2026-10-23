@@ -178,9 +178,12 @@
 .glimpse-tile:hover .glimpse-tile-in, .glimpse-tile:focus-visible .glimpse-tile-in {
   transform: translateY(-6px); box-shadow: 0 0 0 1px var(--ring), 0 24px 48px -24px rgba(0, 0, 0, 0.45);
 }
+/* Keyboard focus: the ring goes on the tile itself, so it follows the 22px corners and lifts with it. */
+.glimpse-tile:focus-visible { outline: none; }
+.glimpse-tile:focus-visible .glimpse-tile-in { outline: 2px solid var(--accent); outline-offset: 3px; }
 .glimpse-tile-top { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 12px; color: var(--faint); }
 .glimpse-arrow { display: inline-block; color: var(--text); transition: transform 0.45s var(--ease); }
-.glimpse-tile:hover .glimpse-arrow { transform: translateX(4px) rotate(-45deg); }
+.glimpse-tile:hover .glimpse-arrow, .glimpse-tile:focus-visible .glimpse-arrow { transform: translateX(4px) rotate(-45deg); }
 .glimpse-meta { font-family: var(--mono); font-size: 11px; color: var(--faint); }
 .glimpse-sub { font-size: 15px; color: var(--muted); }
 .glimpse-serif-40 { font-family: var(--serif); font-size: 40px; line-height: 1.05; }
@@ -245,7 +248,7 @@
 .glimpse-spines span:nth-child(2) { width: 18px; height: 128px; transition-delay: 0.04s; }
 .glimpse-spines span:nth-child(3) { width: 26px; height: 162px; transition-delay: 0.08s; }
 .glimpse-spines span:nth-child(4) { width: 16px; height: 136px; transition-delay: 0.12s; }
-.glimpse-tile:hover .glimpse-spines span { transform: translateY(-6px); }
+.glimpse-tile:hover .glimpse-spines span, .glimpse-tile:focus-visible .glimpse-spines span { transform: translateY(-6px); }
 
 /* phones: numbered list instead of the bento */
 .glimpse-list-title, .glimpse-list { display: none; }
