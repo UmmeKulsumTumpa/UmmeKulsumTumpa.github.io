@@ -11,8 +11,10 @@ interface Props {
   active?: NavId;
   /** Keep the page out of search results (the 404 page). */
   noindex?: boolean;
+  /** Open Graph type: `article` for writing posts, `website` everywhere else. */
+  ogType?: 'website' | 'article';
 }
-const { title, description = site.description, active, noindex = false } = Astro.props;
+const { title, description = site.description, active, noindex = false, ogType = 'website' } = Astro.props;
 const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.role}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 // Shared social preview card (public/og.png, 1200×630): name + role on the dark background.
@@ -68,7 +70,7 @@ const ogImage = new URL('/og.png', Astro.site);
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content={site.name} />
     <meta property="og:image" content={ogImage} />
