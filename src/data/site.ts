@@ -13,7 +13,7 @@ export const site = {
   links: {
     scholar: 'https://scholar.google.com/citations?user=3iF7aUQAAAAJ&hl=en',
     github: 'https://github.com/UmmeKulsumTumpa',
-    linkedin: 'https://linkedin.com/in/ummekulsumtumpa',
+    linkedin: 'https://www.linkedin.com/in/umme-kulsum-tumpa-082245288',
     leetcode: 'https://leetcode.com/iampilgrim_',
     cv: '/cv.pdf',
   },
