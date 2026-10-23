@@ -1,18 +1,15 @@
 ---
 interface Props {
-  slug: string; // breadcrumb + § label, e.g. "education"; also adds the .ph-<slug> hook for page CSS
+  slug: string; // breadcrumb, e.g. "education"; also adds the .ph-<slug> hook for page CSS
   title: string;
-  ghost: string; // big outlined word behind the header
-  italicGhost?: boolean;
   phoneCrumb?: boolean; // phones show the short crumb "← ~/<slug>" (MobileReading.dc.html)
 }
-const { slug, title, ghost, italicGhost = false, phoneCrumb = false } = Astro.props;
+const { slug, title, phoneCrumb = false } = Astro.props;
 // A "lead-phone" slot replaces the lead on phones (MobileReading.dc.html).
 const phoneLead = Astro.slots.has('lead-phone');
 ---
 
 <header class:list={['ph', `ph-${slug}`]}>
-  <div class:list={['ph-ghost', italicGhost && 'ph-ghost-italic']} data-parallax="0.4" aria-hidden="true">{ghost}</div>
   <div class="container ph-inner">
     <a class="ph-crumb tap-target" data-anim="blur" href="/">
       {phoneCrumb ? (
@@ -22,7 +19,6 @@ const phoneLead = Astro.slots.has('lead-phone');
       )}
     </a>
     <div class="ph-text">
-      <div class="label ph-label" data-anim="blur">§ {slug}</div>
       <h1 class="ph-title" data-anim="mask"><span class="d1">{title}</span></h1>
       <p class="ph-lead d4" data-anim="up">
         {phoneLead ? (
