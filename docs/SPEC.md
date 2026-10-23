@@ -146,7 +146,7 @@ script applies the saved theme before paint (no flash).
 | Collection | Source | Shape |
 |---|---|---|
 | `writing` | `src/content/writing/*.md` | title, date, summary, tags[llm/engineering/notes/essays], featured, draft |
-| `reading` | `src/content/reading/*.md` | title, author, kind[book/paper/article], status[reading/finished/queued], topic?, year?, url?, why? (+ Markdown notes) |
+| `reading` | `src/content/reading/*.md` | title, author, kind[book/paper/article], status[reading/finished/queued], topic?, year?, finished? (date), url?, why? (+ Markdown notes) |
 | `experience` | `src/content/experience.yaml` | org entries with `roles[]` (title, type, start, end, current, summary, bullets) |
 | `education` | `src/content/education.yaml` | same shape; roles = degrees (+ details[], courses[]) |
 | `projects` | `src/content/course-projects.yaml` | id = GitHub repo name, category[spl/ai/sys/fund], lang, desc, course |
@@ -210,9 +210,10 @@ styles, back link, date, tags, reading time, previous/next. Add `/rss.xml` (`@as
 
 ### 5.6 Reading `/reading/` (`Reading.dc.html`, mobile: `MobileReading.dc.html`; screenshots `reading-desktop-01…04`, `reading-light-01-papers`, `mobile-reading-light-01…02`)
 
-Header (ghost "library"), counts (books this year, papers read, notes written, all computed). React island: tabs Books / Papers / Articles,
-status pills all / reading / finished / queued. Books render as covers (2:3, spine edge, accent rule on "reading"); papers/articles as rows
-with year, source, italic "why", status, "notes →" (links to `/reading/<slug>/` when the entry has a body).
+Header (ghost "library"), counts (books in <year>, papers read, notes written, all computed; "books in <year>" counts books whose
+`finished` date is in the current year). React island: tabs Books / Papers / Articles, status pills all / reading / finished / queued.
+Books render as covers (2:3, spine edge, accent rule on "reading"); papers/articles as rows with year, source, italic "why", status,
+"notes →" (links to `/reading/<slug>/` when the entry has a body).
 
 ### 5.7 404
 
