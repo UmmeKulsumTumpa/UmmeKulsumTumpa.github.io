@@ -36,7 +36,7 @@ export default function ThemeToggle() {
 
   const label = theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme';
   return (
-    <button type="button" className="dock-item" onClick={toggle} aria-label={label}>
+    <button type="button" className="dock-item tap-target" onClick={toggle} aria-label={label}>
       <Icon d={SUN} className="dock-theme-dark" />
       <Icon d={MOON} className="dock-theme-light" />
       <span className="dock-tip" aria-hidden="true">

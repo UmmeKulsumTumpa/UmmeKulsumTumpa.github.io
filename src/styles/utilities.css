@@ -19,3 +19,11 @@
   background: transparent; color: var(--muted); font-family: var(--mono); font-size: 13px; cursor: pointer;
 }
 .pill-btn[aria-pressed='true'], .pill-btn[aria-selected='true'] { background: var(--text); border-color: var(--text); color: var(--bg); }
+
+/* 44px touch targets on phones (SPEC §6) without changing what is drawn: an invisible pseudo-element,
+   centred on the control, grows its hit area to at least 44×44 (it never shrinks a larger one).
+   Keep neighbouring controls ≥ 44px apart centre to centre so the enlarged areas don't overlap. */
+@media (max-width: 640px) {
+  .tap-target { position: relative; }
+  .tap-target::after { content: ''; position: absolute; inset: min(0px, calc(50% - 22px)); }
+}
