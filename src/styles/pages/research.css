@@ -75,5 +75,5 @@
 
 /* Phones: 44px touch target for the inline repo link (SPEC §6) without moving the row. */
 @media (max-width: 640px) {
-  .res-prog-link { display: inline-block; padding: 12px 0; margin: -12px 0 -12px 8px; }
+  .res-prog-link { display: inline-block; padding: 12px 0; margin: -12px 0 -12px 8px; line-height: 20px; } /* 20 + 2×12 = 44px */
 }
