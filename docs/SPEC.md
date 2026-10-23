@@ -81,8 +81,8 @@ Rules: class names are kebab-case and scoped by component prefix (`.tl-*`, `.doc
 No colour literals outside `tokens.css`.
 No `!important`. No CSS-in-JS. Islands use the same global classes.
 
-`docs/reference/` holds draft components written during design (Dock, Timeline, PageHead, Hero, About,
-ThemeToggle, LocalTime, Base layout, and CSS). Reuse them as a starting point, but check them against this spec.
+The draft components written during design (formerly `docs/reference/`) were moved into `src/` in Phase 1 and removed
+after Phase 6; `src/` is the implementation.
 
 ## 3. Design system
 
@@ -121,7 +121,7 @@ The images bake in the three glows of the prototype (violet `#7c6bff` top-left, 
 deep violet `#5b4fa8` bottom; dark opacity ≈ 0.30, light ≈ 0.16) on the page colour, so no CSS blur is needed.
 Layers back to front: `body` background `var(--bg)` → `.bg-image` (`background-size: cover`, `image-set()` AVIF→WebP,
 slow 40s drift of 2% translate + 4% scale) → `.grain`. Drift stops under `prefers-reduced-motion`.
-Reference implementation: `docs/reference/styles/components/background.css` + `docs/reference/layouts/Base.astro`.
+Implementation: `src/styles/components/background.css` + `src/layouts/Base.astro`.
 Compare against `docs/design/screenshots/home-desktop-01.jpg` (dark) and `home-light-01.jpg` (light).
 
 ### 3.3 Dock (navigation)
