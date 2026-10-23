@@ -14,6 +14,13 @@
   border: 1px solid var(--text); border-radius: 14px; font-family: var(--mono); font-size: 15px; color: var(--text);
 }
 .btn:hover { text-decoration: none; background: var(--surface); }
+/* Links told apart from the text around them by colour only (WCAG 1.4.1, #86): a thin, quiet underline at
+   rest (offset and thickness as the hover underline in base.css); hover brings it to full strength. */
+.link-underline {
+  text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px;
+  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+}
+.link-underline:hover { text-decoration-color: currentColor; }
 .pill-btn {
   min-height: 38px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--border);
   background: transparent; color: var(--muted); font-family: var(--mono); font-size: 13px; cursor: pointer;
