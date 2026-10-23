@@ -165,7 +165,7 @@ bottom padding ≥ 150px so the dock never covers the last line.
 1. **Hero:** top line `~/ummekulsumtumpa` + "Dhaka, BD · HH:MM (UTC+6)" live clock island; "hello, I'm" (mono, accent);
    **name on one line**, Instrument Serif, `clamp(52px, 11.4vw, 172px)`, blinking accent caret; "SOFTWARE ENGINEER · RESEARCHER"
    tracked mono; italic serif statement (left) + "currently" block with pulsing dot (right). Faint dot grid + outlined
-   "context" ghost word with parallax.
+   "context" ghost word with parallax. On phones (≤640px) the top line is the short one from `MobileHome.dc.html`: `~/ukt` + "Dhaka · HH:MM".
 2. **About (§ 01):** heading "A little about me." on one line + `~/about.md · engineer · researcher · reader`.
    - Row: left `aside` (at-a-glance facts list, then "find me" links: email, scholar, github, linkedin, cv.pdf) and right the text:
      lead sentence (22px) + three paragraphs (17px, single column). **This layout is approved; do not restructure it.**
