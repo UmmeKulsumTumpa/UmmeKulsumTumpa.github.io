@@ -1,12 +1,9 @@
 ---
-// "03 · toolbox" (Experience.dc.html; SPEC §5.3): Web, Mobile, Research, Practice. Copy verbatim from the
-// prototype, [bracket placeholders] included. Entrance delays 0 / 0.08 / 0.16 / 0.24s = '' / d1 / d2 / d3.
-const columns = [
-  { name: 'Web', items: ['React', 'Next.js', 'Node.js · Express', 'TypeScript'] },
-  { name: 'Mobile', items: ['Flutter', 'Dart', 'Firebase'] },
-  { name: 'Research', items: ['LLMs · NLP', 'AI agents', '[your ML stack]'] },
-  { name: 'Practice', items: ['spec-driven development', 'agent-assisted workflows', 'skills · hooks · plugins', 'code review'] },
-];
+import { getCollection } from 'astro:content';
+
+// "03 · toolbox" (Experience.dc.html; SPEC §5.3), from src/content/toolbox.yaml in file order (one entry per column).
+// Entrance delays 0 / 0.08 / 0.16 / 0.24s = '' / d1 / d2 / d3.
+const columns = (await getCollection('toolbox')).sort((a, b) => a.data.order - b.data.order).map((c) => c.data);
 const delays = ['', 'd1', 'd2', 'd3'];
 ---
 
