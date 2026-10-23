@@ -6,6 +6,8 @@ import ReadingStats from '../components/reading/ReadingStats.astro';
 import Library from '../components/reading/Library.astro';
 // Page lead: shown under the title and used as the meta description.
 const lead = "Books, papers and articles I'm reading, have read, or mean to. Each one links to my notes when I have them.";
+// Phones show a one-line lead instead (MobileReading.dc.html).
+const phoneLead = 'Books, papers and articles: reading, read, or next.';
 ---
 <Base
   title="Reading"
@@ -13,8 +15,9 @@ const lead = "Books, papers and articles I'm reading, have read, or mean to. Eac
   active="reading"
 >
   <main>
-    <PageHead slug="reading" title="The library" ghost="library" italicGhost>
+    <PageHead slug="reading" title="The library" ghost="library" italicGhost phoneCrumb>
       {lead}
+      <Fragment slot="lead-phone">{phoneLead}</Fragment>
       <ReadingStats slot="after" />
     </PageHead>
     <div class="container">
