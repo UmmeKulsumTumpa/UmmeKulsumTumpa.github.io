@@ -19,7 +19,7 @@ const [nameStart, nameEnd] = [site.name.slice(0, cut), site.name.slice(cut + 1)]
 
   <div class="container hero-inner">
     <div class="hero-top" data-anim="blur">
-      <a class="hero-path" href="/">~/{site.handle}</a>
+      <a class="hero-path tap-target" href="/">~/{site.handle}</a>
       <span>Dhaka, BD · <LocalTime client:idle timeZone={site.timezone} /> (UTC+6)</span>
     </div>
 
@@ -38,7 +38,7 @@ const [nameStart, nameEnd] = [site.name.slice(0, cut), site.name.slice(cut + 1)]
       <p class="hero-statement d6" data-anim="up">{site.statement}</p>
       <div class="hero-now d7" data-anim="from-right">
         <div class="hero-now-label"><span class="pulse" aria-hidden="true"></span>currently</div>
-        <div>building at <a class="hero-now-value" href="https://cefalo.com">{site.currently.building}</a></div>
+        <div>building at <a class="hero-now-value tap-target" href="https://cefalo.com">{site.currently.building}</a></div>
         <div>researching at <span class="hero-now-value">{site.currently.researching}</span></div>
         <div class="hero-now-thesis">thesis on <span class="hero-now-value">{site.currently.thesis}</span></div>
         <div class="hero-now-reading">reading <span class="hero-now-value">{book}</span></div>
