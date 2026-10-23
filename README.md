@@ -31,4 +31,4 @@ Open a PR into `develop`; the site updates when `develop` is released to `main` 
 ## Docs
 
 `docs/SPEC.md` (what to build), `docs/PLAN.md` (build phases), `docs/design/` (approved design screenshots), `CLAUDE.md` (rules for Claude Code).
-`docs/GIT-WORKFLOW.md` (Gitflow: issues, branches, commits, PRs, releases), `docs/KICKOFF-PROMPT.md` (the prompt that starts Claude Code).
+`docs/GIT-WORKFLOW.md` (Gitflow: issues, branches, commits, PRs, releases).

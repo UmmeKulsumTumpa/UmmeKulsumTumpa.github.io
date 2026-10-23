@@ -8,8 +8,7 @@ TypeScript strict, Markdown/YAML content, deployed to GitHub Pages by `.github/w
 1. `docs/SPEC.md`: what to build (source of truth).
 2. `docs/design/README.md` and every screenshot it lists for the page you touch: what it must look like.
 3. `docs/PLAN.md`: phase order and per-phase checks. Work one phase at a time.
-4. `docs/reference/README.md`: draft components to reuse.
-5. `docs/GIT-WORKFLOW.md`: issues, branches, commits, PRs, releases. Follow it for every change.
+4. `docs/GIT-WORKFLOW.md`: issues, branches, commits, PRs, releases. Follow it for every change.
 
 ## Rules
 
