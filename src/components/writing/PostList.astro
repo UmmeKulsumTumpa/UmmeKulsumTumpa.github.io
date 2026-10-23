@@ -18,11 +18,11 @@ const posts = (await getPosts()).map((p) => ({
 ) : (
   // Empty state (SPEC §5.5): nothing to filter yet, so no pills and no island JS.
   <section class="wr-all" aria-labelledby="h-all">
-    <div class="wr-all-head">
+    <div class="wr-all-head" data-anim="up">
       <h2 id="h-all" class="label wr-all-label">all posts · 0</h2>
     </div>
     <ul class="wr-rows" role="list">
-      <li class="wr-empty">first post coming soon</li>
+      <li class="wr-empty d1" data-anim="up">first post coming soon</li>
     </ul>
   </section>
 )}

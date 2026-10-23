@@ -2,28 +2,53 @@
 import { getCollection } from 'astro:content';
 import { keep } from '../../lib/placeholder';
 
-// Short dated lines from src/content/news.yaml, in file order (newest first); a line links to its page when it has an href.
+// "milestones": short dated lines from src/content/news.yaml, in file order (newest first); a line links to its page
+// when it has an href. The newest SHOWN lines are listed; older ones sit in a no-JS <details> ("Show N earlier").
 const news = keep(
   (await getCollection('news')).sort((a, b) => a.data.order - b.data.order).map(({ data }) => data),
   (n) => n.text,
 );
+const SHOWN = 6;
+const [recent, earlier] = [news.slice(0, SHOWN), news.slice(SHOWN)];
 ---
 
 {news.length > 0 && (
   <section class="container home-rail news" aria-labelledby="h-news">
-    <h2 id="h-news" class="label home-rail-label" data-anim="blur">news</h2>
-    <ol class="home-rail-list news-list" role="list">
-      {news.map((n) => {
-        const Row = n.href ? 'a' : 'div';
-        return (
-          <li data-anim="up">
-            <Row class="news-row" href={n.href}>
-              <span class="news-date">{n.date}</span>
-              <span class="news-text">{n.text}</span>
-            </Row>
-          </li>
-        );
-      })}
-    </ol>
+    <h2 id="h-news" class="label home-rail-label" data-anim="blur">milestones</h2>
+    <div class="news-body">
+      <ol class="home-rail-list news-list" role="list">
+        {recent.map((n) => {
+          const Row = n.href ? 'a' : 'div';
+          return (
+            <li data-anim="up">
+              <Row class="news-row" href={n.href}>
+                <span class="news-date">{n.date}</span>
+                <span class="news-text">{n.text}</span>
+              </Row>
+            </li>
+          );
+        })}
+      </ol>
+      {earlier.length > 0 && (
+        <details class="news-more" data-anim="up">
+          <summary class="news-more-sum">
+            <span class="news-more-show">+ Show {earlier.length} earlier</span><span class="news-more-hide">− Hide {earlier.length} earlier</span>
+          </summary>
+          <ol class="news-list news-list-earlier" role="list">
+            {earlier.map((n) => {
+              const Row = n.href ? 'a' : 'div';
+              return (
+                <li>
+                  <Row class="news-row" href={n.href}>
+                    <span class="news-date">{n.date}</span>
+                    <span class="news-text">{n.text}</span>
+                  </Row>
+                </li>
+              );
+            })}
+          </ol>
+        </details>
+      )}
+    </div>
   </section>
 )}

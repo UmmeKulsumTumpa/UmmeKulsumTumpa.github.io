@@ -68,7 +68,8 @@
   .arc-grid { grid-template-columns: minmax(0, 1fr); }
   /* The two summary-row items no longer fit on one line: the GitHub link follows the details. */
   .arc-sum { padding-right: 0; min-height: 44px; }
-  .arc-repos { position: static; display: inline-block; margin-top: 12px; }
+  /* Stays positioned (relative): its 44px tap area (.tap-target::after) must not grow over the whole <details>. */
+  .arc-repos { position: relative; top: auto; right: auto; display: inline-block; margin-top: 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .arc-card-in { transition: none; }

@@ -20,17 +20,17 @@ for (const p of papers) {
 const external = (href: string) => /^https?:\/\//.test(href);
 ---
 
-<section class="res-section res-pub" data-anim="up" aria-labelledby="h-pub">
-  <div class="pub-head">
+<section class="res-section res-pub" aria-labelledby="h-pub">
+  <div class="pub-head" data-anim="up">
     <h2 id="h-pub" class="label res-label">02 · publications</h2>
     <a class="pub-scholar" href={site.links.scholar}>google scholar&nbsp;<span aria-hidden="true">↗</span></a>
   </div>
   {years.map((g) => (
     <div class="pub-group">
-      <div class="pub-year">{g.year}</div>
+      <div class="pub-year" data-anim="blur">{g.year}</div>
       <div class="pub-list">
         {g.items.map(({ data: p }) => (
-          <article class="pub">
+          <article class="pub d1" data-anim="up">
             <div class="pub-body">
               <h3 class="pub-title">{p.title}</h3>
               <p class="pub-authors">

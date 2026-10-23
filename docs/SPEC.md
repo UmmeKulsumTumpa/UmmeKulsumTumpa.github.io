@@ -62,7 +62,7 @@ src/
   pages/        routes only; compose components; no <style>, no inline style=""
   layouts/      Base.astro: <head>, background, dock, motion script
   components/   *.astro, markup only (props in, HTML out); no inline styles/scripts
-    home/       Hero, News, SiteIndex, IconLinks, TokenStrip, Contact
+    home/       Hero, News, SiteIndex, IconLinks, TokenStrip
   islands/      *.tsx React components that need client JS; nothing else
   scripts/      *.ts browser behaviour (motion.ts); no DOM building
   styles/
@@ -75,7 +75,7 @@ src/
     global.css         @import manifest only
   content/      all text & data (see §4)
   data/site.ts  name, links, nav order
-public/         bg/ (background images), grain.webp, favicon.svg, portrait, cv.pdf, og image
+public/         bg/ (background images), grain.webp, favicon.svg, cv.pdf, og image (portrait: src/assets/portrait.jpg)
 docs/           SPEC.md, PLAN.md, GIT-WORKFLOW.md, design/
 ```
 
@@ -130,15 +130,27 @@ Compare against `docs/design/screenshots/home-desktop-01.jpg` (dark) and `home-l
 
 Floating glass pill, bottom-centre, fixed. Order: **Home, Education, Experience, Research, Writing, Reading** | Email, Theme.
 macOS-style hover magnification (hovered 1.22×, neighbours 1.08×), tooltip label above, active page gets a dot + tint, `aria-current="page"`.
+Hover effects apply only on devices that hover (`@media (hover: hover)`), so one tap navigates on touch screens; keyboard focus keeps them.
 Under 520px: 42px items, no tooltips, Email hidden. On touch screens an item shrinks to 0.92× while pressed (off under reduced motion). Slides up on load. No top nav bar anywhere.
 
 ### 3.4 Motion vocabulary
 
 Slide-style entrances when elements enter the viewport: `up`, `from-left`, `from-right`,
-`zoom`, `blur`, `mask` (line wipe for big headings). An element plays its entrance once, the first time it enters,
-and stays entered; scrolling back does not replay it. Stagger with `.d1`–`.d8`. Parallax (`data-parallax`) only on
-elements that still carry it; the ghost words and the hero dot grid are gone. Everything off under reduced motion; content
-must be fully visible with JS disabled (the hidden state only applies once `html[data-anim-ready]` is set).
+`zoom`, `blur`, `mask` (line wipe for big headings), on every page: page heads, section heads, timeline orgs and roles,
+list rows, cards. Entrances replay in both scroll directions:
+
+- Scrolling down, an element that comes in at the bottom of the viewport enters from below (as on first load).
+- Scrolling up, an element that comes in at the top enters from above: the vertical offset of `up`, `blur` and the
+  `mask` wipe is mirrored. `from-left`, `from-right` and `zoom` look the same either way.
+- An element enters once about 12% of it is visible and resets to hidden only when it is fully out of the viewport
+  (hysteresis, so nothing flickers at the edge). The reset jumps without a transition, so it plays again the next time
+  it enters, from whichever side that is.
+
+First-screen content enters from below on load. Stagger with `.d1`–`.d8`. Light parallax (`data-parallax`) only on
+elements that carry it; the ghost words and the hero dot grid are gone. Hydrated island copies of entered elements carry
+on without replaying. Everything off under reduced motion; content must be fully visible with JS disabled (the hidden
+state only applies once `html[data-anim-ready]` is set, and the head script in `Base.astro` shows everything if
+`motion.ts` never starts).
 
 ### 3.5 Theme
 
@@ -154,7 +166,7 @@ script applies the saved theme before paint (no flash).
 | `experience` | `src/content/experience.yaml` | org entries with `roles[]` (title, type, start, end, current, summary, bullets) |
 | `education` | `src/content/education.yaml` | same shape; roles = degrees (+ details[], courses[], progress? = thesis progress in % for the Home education tile) |
 | `projects` | `src/content/course-projects.yaml` | id = GitHub repo name, category[spl/ai/sys/fund], lang, desc, course, featured (default false; shown as a card on Education), title? (display title; else the id) |
-| `news` | `src/content/news.yaml` | Home News list, newest first: id, date (as shown, e.g. "Jul 2026"), text, href? (page the row links to) |
+| `news` | `src/content/news.yaml` | Home "milestones" list, newest first: id, date (as shown, e.g. "Jul 2026"), text, href? (page the row links to) |
 | `publications` | `src/content/publications.yaml` | title, authors[], venue, year, tldr, links[], short?, venueShort? (shorter title and venue for the Home research tile) |
 | `selectedProjects` | `src/content/selected-projects.yaml` | Experience project cards: id, title, href, meta?, line[] (text, or { text, href } links inside the line), stack |
 | `toolbox` | `src/content/toolbox.yaml` | Experience toolbox columns, in page order: id, name, items[] |
@@ -168,8 +180,7 @@ invent replacements. **Production builds hide placeholders; `npm run dev` shows 
 - a placeholder inside a string is removed together with its neighbouring separator (` · `, ` → `);
 - a section whose items are all placeholders is not rendered.
 
-Two frames stay on purpose, without their bracket text in production: the Home portrait frame (it holds the hero layout
-until `public/portrait.jpg` exists; the caption stays) and the project screenshot frame on Experience.
+One frame stays on purpose, without its bracket text in production: the project screenshot frame on Experience.
 Components use the helper in `src/lib/placeholder.ts`; no ad-hoc regexes.
 
 ## 5. Pages
@@ -183,15 +194,18 @@ Page heads (every page but Home): terminal breadcrumb `~/ummekulsumtumpa/<page>`
 
 ### 5.1 Home `/` (screenshots `v2/home-after-view`, `v2/home-after-full`; phones and light theme: `mobile-home-01…04`, `home-light-01`)
 
-Order: Hero → News → "around the site" → Token strip → Contact. No About, off-the-clock tiles, quote or bento.
+Order: Hero → Milestones → "around the site" → Token strip. No About, off-the-clock tiles, quote, bento or "Say hello." section
+(the hero's icon links and the dock's email cover contact).
 
 1. **Hero:** top line `~/ummekulsumtumpa` + "Dhaka, BD · HH:MM (UTC+6)" live clock island (12px); "hello, I'm" (mono, accent);
    **name on one line**, Instrument Serif, `clamp(52px, 7.2vw, 104px)`, blinking accent caret; "SOFTWARE ENGINEER · RESEARCHER"
-   tracked mono; bio (`site.bio`, named entities in `--text`); italic serif statement; icon links (email, Google Scholar,
-   GitHub, LinkedIn, CV), each with an `aria-label` and a dock-style tooltip on hover/focus (none on touch).
-   **Portrait** on the right (4:5, placeholder frame until `public/portrait.jpg` exists, caption "Umme Kulsum Tumpa · Dhaka, 2026").
-   No ghost word, no dot grid, no "currently" block. On phones (≤640px) the top line is the short one from `MobileHome.dc.html`: `~/ukt` + "Dhaka · HH:MM".
-2. **News:** from `news.yaml`, newest first. Label `news` in the left rail; rows of date (mono) and text; a row links to `href` when set.
+   tracked mono; bio (`site.bio`, named entities in `--text`); italic serif statement; icon links (Google Scholar
+   first and accented, then email, GitHub, LinkedIn, CV), each with an `aria-label` and a dock-style tooltip on hover/focus (none on touch).
+   **Portrait** on the right (no label above it; 4:5, `src/assets/portrait.jpg` through Astro `<Image>`, caption "Umme Kulsum Tumpa · Dhaka, 2026").
+   No ghost word, no dot grid, no "currently" block. On phones (≤640px) the top line keeps the full `~/ummekulsumtumpa`
+   (like the other pages' breadcrumb) with "Dhaka · HH:MM".
+2. **Milestones:** from `news.yaml`, newest first, written as one career sequence. Label `milestones` in the left rail; rows of
+   date (mono) and text; a row links to `href` when set. The newest 6 show; older ones sit in a no-JS `<details>` ("+ Show N earlier").
 3. **Around the site:** an index list, one row per page in dock order (Education, Experience, Research, Writing, Reading).
    Row = number, serif title, one live line, arrow; the whole row is one link. Live lines:
    Education "M.Sc. in Software Engineering, in progress" + thesis progress bar (value from `progress` in `education.yaml`);
@@ -199,7 +213,6 @@ Order: Hero → News → "around the site" → Token strip → Contact. No About
    (`short` / `venueShort` when set, else title / venue); Writing the latest post or "First post coming soon";
    Reading the current read (first book with `status: reading`, else the first entry of any kind with it) or "What's on my desk".
 4. **Token strip:** "fig. 0 — me, tokenized": two rows of tokenizer-style chips sliding in opposite directions; keywords in accent.
-5. **Contact:** "Say hello." (mask) + email button + icon links (the hero's set without email).
 
 Phones: the same order in a single column (name on two lines, portrait after the icon links, the index as a numbered list).
 
@@ -282,5 +295,5 @@ On-brand: serif "Lost in context.", link home, dock.
 
 ## 9. Open content (owner to fill)
 
-Portrait, cv.pdf, Fellowship.AI start month + location, interest one-liners, paper TL;DR + PDF/DOI, course names and
+cv.pdf (a personal CV, owner to prepare), Fellowship.AI location, interest one-liners, paper PDF, course names and
 one-liners per repo, awards & activities, current book, first posts and reading list.

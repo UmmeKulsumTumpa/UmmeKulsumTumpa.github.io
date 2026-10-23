@@ -17,11 +17,18 @@
   color: var(--dock-icon); background: transparent; border: 0; padding: 0; cursor: pointer;
   transition: transform 0.18s cubic-bezier(0.2, 0.7, 0.3, 1.4); transform-origin: 50% 100%;
 }
-.dock-item:hover, .dock-item:focus-visible { transform: translateY(-6px) scale(1.22); text-decoration: none; }
-.dock-item:hover + .dock-item,
-.dock-item:has(+ .dock-item:hover),
-.dock-email:hover ~ astro-island > .dock-item,
-.dock-email:has(~ astro-island > .dock-item:hover) { transform: translateY(-2px) scale(1.08); }
+.dock-item:hover { text-decoration: none; }
+.dock-item:focus-visible { transform: translateY(-6px) scale(1.22); }
+/* Magnify and tooltips only where a pointer really hovers: on touch screens iOS spends the first tap on
+   :hover, so a dock link needed two taps. Keyboard focus keeps the effect everywhere. */
+@media (hover: hover) {
+  .dock-item:hover { transform: translateY(-6px) scale(1.22); }
+  .dock-item:hover + .dock-item,
+  .dock-item:has(+ .dock-item:hover),
+  .dock-email:hover ~ astro-island > .dock-item,
+  .dock-email:has(~ astro-island > .dock-item:hover) { transform: translateY(-2px) scale(1.08); }
+  .dock-item:hover .dock-tip { opacity: 1; }
+}
 .dock-item[aria-current='page'] { background: var(--dock-active); }
 .dock-dot { position: absolute; bottom: 4px; left: 50%; margin-left: -2px; width: 4px; height: 4px; border-radius: 50%; background: var(--text); opacity: 0; }
 .dock-item[aria-current='page'] .dock-dot { opacity: 1; }
@@ -30,7 +37,7 @@
   font-size: 12px; padding: 5px 10px; border-radius: 8px; background: var(--dock-tip-bg); color: var(--text);
   border: 1px solid var(--dock-border); opacity: 0; transition: opacity 0.15s;
 }
-.dock-item:hover .dock-tip, .dock-item:focus-visible .dock-tip { opacity: 1; }
+.dock-item:focus-visible .dock-tip { opacity: 1; }
 .dock-sep { width: 1px; height: 28px; margin: 0 4px; background: var(--dock-border); }
 
 /* Theme button: show the icon, tooltip word and accessible name for the current theme (set before paint). */
@@ -48,7 +55,7 @@
   .dock-tip, .dock-email { display: none; }
 }
 /* Touch screens: a small press while an item is tapped (MobileHome.dc.html; #33). Off under reduced motion.
-   .dock-wrap .dock raises it to (0,4,0) so it beats the sticky-hover neighbour rules above (up to (0,3,1)). */
+   .dock-wrap .dock raises it to (0,4,0) so it beats the focus rule above. */
 @media (hover: none) and (prefers-reduced-motion: no-preference) {
   .dock-wrap .dock .dock-item:active { transform: scale(0.92); }
 }
