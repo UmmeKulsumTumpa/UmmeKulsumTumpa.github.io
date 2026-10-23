@@ -19,11 +19,11 @@ const items: Item[] = [
 ];
 ---
 
-<section class="res-section res-prog" data-anim="up" aria-labelledby="h-prog">
-  <h2 id="h-prog" class="label res-label">03 · in progress</h2>
+<section class="res-section res-prog" aria-labelledby="h-prog">
+  <h2 id="h-prog" class="label res-label" data-anim="up">03 · in progress</h2>
   <ul class="res-prog-list" role="list">
-    {items.map((it) => (
-      <li class="res-prog-row">
+    {items.map((it, i) => (
+      <li class:list={['res-prog-row', ['', 'd1', 'd2', 'd3'][Math.min(i, 3)]]} data-anim="from-left">
         <span class="res-prog-title">
           {it.title}
           {it.note && <span class="res-prog-note"> · {it.note}</span>}

@@ -1,7 +1,6 @@
 export const site = {
   name: 'Umme Kulsum Tumpa',
   handle: 'ummekulsumtumpa',
-  handleShort: 'ukt', // Home top line on phones (MobileHome.dc.html)
   role: 'Software Engineer · Researcher',
   description:
     'Software engineer at Cefalo Bangladesh and M.Sc. researcher at IIT, University of Dhaka, working on LLM efficiency, context management and adaptive inference.',

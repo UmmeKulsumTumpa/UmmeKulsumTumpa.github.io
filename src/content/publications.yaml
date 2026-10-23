@@ -7,7 +7,8 @@
   # Optional shorter wording for the Home research tile (newest paper only).
   short: "Voices of Care: LLM-assisted analysis of dementia discourse on Reddit"
   venueShort: IEEE BigData 2025
-  tldr: "[One-sentence TL;DR of the finding.]"
+  tldr: "A zero-shot LLM pipeline (Qwen-14B, GPT-4o) over 54.5K Reddit posts on Alzheimer's and dementia sorts posts by who is writing, extracts patient details and caregiver motivations, and finds 20 motivation clusters, 7 of them not reported in prior work."
   links:
     - { label: code, href: "https://github.com/UmmeKulsumTumpa/alzheimers-dementia-reddit-analysis" }
+    - { label: doi, href: "https://doi.org/10.1109/BigData66926.2025.11402577" }
     - { label: scholar, href: "https://scholar.google.com/citations?user=3iF7aUQAAAAJ&hl=en" }

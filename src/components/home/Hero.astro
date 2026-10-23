@@ -1,6 +1,7 @@
 ---
 import { site } from '../../data/site';
-import { visible } from '../../lib/placeholder';
+import { Image } from 'astro:assets';
+import portrait from '../../assets/portrait.jpg';
 import LocalTime from '../../islands/LocalTime.tsx';
 import IconLinks from './IconLinks.astro';
 
@@ -15,15 +16,13 @@ const bio = site.bio
   .filter(Boolean)
   .map((text) => ({ text, mark: marks.includes(text) }));
 
-// Kept until public/portrait.jpg exists (rulings): the frame holds the layout; its bracket text shows in dev only.
-const photo = '[your photo]';
 ---
 
 <section class="hero" aria-labelledby="h-hero">
   <div class="container hero-inner">
-    {/* Top line: phones show the short one from MobileHome.dc.html, "~/ukt" and "Dhaka · HH:MM" (.hero-wide / .hero-phone). */}
+    {/* Top line: the full path on every width, like the other pages' breadcrumb; phones shorten only the place ("Dhaka · HH:MM"). */}
     <div class="hero-top" data-anim="blur">
-      <a class="hero-path tap-target" href="/"><span class="hero-wide">~/{site.handle}</span><span class="hero-phone">~/{site.handleShort}</span></a>
+      <a class="hero-path tap-target" href="/">~/{site.handle}</a>
       <span><span class="hero-wide">Dhaka, BD</span><span class="hero-phone">Dhaka</span> · <LocalTime client:idle timeZone={site.timezone} /><span class="hero-wide"> (UTC+6)</span></span>
     </div>
 
@@ -45,9 +44,7 @@ const photo = '[your photo]';
       </div>
 
       <figure class="hero-portrait d5" data-anim="zoom">
-        <div class="label-sm">portrait</div>
-        <!-- Placeholder until public/portrait.jpg exists; then use Astro <Image> (SPEC §7) with alt="Umme Kulsum Tumpa". -->
-        <div class="hero-portrait-frame" role="img" aria-label="Photo placeholder">{visible(photo) && photo}</div>
+        <Image class="hero-portrait-img" src={portrait} alt={site.name} width={300} densities={[1, 2]} format="webp" loading="eager" />
         <figcaption><span>{site.name}</span><span>Dhaka, 2026</span></figcaption>
       </figure>
     </div>

@@ -37,10 +37,9 @@
 .hero-statement { margin-top: 18px; font-family: var(--serif); font-style: italic; font-size: 24px; line-height: 1.3; }
 .hero-links { margin-top: 32px; }
 .hero-portrait { display: flex; flex-direction: column; width: 100%; max-width: 300px; }
-.hero-portrait-frame {
-  margin-top: 12px; width: 100%; aspect-ratio: 4 / 5; border: 1px solid var(--border); border-radius: var(--radius);
-  background-color: var(--surface); background-image: radial-gradient(var(--dot) 1px, transparent 1.5px); background-size: 18px 18px;
-  display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 12px; color: var(--faint);
+.hero-portrait-img {
+  width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover;
+  border: 1px solid var(--border); border-radius: var(--radius); background-color: var(--surface);
 }
 .hero-portrait figcaption {
   margin-top: 10px; display: flex; justify-content: space-between; font-family: var(--mono); font-size: 11px; color: var(--faint);
@@ -64,19 +63,19 @@
   .hero-portrait { max-width: 260px; }
 }
 
-/* ── icon links (IconLinks.astro: hero and contact) ── */
+/* ── icon links (IconLinks.astro, hero) ── */
 .icon-links { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 12px; }
 .icon-link {
   position: relative; width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--pill-border);
   display: grid; place-items: center; color: var(--text); transition: border-color 0.2s ease;
 }
-.icon-link:hover { text-decoration: none; border-color: var(--text); }
+.icon-link:hover { text-decoration: none; }
 .icon-link:focus-visible { border-radius: 50%; }
+/* Hover styles only where a pointer really hovers: on touch screens iOS spends the first tap on :hover. */
+@media (hover: hover) {
+  .icon-link:hover { border-color: var(--text); }
+}
 .icon-link-main, .icon-link-main:hover { border-color: var(--accent); background: var(--ring); }
-.icon-links-sm { gap: 10px; }
-.icon-links-sm .icon-link { width: 40px; height: 40px; }
-/* 44px hit area around the 40px circles (SPEC §6); centres are 50px apart, so the areas don't overlap. */
-.icon-links-sm .icon-link::after { content: ''; position: absolute; inset: -2px; border-radius: 50%; }
 /* Name on hover / keyboard focus, styled as the dock's tooltip; touch screens get none. */
 .icon-link-tip {
   position: absolute; bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%); z-index: 2;
@@ -84,7 +83,10 @@
   padding: 5px 10px; border-radius: 8px; background: var(--dock-tip-bg); color: var(--text);
   border: 1px solid var(--dock-border); opacity: 0; transition: opacity 0.15s;
 }
-.icon-link:hover .icon-link-tip, .icon-link:focus-visible .icon-link-tip { opacity: 1; }
+.icon-link:focus-visible .icon-link-tip { opacity: 1; }
+@media (hover: hover) {
+  .icon-link:hover .icon-link-tip { opacity: 1; }
+}
 @media (hover: none) {
   .icon-link-tip { display: none; }
 }
@@ -107,7 +109,20 @@
 a.news-row:hover { text-decoration: none; }
 .news-date { font-family: var(--mono); font-size: 12px; color: var(--faint); font-variant-numeric: tabular-nums; }
 .news-text { font-size: 16px; line-height: 1.6; color: var(--muted); transition: color 0.2s ease; }
-a.news-row:hover .news-text, a.news-row:focus-visible .news-text { color: var(--text); }
+a.news-row:focus-visible .news-text { color: var(--text); }
+/* Older milestones: a <details> (no JS) under the list; its summary swaps "+ Show" / "− Hide" on [open]. */
+.news-more-sum {
+  display: flex; align-items: center; min-height: 44px; list-style: none; cursor: pointer;
+  font-family: var(--mono); font-size: 12px; color: var(--muted);
+}
+.news-more-sum::-webkit-details-marker { display: none; }
+.news-more-hide, .news-more[open] .news-more-show { display: none; }
+.news-more[open] .news-more-hide { display: inline; }
+.news-list-earlier { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--border); }
+.news-list-earlier > li { border-bottom: 1px solid var(--border); }
+@media (hover: hover) {
+  a.news-row:hover .news-text, .news-more-sum:hover { color: var(--text); }
+}
 @media (max-width: 640px) {
   .news { padding-top: 40px; }
   .news-row { grid-template-columns: minmax(0, 1fr); gap: 2px; padding: 12px 0; }
@@ -123,8 +138,12 @@ a.news-row:hover .news-text, a.news-row:focus-visible .news-text { color: var(--
 .index-item-title { display: block; font-family: var(--serif); font-size: 36px; line-height: 1; }
 .index-item-line { display: block; margin-top: 6px; font-size: 14px; line-height: 1.5; color: var(--muted); }
 .index-item-arrow { flex: 0 0 auto; font-size: 20px; color: var(--muted); transition: transform 0.3s var(--ease), color 0.2s ease; }
-.index-item:hover .index-item-arrow, .index-item:focus-visible .index-item-arrow { transform: translateX(4px); color: var(--text); }
-.index-item:hover .index-item-title, .index-item:focus-visible .index-item-title { color: var(--text); }
+.index-item:focus-visible .index-item-arrow { transform: translateX(4px); color: var(--text); }
+.index-item:focus-visible .index-item-title { color: var(--text); }
+@media (hover: hover) {
+  .index-item:hover .index-item-arrow { transform: translateX(4px); color: var(--text); }
+  .index-item:hover .index-item-title { color: var(--text); }
+}
 /* thesis progress: a <progress> whose value comes from education.yaml (`progress` on the M.Sc. role) */
 .index-progress {
   display: inline-block; width: 120px; height: 3px; margin-left: 14px; vertical-align: middle; border: 0; border-radius: 2px;
@@ -182,17 +201,4 @@ a.news-row:hover .news-text, a.news-row:focus-visible .news-text { color: var(--
   .tokens-phone { display: block; margin-top: 14px; }
   .tokens-row + .tokens-row { margin-top: 8px; margin-left: -160px; }
   .tokens-chip { padding: 8px 2px; font-size: 18px; }
-}
-
-/* ── contact ── */
-.contact { padding-top: var(--section-gap); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 32px; }
-.contact-title { font-family: var(--serif); font-weight: 400; font-size: clamp(64px, 8vw, 120px); line-height: 1; letter-spacing: -0.02em; }
-.contact-actions { flex: 0 1 420px; }
-.contact-links { margin-top: 16px; }
-
-@media (max-width: 640px) {
-  .contact { display: block; }
-  .contact-title { font-size: 64px; }
-  .contact-actions { margin-top: 22px; }
-  .contact-email { display: flex; justify-content: space-between; padding: 0 18px; font-size: 14px; }
 }
