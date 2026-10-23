@@ -175,7 +175,7 @@ bottom padding ≥ 150px so the dock never covers the last line.
 3. **Glimpse (§ 02):** bento tiles linking to pages, in dock order: Education (M.Sc. + thesis progress bar), Experience
    ("4 production projects", stack chips), Research (paper title + "now → Bangla agents"), By the numbers
    (2 degrees, 1 paper, N course projects, where N comes from the collection), Writing (latest post or "first post coming soon"),
-   Reading (current book from `status: reading` + spines). Hover: lift + ring, arrow rotates.
+   Reading (current book: the first book with `status: reading`, else the first entry of any kind with it; + spines). Hover: lift + ring, arrow rotates.
    **On phones (<640px) the bento becomes a numbered list** (`01 Education → … 05 Reading`, serif title, one-line note, arrow), see `mobile-home-03.jpg`.
 4. **Token strip:** "fig. 0 — me, tokenized": two rows of tokenizer-style chips sliding in opposite directions; keywords in accent.
 5. **Contact:** "Say hello." (mask) + email button + links.
