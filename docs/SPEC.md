@@ -154,6 +154,7 @@ script applies the saved theme before paint (no flash).
 | `publications` | `src/content/publications.yaml` | title, authors[], venue, year, tldr, links[], short?, venueShort? (shorter title and venue for the Home research tile) |
 | `selectedProjects` | `src/content/selected-projects.yaml` | Experience project cards: id, title, href, meta?, line[] (text, or { text, href } links inside the line), stack |
 | `toolbox` | `src/content/toolbox.yaml` | Experience toolbox columns, in page order: id, name, items[] |
+| `certifications` | `src/content/certifications.yaml` | Education certifications: id, title, issuer, date (as shown, e.g. "Dec 2024"), note?, image (certificate in `src/assets/certificates/`), alt, url? (verification page) |
 
 Files starting with `_` are templates and are ignored. YAML lists are **newest first**; the first role inside an
 org is the newest. `[Bracketed text]` is placeholder content the owner will fill in. Render it as-is; never invent replacements.
@@ -191,6 +192,8 @@ IIT DU [M.Sc. (current, thesis, supervisor, semester-1 course cards) → B.Sc. (
 Then **Course projects** archive: React island with filter pills (all / project labs / AI & ML / systems & SE / fundamentals, with counts),
 responsive card grid, each card links to `https://github.com/UmmeKulsumTumpa/<id>`. Then hackathons & contests
 (Code Samurai 2024, Cosmo Scope AI, KC Fest; links in prototype) and awards & activities (placeholders).
+Then **05 · certifications**, a full-width list in the same row style: per certificate a thumbnail (Astro `<Image>`)
+that links to the full-size image, title · issuer, an optional one-line note, and the date in the meta column.
 
 ### 5.3 Experience `/experience/` (`Experience.dc.html`; screenshots `experience-desktop-01…05`)
 
