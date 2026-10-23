@@ -150,7 +150,7 @@ script applies the saved theme before paint (no flash).
 | `experience` | `src/content/experience.yaml` | org entries with `roles[]` (title, type, start, end, current, summary, bullets) |
 | `education` | `src/content/education.yaml` | same shape; roles = degrees (+ details[], courses[]) |
 | `projects` | `src/content/course-projects.yaml` | id = GitHub repo name, category[spl/ai/sys/fund], lang, desc, course |
-| `publications` | `src/content/publications.yaml` | title, authors[], venue, year, tldr, links[] |
+| `publications` | `src/content/publications.yaml` | title, authors[], venue, year, tldr, links[], short?, venueShort? (shorter title and venue for the Home research tile) |
 
 Files starting with `_` are templates and are ignored. YAML lists are **newest first**; the first role inside an
 org is the newest. `[Bracketed text]` is placeholder content the owner will fill in. Render it as-is; never invent replacements.
@@ -173,7 +173,7 @@ bottom padding ≥ 150px so the dock never covers the last line.
      on the left, **portrait** (4:5, placeholder until `public/portrait.jpg` exists, caption "Umme Kulsum Tumpa · Dhaka, 2026") on the right; equal height.
    - Row: full-width italic serif quote "Working with LLMs as both a researcher and an engineer…" with caption "— why I do both".
 3. **Glimpse (§ 02):** bento tiles linking to pages, in dock order: Education (M.Sc. + thesis progress bar), Experience
-   ("4 production projects", stack chips), Research (paper title + "now → Bangla agents"), By the numbers
+   ("4 production projects", stack chips), Research (newest `publications.yaml` entry: `short` / `venueShort` when set, else title / venue; + "now → Bangla agents"), By the numbers
    (2 degrees, 1 paper, N course projects, where N comes from the collection), Writing (latest post or "first post coming soon"),
    Reading (current book from `status: reading` + spines). Hover: lift + ring, arrow rotates.
    **On phones (<640px) the bento becomes a numbered list** (`01 Education → … 05 Reading`, serif title, one-line note, arrow), see `mobile-home-03.jpg`.

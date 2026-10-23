@@ -4,6 +4,9 @@
   authors: [U. K. Tumpa, N. T. Hia, M. S. Fatemi, M. M. A. Joarder, S. Rayana]
   venue: 2025 IEEE International Conference on Big Data (BigData)
   year: 2025
+  # Optional shorter wording for the Home research tile (newest paper only).
+  short: "Voices of Care: LLM-assisted analysis of dementia discourse on Reddit"
+  venueShort: IEEE BigData 2025
   tldr: "[One-sentence TL;DR of the finding.]"
   links:
     - { label: code, href: "https://github.com/UmmeKulsumTumpa/alzheimers-dementia-reddit-analysis" }

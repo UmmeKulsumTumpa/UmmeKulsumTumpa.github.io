@@ -6,6 +6,8 @@ import { getPosts } from '../../lib/posts';
 // Live numbers (SPEC §5.1 item 3): counts and latest entries come from the collections.
 const projects = await getCollection('projects');
 const publications = await getCollection('publications');
+// Research tile: the newest paper (first in publications.yaml), in its short wording when given.
+const [paper] = publications.sort((a, b) => a.data.order - b.data.order);
 const [latest] = await getPosts(); // newest first, drafts left out of production builds
 const book = (await getReading()).find(({ data }) => data.status === 'reading');
 
@@ -73,10 +75,12 @@ const list = [
       <div class="glimpse-tile-in">
         <div class="glimpse-research-text">
           <div class="glimpse-tile-top"><span>03 · research</span><span class="glimpse-arrow" aria-hidden="true">→</span></div>
-          <div>
-            <div class="glimpse-meta">published · IEEE BigData 2025</div>
-            <div class="glimpse-research-title">Voices of Care: LLM-assisted analysis of dementia discourse on Reddit</div>
-          </div>
+          {paper && (
+            <div>
+              <div class="glimpse-meta">published · {paper.data.venueShort ?? paper.data.venue}</div>
+              <div class="glimpse-research-title">{paper.data.short ?? paper.data.title}</div>
+            </div>
+          )}
           <div class="glimpse-sub"><span class="accent">now <span aria-hidden="true">→</span></span> cross-lingual evaluation of LLM agents in Bangla</div>
         </div>
         <div class="glimpse-bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
