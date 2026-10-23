@@ -22,7 +22,7 @@
 }
 .link-underline:hover { text-decoration-color: currentColor; }
 .pill-btn {
-  min-height: 38px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--border);
+  min-height: 38px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--pill-border);
   background: transparent; color: var(--muted); font-family: var(--mono); font-size: 13px; cursor: pointer;
 }
 .pill-btn[aria-pressed='true'], .pill-btn[aria-selected='true'] { background: var(--text); border-color: var(--text); color: var(--bg); }

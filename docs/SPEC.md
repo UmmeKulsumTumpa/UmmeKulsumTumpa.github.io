@@ -93,6 +93,7 @@ ThemeToggle, LocalTime, Base layout, and CSS). Reuse them as a starting point, b
 | `--bg` | `#0b0c0f` | `#f7f7f8` |
 | `--surface` | `#121418` | `#eeeef1` |
 | `--border` | `#22252c` | `#dedee3` |
+| `--pill-border` | `#3c3f48` (inactive pills and status chips) | `#c3c3cb` |
 | `--text` | `#ececef` | `#131418` |
 | `--muted` | `#a3a6b0` | `#4b4d56` |
 | `--faint` | `#9597a0` (6.7:1 on bg) | `#5d5f69` (5.9:1) |
