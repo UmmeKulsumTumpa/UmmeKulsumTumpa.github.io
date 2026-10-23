@@ -4,6 +4,9 @@
 .reading-stat-label { margin-top: 6px; font-family: var(--mono); font-size: 12px; color: var(--faint); }
 
 @media (max-width: 640px) {
+  /* Phones drop the § label on this page only (MobileReading.dc.html); the title takes its place. */
+  .ph-reading .ph-label { display: none; }
+  .ph-reading .ph-title { margin-top: 0; }
   .reading-stats { margin-top: 22px; gap: 28px; }
   .reading-stat-n { font-size: 34px; }
   .reading-stat-label { margin-top: 0; font-size: 11px; }
