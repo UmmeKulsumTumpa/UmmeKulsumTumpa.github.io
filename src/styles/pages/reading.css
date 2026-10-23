@@ -76,7 +76,9 @@ a.rd-book:focus-visible .rd-cover { outline: 2px solid var(--accent); outline-of
   .rd-bar { padding-top: 18px; display: block; }
   .rd-tabs { display: flex; }
   .rd-tab { flex: 1 1 0; padding: 0; } /* drawn 40px (MobileReading.dc.html); .tap-target makes the hit area 44px */
-  .rd-pills { margin-top: 12px; flex-wrap: nowrap; overflow-x: auto; }
+  /* The scroll box clips overflow, so 5px of padding (cancelled by a -5px margin: no change at rest) leaves room for
+     the 2px + 3px focus ring; scroll-padding keeps it in view when focus scrolls the row. Same as .wr-filters. */
+  .rd-pills { margin: 7px -5px -5px; padding: 5px; flex-wrap: nowrap; overflow-x: auto; scroll-padding-inline: 5px; }
   .rd-pill { flex: 0 0 auto; min-height: 44px; padding: 0 16px; }
   .rd-empty { margin-top: 28px; }
   .rd-kind-label { margin-top: 28px; }
