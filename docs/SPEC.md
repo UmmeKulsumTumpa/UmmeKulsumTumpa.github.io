@@ -74,7 +74,7 @@ src/
   content/      all text & data (see §4)
   data/site.ts  name, links, nav order
 public/         bg/ (background images), grain.webp, favicon.svg, portrait, cv.pdf, og image
-docs/           SPEC.md, PLAN.md, design/, reference/
+docs/           SPEC.md, PLAN.md, GIT-WORKFLOW.md, design/
 ```
 
 Rules: class names are kebab-case and scoped by component prefix (`.tl-*`, `.dock-*`, `.about-*`).
@@ -197,7 +197,7 @@ that links to the full-size image, title · issuer, an optional one-line note, a
 
 ### 5.3 Experience `/experience/` (`Experience.dc.html`; screenshots `experience-desktop-01…05`)
 
-Header (ghost "ship it"). Timeline newest first: Cefalo [Associate SE (current, full-time) → SE part-time → Intern], Fellowship.AI, BARTA Research Lab.
+Header (ghost "ship it"). Timeline newest first: Cefalo [Associate Software Engineer I (current, full-time) → Software Engineering Trainee (part-time) → Software Engineer Trainee (academic internship)], Fellowship.AI, BARTA Research Lab.
 Then selected projects (Cefalo Travel Connect + placeholders, image cards with zoom) and toolbox (Web, Mobile, Research, Practice).
 **Known prototype glitch:** in `experience-desktop-04-projects-GLITCH.jpg` the Cefalo Travel Connect text floats in the right column with
 stray boxes. Do not copy that. Every project card is one card: screenshot (fixed 240px tall, as in `Experience.dc.html`) on top, then meta line, title ↗, one line, stack;
@@ -254,5 +254,5 @@ On-brand: serif "Lost in context.", link home, dock.
 
 ## 9. Open content (owner to fill)
 
-Portrait, cv.pdf, SSC/HSC institutions + years + GPA, B.Sc. CGPA, M.Sc. supervisor/start year, Cefalo role dates,
-interest one-liners, paper TL;DR + PDF/DOI, course names per repo, first posts and reading list.
+Portrait, cv.pdf, Fellowship.AI start month + location, interest one-liners, paper TL;DR + PDF/DOI, course names and
+one-liners per repo, awards & activities, About tiles, current book, first posts and reading list.
