@@ -1,22 +1,25 @@
 ---
-import { getCurrentRead } from '../../lib/reading';
 import { site } from '../../data/site';
+import { visible } from '../../lib/placeholder';
 import LocalTime from '../../islands/LocalTime.tsx';
-
-// Phones show "reading <current book>" in place of the thesis line (MobileHome.dc.html).
-// Same pick as the Glimpse tile (a book first); until an entry has status "reading", keep the prototype's placeholder.
-const current = await getCurrentRead();
-const book = current?.data.title ?? '[book title]';
+import IconLinks from './IconLinks.astro';
 
 // Two masked lines (given name, family name): one line on desktop, stacked on phones (MobileHome.dc.html).
 const cut = site.name.lastIndexOf(' ');
 const [nameStart, nameEnd] = [site.name.slice(0, cut), site.name.slice(cut + 1)];
+
+// The bio's named entities are set in the text colour (plain text, not links: colour alone must not mark a link).
+const marks = ['Cefalo Bangladesh', 'IIT, University of Dhaka', 'BARTA Research Lab', 'adaptive inference for efficient LLMs'];
+const bio = site.bio
+  .split(new RegExp(`(${marks.map((m) => m.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`))
+  .filter(Boolean)
+  .map((text) => ({ text, mark: marks.includes(text) }));
+
+// Kept until public/portrait.jpg exists (rulings): the frame holds the layout; its bracket text shows in dev only.
+const photo = '[your photo]';
 ---
 
 <section class="hero" aria-labelledby="h-hero">
-  <div class="hero-grid" data-parallax="0.3" aria-hidden="true"></div>
-  <div class="hero-ghost" data-parallax="0.45" aria-hidden="true">context</div>
-
   <div class="container hero-inner">
     {/* Top line: phones show the short one from MobileHome.dc.html, "~/ukt" and "Dhaka · HH:MM" (.hero-wide / .hero-phone). */}
     <div class="hero-top" data-anim="blur">
@@ -24,26 +27,29 @@ const [nameStart, nameEnd] = [site.name.slice(0, cut), site.name.slice(cut + 1)]
       <span><span class="hero-wide">Dhaka, BD</span><span class="hero-phone">Dhaka</span> · <LocalTime client:idle timeZone={site.timezone} /><span class="hero-wide"> (UTC+6)</span></span>
     </div>
 
-    <div class="hero-name-block">
-      <div class="hero-hello" data-anim="blur">hello, I'm</div>
-      <h1 id="h-hero" class="hero-name">
-        <span class="hero-name-line" data-anim="mask"><span class="d1">{nameStart}</span></span>{' '}
-        <span class="hero-name-line" data-anim="mask"><span class="hero-name-end d3">{nameEnd}<span class="caret" aria-hidden="true"></span></span></span>
-      </h1>
-      <div class="hero-role d5" data-anim="from-left">
-        <span>Software Engineer</span><span class="accent" aria-hidden="true">·</span><span>Researcher</span>
+    <div class="hero-main">
+      <div class="hero-text">
+        <div class="hero-hello" data-anim="blur">hello, I'm</div>
+        <h1 id="h-hero" class="hero-name">
+          <span class="hero-name-line" data-anim="mask"><span class="d1">{nameStart}</span></span>{' '}
+          <span class="hero-name-line" data-anim="mask"><span class="hero-name-end d3">{nameEnd}<span class="caret" aria-hidden="true"></span></span></span>
+        </h1>
+        <div class="hero-role d5" data-anim="from-left">
+          <span>Software Engineer</span><span class="accent" aria-hidden="true">·</span><span>Researcher</span>
+        </div>
+        <p class="hero-bio d6" data-anim="up">
+          {bio.map(({ text, mark }) => (mark ? <span class="hero-mark">{text}</span> : text))}
+        </p>
+        <p class="hero-statement d6" data-anim="up">{site.statement}</p>
+        <div class="hero-links d7" data-anim="up"><IconLinks /></div>
       </div>
-    </div>
 
-    <div class="hero-bottom">
-      <p class="hero-statement d6" data-anim="up">{site.statement}</p>
-      <div class="hero-now d7" data-anim="from-right">
-        <div class="hero-now-label"><span class="pulse" aria-hidden="true"></span>currently</div>
-        <div>building at <a class="hero-now-value tap-target" href="https://cefalo.com">{site.currently.building}</a></div>
-        <div>researching at <span class="hero-now-value">{site.currently.researching}</span></div>
-        <div class="hero-now-thesis">thesis on <span class="hero-now-value">{site.currently.thesis}</span></div>
-        <div class="hero-now-reading">reading <span class="hero-now-value">{book}</span></div>
-      </div>
+      <figure class="hero-portrait d5" data-anim="zoom">
+        <div class="label-sm">portrait</div>
+        <!-- Placeholder until public/portrait.jpg exists; then use Astro <Image> (SPEC §7) with alt="Umme Kulsum Tumpa". -->
+        <div class="hero-portrait-frame" role="img" aria-label="Photo placeholder">{visible(photo) && photo}</div>
+        <figcaption><span>{site.name}</span><span>Dhaka, 2026</span></figcaption>
+      </figure>
     </div>
   </div>
 </section>
