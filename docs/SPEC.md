@@ -204,7 +204,7 @@ talks & posters (placeholder), collaborators (from Scholar co-authors).
 
 ### 5.5 Writing `/writing/` and `/writing/<slug>/` (`Writing.dc.html`; screenshots `writing-desktop-01…03`)
 
-List: featured post card (first `featured: true`), tag filter pills (React island), rows with date, title, summary, tag, reading
+List: featured post card (first `featured: true`), tag filter pills (React island; on phones one horizontally scrolling row), rows with date, title, summary, tag, reading
 time (words / 220, rounded up). Drafts are hidden in production builds. Empty state when no posts. Post page uses `.prose`
 styles, back link, date, tags, reading time, previous/next. Add `/rss.xml` (`@astrojs/rss`).
 
