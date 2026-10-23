@@ -1,36 +1,11 @@
 ---
-// "02 · selected projects" (Experience.dc.html; SPEC §5.3). Copy is verbatim from the prototype,
-// [bracket placeholders] included. Every card is one card: screenshot (16:10), meta, title ↗, one line, stack.
+import { getCollection } from 'astro:content';
+
+// "02 · selected projects" (Experience.dc.html; SPEC §5.3), from src/content/selected-projects.yaml in file order.
+// Every card is one card: screenshot (16:10), meta, title ↗, one line, stack.
 // The whole card is clickable through the title link's stretched ::after, so links inside the line
 // (e.g. "React frontend") are siblings, not nested anchors (the nesting caused the prototype glitch).
-type Part = string | { text: string; href: string };
-interface Project {
-  title: string;
-  href: string;
-  meta?: string;
-  line: Part[];
-  stack: string;
-}
-
-const projects: Project[] = [
-  {
-    title: 'Cefalo Travel Connect',
-    href: 'https://github.com/UmmeKulsumTumpa/CefaloTravelConnect',
-    meta: 'Cefalo · [training / in-house]',
-    line: [
-      '[One line: what it does.] API plus a ',
-      { text: 'React frontend', href: 'https://github.com/UmmeKulsumTumpa/ctc-frontend' },
-      '.',
-    ],
-    stack: 'Express · TypeScript · Knex · PostgreSQL · React · Tailwind',
-  },
-  {
-    title: '[Project name]',
-    href: '#',
-    line: ['[One line: what it does, for whom, and the result.]'],
-    stack: '[stack]',
-  },
-];
+const projects = (await getCollection('selectedProjects')).sort((a, b) => a.data.order - b.data.order).map((p) => p.data);
 ---
 
 <section class="exp-section proj" aria-labelledby="h-proj">
