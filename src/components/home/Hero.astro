@@ -13,7 +13,7 @@ const cut = site.name.lastIndexOf(' ');
 const [nameStart, nameEnd] = [site.name.slice(0, cut), site.name.slice(cut + 1)];
 ---
 
-<section class="hero" aria-label="Introduction">
+<section class="hero" aria-labelledby="h-hero">
   <div class="hero-grid" data-parallax="0.3" aria-hidden="true"></div>
   <div class="hero-ghost" data-parallax="0.45" aria-hidden="true">context</div>
 
@@ -25,7 +25,7 @@ const [nameStart, nameEnd] = [site.name.slice(0, cut), site.name.slice(cut + 1)]
 
     <div class="hero-name-block">
       <div class="hero-hello" data-anim="blur">hello, I'm</div>
-      <h1 class="hero-name">
+      <h1 id="h-hero" class="hero-name">
         <span class="hero-name-line" data-anim="mask"><span class="d1">{nameStart}</span></span>{' '}
         <span class="hero-name-line" data-anim="mask"><span class="hero-name-end d3">{nameEnd}<span class="caret" aria-hidden="true"></span></span></span>
       </h1>
