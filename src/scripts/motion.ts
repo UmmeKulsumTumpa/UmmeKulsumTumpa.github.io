@@ -41,12 +41,17 @@ function startEntrances(root: HTMLElement) {
   // transition, already at rest.
   const startedAt = new WeakMap<Element, number | null>();
   const track = (el: Element) => {
-    const t = el.getAnimations({ subtree: true }).find((a) => a instanceof CSSTransition);
-    startedAt.set(el, t ? null : -Infinity);
-    t?.ready.then(
-      () => { if (startedAt.get(el) === null && typeof t.startTime === 'number') startedAt.set(el, t.startTime); },
-      () => {}, // cancelled: it left or was removed before it started
-    );
+    try {
+      const t = el.getAnimations({ subtree: true }).find((a) => a instanceof CSSTransition);
+      startedAt.set(el, t ? null : -Infinity);
+      t?.ready.then(
+        () => { if (startedAt.get(el) === null && typeof t.startTime === 'number') startedAt.set(el, t.startTime); },
+        () => {}, // cancelled: it left or was removed before it started
+      );
+    } catch {
+      el.setAttribute('data-in', ''); // no timing known: a copy of it will simply start entered
+      startedAt.set(el, -Infinity);
+    }
   };
   const enter = new IntersectionObserver(
     (entries) => {
@@ -69,17 +74,21 @@ function startEntrances(root: HTMLElement) {
   // A copy of an element that had already entered starts where that element was, so its entrance never plays
   // twice. This runs in the mutation callback, before the copy is first painted.
   const carryOn = (el: HTMLElement, start: number | null) => {
-    if (start === -Infinity) { // set before its first style: shown at rest, no transition
+    try {
+      if (start === -Infinity) { // set before its first style: shown at rest, no transition
+        el.setAttribute('data-in', '');
+        startedAt.set(el, start);
+        return;
+      }
+      void getComputedStyle(el).opacity; // compute the hidden state first, so setting data-in starts the transitions
       el.setAttribute('data-in', '');
+      if (start === null) return track(el); // the original had not started either
+      // Share the original's start time: same progress from the first frame (finished transitions end at once).
+      for (const a of el.getAnimations({ subtree: true })) if (a instanceof CSSTransition) a.startTime = start;
       startedAt.set(el, start);
-      return;
+    } catch {
+      el.setAttribute('data-in', ''); // never leave a copy hidden: show it entered, without the carried-over timing
     }
-    void getComputedStyle(el).opacity; // compute the hidden state first, so setting data-in starts the transitions
-    el.setAttribute('data-in', '');
-    if (start === null) return track(el); // the original had not started either
-    // Share the original's start time: same progress from the first frame (finished transitions end at once).
-    for (const a of el.getAnimations({ subtree: true })) if (a instanceof CSSTransition) a.startTime = start;
-    startedAt.set(el, start);
   };
 
   // React islands render later or re-render on filter changes: watch for new nodes. Hydrating islands may also
@@ -93,6 +102,8 @@ function startEntrances(root: HTMLElement) {
       r.removedNodes.forEach((n) => {
         if (!(n instanceof HTMLElement)) return;
         for (const el of animated(n)) {
+          enter.unobserve(el);
+          leave.unobserve(el);
           const start = startedAt.get(el);
           if (start !== undefined && el.hasAttribute('data-in')) replaced.set(twinKey(el), start);
         }
@@ -102,9 +113,9 @@ function startEntrances(root: HTMLElement) {
       r.addedNodes.forEach((n) => {
         if (!(n instanceof HTMLElement) || !n.isConnected) return;
         for (const el of animated(n)) {
+          observe(el);
           const start = replaced.get(twinKey(el));
           if (start !== undefined && !el.hasAttribute('data-in')) carryOn(el, start);
-          observe(el);
         }
       });
     }
