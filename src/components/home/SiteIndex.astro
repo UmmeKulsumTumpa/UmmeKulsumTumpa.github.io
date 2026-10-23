@@ -12,7 +12,7 @@ const thesis = (await getCollection('education')).flatMap(({ data }) => data.rol
 const job = inOrder(await getCollection('experience'))
   .flatMap(({ data }) => data.roles.map((role) => ({ role, org: data.org })))
   .find(({ role }) => role.current);
-// Research: the newest paper (first in publications.yaml), in its short wording when given.
+// Research: the newest paper (first in publications.yaml): the main title of its short wording (before any subtitle).
 const [paper] = inOrder(await getCollection('publications'));
 const [latest] = await getPosts(); // newest first, drafts left out of production builds
 const book = await getCurrentRead(); // "on my desk": a book first (lib/reading.ts)
@@ -26,7 +26,7 @@ const rows = [
     n: '03',
     title: 'Research',
     href: '/research/',
-    line: paper ? `Newest: ${paper.data.short ?? paper.data.title} · ${paper.data.venueShort ?? paper.data.venue}` : '',
+    line: paper ? `Newest: ${(paper.data.short ?? paper.data.title).split(':')[0]} · ${paper.data.venueShort ?? paper.data.venue}` : '',
     anim: 'from-left',
     d: 'd2',
   },
