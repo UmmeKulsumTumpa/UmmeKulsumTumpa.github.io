@@ -75,7 +75,7 @@ a.rd-book:focus-visible .rd-cover { outline: 2px solid var(--accent); outline-of
 @media (max-width: 640px) {
   .rd-bar { padding-top: 18px; display: block; }
   .rd-tabs { display: flex; }
-  .rd-tab { flex: 1 1 0; min-height: 44px; padding: 0; }
+  .rd-tab { flex: 1 1 0; padding: 0; } /* drawn 40px (MobileReading.dc.html); .tap-target makes the hit area 44px */
   .rd-pills { margin-top: 12px; flex-wrap: nowrap; overflow-x: auto; }
   .rd-pill { flex: 0 0 auto; min-height: 44px; padding: 0 16px; }
   .rd-empty { margin-top: 28px; }

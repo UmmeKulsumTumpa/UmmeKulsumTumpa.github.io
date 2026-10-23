@@ -44,7 +44,7 @@ const when = (r: Role) =>
         <div class:list={['tl-logo', e.short.length > 1 && 'tl-logo-text']} aria-hidden="true">{e.short}</div>
         <div class="tl-body">
           <div class="tl-head">
-            <h3 class="tl-org-name">{e.url ? <a href={e.url}>{e.org}</a> : e.org}</h3>
+            <h3 class="tl-org-name">{e.url ? <a class="tap-target" href={e.url}>{e.org}</a> : e.org}</h3>
             <span class="tl-meta">{e.location} · {e.span}</span>
           </div>
           {e.roles.map((r, i) => (
