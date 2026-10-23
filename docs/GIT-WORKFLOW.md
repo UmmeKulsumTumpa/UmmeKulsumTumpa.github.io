@@ -50,8 +50,10 @@ gitGraph
 ## One-time setup (end of Phase 0, after the first push to `main`)
 
 1. `git switch -c develop && git push -u origin develop`, then `gh repo edit --default-branch develop`.
-2. `gh repo edit --enable-merge-commit --enable-squash-merge=false --enable-rebase-merge=false`
-   (merge commits only, so each feature stays visible as a unit in history, like Gitflow's `--no-ff`).
+2. `gh repo edit --enable-merge-commit --enable-squash-merge --enable-rebase-merge=false`
+   (squash title = PR title, message = commit messages). Feature and fix PRs are **squash-merged**, so each one lands on
+   `develop` as a single Conventional Commit. Release and back-merge PRs use **merge commits**: squashing them would give
+   `main` and `develop` different commits for the same change and break the next back-merge.
    Leave GitHub's "automatically delete head branches" **off**: it would delete a `release/` branch as soon as it merges
    into `main`, before the back-merge into `develop`. Feature branches are deleted by `gh pr merge --delete-branch` instead.
 3. Labels: `type:feature`, `type:fix`, `type:style`, `type:docs`, `type:chore`, `type:ci`, `type:content`,
@@ -101,7 +103,7 @@ gitGraph
 7. `gh pr checks --watch`. If CI fails, fix with new commits (never amend pushed commits).
 8. Self-review `gh pr diff` against `CLAUDE.md`: only what the issue asks, no inline styles, hex only in `tokens.css`,
    no stray files (`dist/`, `.shots/`, `node_modules/`).
-9. `gh pr merge <pr#> --merge --delete-branch`
+9. `gh pr merge <pr#> --squash --delete-branch`
 10. `git switch develop && git pull --ff-only`; confirm the issue is closed. Post a one-line status to the owner and take the next issue.
 
 New work found mid-feature (a bug, an idea, missing content) becomes a **new issue**, not extra commits on the current branch.

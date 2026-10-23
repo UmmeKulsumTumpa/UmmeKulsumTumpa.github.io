@@ -55,7 +55,7 @@
   position: absolute;
   inset: 0;
   opacity: var(--grain-opacity, 0.6);
-  background-image: url('/grain.png');
+  background-image: url('/grain.webp');
   background-size: 128px 128px;
 }
 
