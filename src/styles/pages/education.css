@@ -22,7 +22,10 @@
   transition: transform 0.4s var(--ease), box-shadow 0.3s ease;
 }
 .arc-card:hover .arc-card-in, .arc-card:focus-visible .arc-card-in { transform: translateY(-4px); box-shadow: 0 0 0 1px var(--muted); }
-.arc-card:hover .arc-name { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+.arc-card:hover .arc-name, .arc-card:focus-visible .arc-name { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+/* Keyboard focus: the ring goes on the card itself, so it follows the rounded corners and lifts with it. */
+.arc-card:focus-visible { outline: none; }
+.arc-card:focus-visible .arc-card-in { outline: 2px solid var(--accent); outline-offset: 3px; }
 .arc-meta, .arc-foot { display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 11px; color: var(--faint); }
 .arc-lang { display: inline-flex; align-items: center; gap: 6px; }
 .arc-lang-dot { width: 8px; height: 8px; border-radius: 50%; border: 1px solid var(--muted); background: var(--border); }
