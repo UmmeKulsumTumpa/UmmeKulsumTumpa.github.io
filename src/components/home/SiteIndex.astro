@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import { getCurrentRead } from '../../lib/reading';
+import { getPosts } from '../../lib/posts';
+import { clean } from '../../lib/placeholder';
+
+// "around the site": one row per page in dock order, each with one live line from the collections.
+const inOrder = <T extends { data: { order: number } }>(entries: T[]) => [...entries].sort((a, b) => a.data.order - b.data.order);
+// Education: thesis progress (%) from the education.yaml role that sets it.
+const thesis = (await getCollection('education')).flatMap(({ data }) => data.roles).find((r) => r.progress !== undefined);
+// Experience: the role held now (first `current: true` in experience.yaml) and its organisation.
+const job = inOrder(await getCollection('experience'))
+  .flatMap(({ data }) => data.roles.map((role) => ({ role, org: data.org })))
+  .find(({ role }) => role.current);
+// Research: the newest paper (first in publications.yaml): the main title of its short wording (before any subtitle).
+const [paper] = inOrder(await getCollection('publications'));
+const [latest] = await getPosts(); // newest first, drafts left out of production builds
+const book = await getCurrentRead(); // "on my desk": a book first (lib/reading.ts)
+
+// Entrance: rows slide in from alternating sides (MobileHome.dc.html); delays 0 / 0.06 / 0.12 / 0.18 / 0.24s
+// map to the nearest stagger class.
+const rows = [
+  { n: '01', title: 'Education', href: '/education/', line: 'M.Sc. in Software Engineering, in progress', progress: thesis?.progress, anim: 'from-left', d: '' },
+  { n: '02', title: 'Experience', href: '/experience/', line: job ? `${job.role.title} · ${job.org}` : '', anim: 'from-right', d: 'd1' },
+  {
+    n: '03',
+    title: 'Research',
+    href: '/research/',
+    line: paper ? `Newest: ${(paper.data.short ?? paper.data.title).split(':')[0]} · ${paper.data.venueShort ?? paper.data.venue}` : '',
+    anim: 'from-left',
+    d: 'd2',
+  },
+  { n: '04', title: 'Writing', href: '/writing/', line: latest ? latest.data.title : 'First post coming soon', anim: 'from-right', d: 'd2' },
+  { n: '05', title: 'Reading', href: '/reading/', line: book ? book.data.title : "What's on my desk", anim: 'from-left', d: 'd3' },
+];
+---
+
+<section class="container home-rail site-index" aria-labelledby="h-site-index">
+  <h2 id="h-site-index" class="label home-rail-label" data-anim="blur">around the site</h2>
+  <ul class="home-rail-list index-list" role="list">
+    {rows.map((r) => (
+      <li>
+        <a class:list={['index-item', r.d]} data-anim={r.anim} href={r.href}>
+          <span class="index-item-n">{r.n}</span>
+          <span class="index-item-body">
+            <span class="index-item-title">{r.title}</span>
+            <span class="index-item-line">
+              {clean(r.line)}
+              {r.progress !== undefined && <progress class="index-progress" max="100" value={r.progress} aria-hidden="true"></progress>}
+            </span>
+          </span>
+          <span class="index-item-arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</section>

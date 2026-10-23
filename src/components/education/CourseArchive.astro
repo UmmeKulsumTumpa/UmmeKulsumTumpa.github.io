@@ -1,12 +1,73 @@
 ---
 import { getCollection } from 'astro:content';
-import ProjectArchive from '../../islands/ProjectArchive.tsx';
+import { site } from '../../data/site';
+import { clean, visible } from '../../lib/placeholder';
 
-// course-projects.yaml in file order. The section id is the target of the B.Sc. "on GitHub ↓" link:
-// it is not animated, so the jump lands with the heading in view (the h2's head starts 64px lower).
+// "02 · course projects" (static, no JS). Cards = the `featured: true` entries of course-projects.yaml in
+// file order; the <details> below lists every entry grouped by category. The section id is the target of
+// the B.Sc. "on GitHub ↓" link: it is not animated, so the jump lands with the heading in view.
+const CATEGORIES = [
+  { id: 'spl', label: 'project lab' },
+  { id: 'ai', label: 'AI & ML' },
+  { id: 'sys', label: 'systems & SE' },
+  { id: 'fund', label: 'fundamentals' },
+] as const;
+const categoryLabel = Object.fromEntries(CATEGORIES.map((c) => [c.id, c.label])) as Record<string, string>;
+const stagger = ['', 'd1', 'd2']; // 0 / 0.08 / 0.16s across each row of three
+
 const projects = (await getCollection('projects'))
   .sort((a, b) => a.data.order - b.data.order)
-  .map(({ data: { id, category, lang, desc, course } }) => ({ id, category, lang, desc, course }));
+  .map(({ data }) => ({ ...data, name: data.title ?? data.id, href: `${site.links.github}/${data.id}` }));
+const featured = projects.filter((p) => p.featured);
+const groups = CATEGORIES.map((c) => ({ ...c, items: projects.filter((p) => p.category === c.id) })).filter((g) => g.items.length > 0);
+const total = projects.length;
 ---
 
-<ProjectArchive client:visible projects={projects} id="course-projects" heading="h-arch" />
+<section id="course-projects" class="arc" aria-labelledby="h-arch">
+  <div class="arc-head" data-anim="up">
+    <h2 id="h-arch" class="label arc-label">02 · course projects · {featured.length} selected of {total}</h2>
+    <p class="arc-title">Selected course projects</p>
+  </div>
+  <div class="arc-grid">
+    {featured.map((p, i) => (
+      <a class:list={['arc-card', stagger[i % 3]]} data-anim="up" href={p.href}>
+        <div class="arc-card-in">
+          <div class="arc-meta">
+            <span>{categoryLabel[p.category]}</span>
+            <span class="arc-lang"><span class="arc-lang-dot" aria-hidden="true"></span>{p.lang}</span>
+          </div>
+          <div class="arc-name">{p.name}</div>
+          <div class="arc-desc">{visible(p.desc) ? p.desc : ''}</div>
+          <div class="arc-foot">
+            <span>{clean(p.course) || p.id}</span>
+            <span class="arc-gh">github <span aria-hidden="true">↗</span></span>
+          </div>
+        </div>
+      </a>
+    ))}
+  </div>
+  <div class="arc-more">
+    <details class="arc-all">
+      <summary class="arc-sum">
+        <span class="arc-sum-show">+ Show all {total} course projects</span>
+        <span class="arc-sum-hide">− Hide all {total} course projects</span>
+      </summary>
+      {groups.map((g) => (
+        <div class="arc-group">
+          <h3 class="label arc-group-label">{g.label} · {g.items.length}</h3>
+          <ul class="arc-rows">
+            {g.items.map((p) => (
+              <li class="arc-row">
+                <span class="arc-row-name">{p.name}</span>
+                <span class="arc-row-lang">{p.lang}</span>
+                <span class="arc-row-desc">{visible(p.desc) ? p.desc : ''}</span>
+                <a class="arc-row-repo tap-target" href={p.href}>repo<span class="visually-hidden"> of {p.name}</span> <span aria-hidden="true">↗</span></a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </details>
+    <a class="arc-repos tap-target" href={`${site.links.github}?tab=repositories`}>all repositories on GitHub <span aria-hidden="true">↗</span></a>
+  </div>
+</section>

@@ -1,10 +1,14 @@
 ---
 // "01 · interests" (Research.dc.html; SPEC §5.4): three columns. Copy is verbatim from the prototype,
-// [bracket placeholders] included. The whole section enters with "up", as in the prototype.
+// [bracket placeholders] included. The "asking:" line renders only once the owner fills it in (production
+// hides placeholders; dev shows them). The whole section enters with "up", as in the prototype.
+import { visible } from '../../lib/placeholder';
+
+const ASK = "[the question you're chasing]";
 const interests = [
-  { name: 'LLM efficiency', line: 'Getting more out of a model per token, per second and per dollar.' },
-  { name: 'Context management', line: 'What an agent should keep, compress or drop across long tasks.' },
-  { name: 'Adaptive inference', line: 'Spending compute where an input needs it, not uniformly.' },
+  { name: 'LLM efficiency', line: 'Getting more out of a model per token, per second and per dollar.', ask: ASK },
+  { name: 'Context management', line: 'What an agent should keep, compress or drop across long tasks.', ask: ASK },
+  { name: 'Adaptive inference', line: 'Spending compute where an input needs it, not uniformly.', ask: ASK },
 ];
 ---
 
@@ -15,7 +19,7 @@ const interests = [
       <div class="res-int-col">
         <h3 class="res-int-name">{it.name}</h3>
         <p class="res-int-line">{it.line}</p>
-        <p class="res-int-ask">asking: [the question you're chasing]</p>
+        {visible(it.ask) && <p class="res-int-ask">asking: {it.ask}</p>}
       </div>
     ))}
   </div>

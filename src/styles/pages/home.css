@@ -3,295 +3,155 @@
    One section per component, in page order. */
 
 /* ── hero ── */
-.hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--border); }
-.hero-grid {
-  position: absolute; left: 0; right: 0; top: -60px; height: 900px;
-  background-image: radial-gradient(var(--dot) 1px, transparent 1.5px);
-  background-size: 28px 28px;
-  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 62% 35%, black 25%, transparent 75%);
-  mask-image: radial-gradient(ellipse 70% 60% at 62% 35%, black 25%, transparent 75%);
-}
-.hero-ghost {
-  position: absolute; right: -80px; top: 90px; font-family: var(--serif); font-size: 420px;
-  line-height: 0.8; color: transparent; -webkit-text-stroke: 1px var(--stroke); white-space: nowrap; user-select: none;
-}
-.hero-inner { position: relative; padding-top: 16px; }
+.hero { position: relative; border-bottom: 1px solid var(--border); }
+.hero-inner { position: relative; padding-top: 28px; }
 .hero-top {
   display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
-  font-family: var(--mono); font-size: 13px; color: var(--faint);
+  font-family: var(--mono); font-size: 12px; color: var(--faint);
 }
 .hero-path { color: var(--muted); }
 .hero-phone { display: none; } /* short top line, phones only */
-.hero-name-block { margin-top: 40px; }
-.hero-hello { font-family: var(--mono); font-size: 14px; color: var(--accent); }
+/* Text left, portrait right, bottoms aligned (≥ 900px). The portrait column narrows below ~1250px so the
+   one-line name (7.33em + caret) still fits the text column down to 900px. */
+.hero-main { padding: 56px 0 64px; display: flex; flex-direction: column; gap: 48px; }
+.hero-text { min-width: 0; }
+.hero-hello { font-family: var(--mono); font-size: 13px; color: var(--accent); }
 .hero-name {
   margin-top: 10px; font-family: var(--serif); font-weight: 400;
-  font-size: clamp(52px, 11.4vw, 163px); line-height: 0.95; letter-spacing: -0.02em;
+  font-size: clamp(52px, 7.2vw, 104px); line-height: 1; letter-spacing: -0.02em;
 }
-/* Desktop: both masked lines sit on one line and wipe in together (.d1), as in Main.dc.html.
-   Phones stack them and keep the second line's own .d3 delay.
-   The 163px cap (reached at ~1430px wide) keeps name + caret inside the 1216px content box (1280px container
-   minus 2 × 32px gutter): the name is ~7.33em wide plus 18px of caret, so 163px gives ~1212px (#46). */
+/* Desktop: both masked lines sit on one line and wipe in together (.d1). Phones stack them and keep the
+   second line's own .d3 delay. */
 .hero-name .hero-name-line { display: inline-block; vertical-align: top; }
 @media (min-width: 641px) {
   .hero-name { white-space: nowrap; }
   .hero-name .hero-name-end { transition-delay: 0.08s; }
 }
 .hero-role {
-  margin-top: 22px; display: flex; align-items: center; gap: 14px;
+  margin-top: 12px; display: flex; align-items: center; gap: 14px; /* + the name mask's 0.06em bottom padding */
   font-family: var(--mono); font-size: 13px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--muted);
 }
-.hero-bottom {
-  margin-top: 28px; padding-bottom: 36px; display: flex; flex-wrap: wrap; gap: 28px 56px;
-  justify-content: space-between; align-items: flex-end;
-}
-.hero-statement {
-  flex: 1 1 420px; max-width: 24em; font-family: var(--serif); font-style: italic; font-size: 30px; line-height: 1.3;
-}
-.hero-now { flex: 0 1 auto; font-family: var(--mono); font-size: 13px; line-height: 2; color: var(--muted); }
-.hero-now-label { display: flex; align-items: center; gap: 10px; color: var(--faint); }
-.hero-now-value { color: var(--text); }
-.hero-now-reading { display: none; }
-
-@media (max-width: 640px) {
-  .hero-grid {
-    top: 0; height: 640px; background-size: 22px 22px;
-    -webkit-mask-image: radial-gradient(ellipse 80% 55% at 70% 35%, black 25%, transparent 75%);
-    mask-image: radial-gradient(ellipse 80% 55% at 70% 35%, black 25%, transparent 75%);
-  }
-  .hero-ghost { right: auto; left: 40px; top: 130px; font-size: 230px; }
-  .hero-inner { padding-top: 20px; }
-  .hero-top { font-size: 12px; }
-  .hero-wide { display: none; }
-  .hero-phone { display: inline; }
-  .hero-name-block { margin-top: 32px; }
-  .hero-hello { font-size: 13px; }
-  .hero-name { font-size: 66px; line-height: 0.92; }
-  .hero-name .hero-name-line { display: block; }
-  .hero-name .caret { width: 3px; margin-left: 8px; }
-  .hero-role { margin-top: 18px; gap: 10px; font-size: 11px; letter-spacing: 0.26em; }
-  .hero-bottom { margin-top: 40px; padding-bottom: 48px; flex-direction: column; align-items: stretch; gap: 28px; }
-  .hero-statement { flex: none; font-size: 24px; }
-  .hero-now { font-size: 12px; }
-  .hero-now-thesis { display: none; }
-  .hero-now-reading { display: block; }
-  /* The 'currently' lines are 24px apart: keep the Cefalo link's enlarged hit area (.tap-target) inside its
-     own line so a tap on the next line doesn't open cefalo.com. */
-  .hero-now-value.tap-target::after { inset: -4px 0; }
-}
-
-/* ── about ── */
-.about { padding-top: 44px; }
-.about-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 12px 40px; }
-.about-head > div { min-width: 0; }
-.about-title {
-  margin-top: 12px; font-family: var(--serif); font-weight: 400;
-  font-size: clamp(44px, 5.6vw, 80px); line-height: 1; letter-spacing: -0.015em;
-}
-.about-path { font-family: var(--mono); font-size: 12px; color: var(--faint); }
-
-.about-body {
-  margin-top: 28px; padding-top: 32px; border-top: 1px solid var(--border);
-  display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start;
-}
-.about-facts { flex: 0 1 230px; min-width: 210px; }
-.about-facts dl { margin-top: 12px; font-family: var(--mono); font-size: 12.5px; line-height: 1.5; }
-.about-facts dl > div { padding: 10px 0; border-top: 1px solid var(--border); }
-.about-facts dl > div:last-child { border-bottom: 1px solid var(--border); }
-.about-facts dt { color: var(--faint); }
-.about-facts dd { margin-top: 2px; }
-.about-links-label { margin-top: 28px; }
-.about-links { margin-top: 10px; display: flex; flex-direction: column; gap: 2px; font-family: var(--mono); font-size: 13px; }
-.about-links a { display: flex; justify-content: space-between; align-items: center; min-height: 36px; }
-.about-links span { color: var(--faint); }
-
-.about-text { flex: 1 1 440px; min-width: 0; }
-.about-lead { font-size: 22px; line-height: 1.5; }
-.about-lead a { color: var(--accent); }
-.about-paras { margin-top: 24px; }
-.about-paras p { font-size: 17px; line-height: 1.75; color: var(--muted); }
-.about-paras p + p { margin-top: 18px; }
-.about-paras strong { font-weight: inherit; color: var(--text); }
-.about-short { display: none; }
-
-.about-extra { margin-top: 56px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: stretch; gap: 20px; }
-.about-interests { flex: 1 1 520px; min-width: 0; display: flex; flex-direction: column; }
-.about-interest-grid {
-  margin-top: 12px; flex: 1 1 auto; display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 1fr; gap: 12px;
-}
-.about-interest {
-  position: relative; min-width: 0; padding: 20px 22px; border: 1px solid var(--border); border-radius: var(--radius);
-  background: var(--surface); display: flex; flex-direction: column; justify-content: flex-end; gap: 6px;
-}
-.about-interest-n { position: absolute; top: 16px; right: 18px; font-family: var(--mono); font-size: 11px; color: var(--faint); }
-.about-interest-word { font-family: var(--serif); font-size: 34px; line-height: 1; }
-.about-interest-note { font-size: 14px; line-height: 1.4; color: var(--muted); }
-.about-portrait { flex: 0 1 340px; min-width: 260px; display: flex; flex-direction: column; }
-.about-portrait-frame {
+.hero-bio { margin-top: 28px; max-width: 34em; font-size: 19px; line-height: 1.65; color: var(--muted); }
+.hero-mark { color: var(--text); }
+/* line-height 1.3 with 4px more margin each side: one line sits as at the body's 1.65, two lines stay tight. */
+.hero-statement { margin-top: 18px; font-family: var(--serif); font-style: italic; font-size: 24px; line-height: 1.3; }
+.hero-links { margin-top: 32px; }
+.hero-portrait { display: flex; flex-direction: column; width: 100%; max-width: 300px; }
+.hero-portrait-frame {
   margin-top: 12px; width: 100%; aspect-ratio: 4 / 5; border: 1px solid var(--border); border-radius: var(--radius);
   background-color: var(--surface); background-image: radial-gradient(var(--dot) 1px, transparent 1.5px); background-size: 18px 18px;
   display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 12px; color: var(--faint);
 }
-.about-portrait figcaption {
+.hero-portrait figcaption {
   margin-top: 10px; display: flex; justify-content: space-between; font-family: var(--mono); font-size: 11px; color: var(--faint);
 }
-
-.about-quote {
-  margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--border);
-  display: flex; flex-wrap: wrap; gap: 16px 48px; align-items: flex-end; justify-content: space-between;
+@media (min-width: 900px) {
+  .hero-main { display: grid; grid-template-columns: minmax(0, 1fr) clamp(220px, 24vw, 300px); gap: 72px; align-items: end; }
 }
-.about-quote blockquote {
-  flex: 1 1 640px; min-width: 0; font-family: var(--serif); font-style: italic;
-  font-size: clamp(28px, 3.2vw, 44px); line-height: 1.2;
-}
-.about-quote-short { display: none; }
-.about-quote-caption { flex: 0 0 auto; font-family: var(--mono); font-size: 12px; color: var(--faint); }
 
-/* Phones: the condensed About of MobileHome.dc.html (heading, lead, one paragraph, short quote). */
 @media (max-width: 640px) {
-  .about { padding-top: 52px; }
-  .about-label { font-size: 11px; }
-  .about-title { margin-top: 8px; font-size: 40px; letter-spacing: 0; }
-  .about-path, .about-facts, .about-paras, .about-extra, .about-quote-long, .about-quote-caption { display: none; }
-  .about-body { margin-top: 18px; padding-top: 0; border-top: 0; }
-  .about-lead { font-size: 18px; line-height: 1.55; }
-  .about-short { display: block; margin-top: 14px; font-size: 15px; line-height: 1.7; color: var(--muted); }
-  .about-quote { margin-top: 22px; padding-top: 18px; }
-  .about-quote blockquote { flex: 1 1 auto; font-size: 22px; line-height: 1.3; }
-  .about-quote-short { display: inline; }
+  .hero-inner { padding-top: 20px; }
+  .hero-wide { display: none; }
+  .hero-phone { display: inline; }
+  .hero-main { padding: 32px 0 48px; gap: 40px; }
+  .hero-name { font-size: 66px; line-height: 0.92; }
+  .hero-name .hero-name-line { display: block; }
+  .hero-name .caret { width: 3px; margin-left: 8px; }
+  .hero-role { margin-top: 18px; gap: 10px; font-size: 11px; letter-spacing: 0.26em; }
+  .hero-bio { margin-top: 24px; font-size: 17px; line-height: 1.6; }
+  .hero-statement { margin-top: 14px; font-size: 22px; }
+  .hero-links { margin-top: 28px; }
+  .hero-portrait { max-width: 260px; }
 }
 
-/* ── glimpse ── */
-.glimpse { padding-top: 120px; }
-.glimpse-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px; }
-.glimpse-title { margin-top: 12px; font-family: var(--serif); font-weight: 400; font-size: 56px; line-height: 1; letter-spacing: -0.01em; }
-.glimpse-hint { font-family: var(--mono); font-size: 12px; color: var(--faint); }
-
-.glimpse-bento { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 20px; }
-.glimpse-tile { --ring: var(--muted); display: block; min-width: 0; color: var(--text); }
-.glimpse-tile:hover { text-decoration: none; }
-.glimpse-edu { flex: 1 1 340px; }
-.glimpse-exp { flex: 1.5 1 460px; }
-.glimpse-research { flex: 2 1 560px; }
-.glimpse-numbers { flex: 1 1 300px; min-width: 0; }
-.glimpse-writing, .glimpse-reading { flex: 1 1 420px; }
-
-.glimpse-tile-in, .glimpse-numbers-in {
-  height: 100%; min-height: 280px; padding: 28px; border: 1px solid var(--border); border-radius: 22px;
-  display: flex; flex-direction: column; justify-content: space-between; gap: 24px;
+/* ── icon links (IconLinks.astro: hero and contact) ── */
+.icon-links { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 12px; }
+.icon-link {
+  position: relative; width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--pill-border);
+  display: grid; place-items: center; color: var(--text); transition: border-color 0.2s ease;
 }
-.glimpse-tile-in { background: var(--surface); transition: transform 0.45s var(--ease), box-shadow 0.3s ease; }
-.glimpse-tile:hover .glimpse-tile-in, .glimpse-tile:focus-visible .glimpse-tile-in {
-  transform: translateY(-6px); box-shadow: 0 0 0 1px var(--ring), 0 24px 48px -24px rgba(0, 0, 0, 0.45);
+.icon-link:hover { text-decoration: none; border-color: var(--text); }
+.icon-link:focus-visible { border-radius: 50%; }
+.icon-link-main, .icon-link-main:hover { border-color: var(--accent); background: var(--ring); }
+.icon-links-sm { gap: 10px; }
+.icon-links-sm .icon-link { width: 40px; height: 40px; }
+/* 44px hit area around the 40px circles (SPEC §6); centres are 50px apart, so the areas don't overlap. */
+.icon-links-sm .icon-link::after { content: ''; position: absolute; inset: -2px; border-radius: 50%; }
+/* Name on hover / keyboard focus, styled as the dock's tooltip; touch screens get none. */
+.icon-link-tip {
+  position: absolute; bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%); z-index: 2;
+  white-space: nowrap; pointer-events: none; font-family: var(--mono); font-size: 12px; line-height: 1.4;
+  padding: 5px 10px; border-radius: 8px; background: var(--dock-tip-bg); color: var(--text);
+  border: 1px solid var(--dock-border); opacity: 0; transition: opacity 0.15s;
 }
-/* Keyboard focus: the ring goes on the tile itself, so it follows the 22px corners and lifts with it. */
-.glimpse-tile:focus-visible { outline: none; }
-.glimpse-tile:focus-visible .glimpse-tile-in { outline: 2px solid var(--accent); outline-offset: 3px; }
-.glimpse-tile-top { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 12px; color: var(--faint); }
-.glimpse-arrow { display: inline-block; color: var(--text); transition: transform 0.45s var(--ease); }
-.glimpse-tile:hover .glimpse-arrow, .glimpse-tile:focus-visible .glimpse-arrow { transform: translateX(4px) rotate(-45deg); }
-.glimpse-meta { font-family: var(--mono); font-size: 11px; color: var(--faint); }
-.glimpse-sub { font-size: 15px; color: var(--muted); }
-.glimpse-serif-40 { font-family: var(--serif); font-size: 40px; line-height: 1.05; }
-.glimpse-serif-30 { font-family: var(--serif); font-size: 30px; line-height: 1.1; }
-.glimpse-edu .glimpse-sub { margin-top: 8px; }
+.icon-link:hover .icon-link-tip, .icon-link:focus-visible .icon-link-tip { opacity: 1; }
+@media (hover: none) {
+  .icon-link-tip { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .icon-link, .icon-link-tip { transition: none; }
+}
 
-/* education: thesis progress, a <progress> whose value comes from education.yaml (`progress` on the M.Sc. role) */
-.glimpse-progress-label { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 11px; color: var(--faint); }
-.glimpse-progress {
-  display: block; width: 100%; height: 3px; margin-top: 8px; border: 0; border-radius: 2px;
+/* ── rail sections (News, SiteIndex): label in a 200px left column (≥ 900px), list on the right ── */
+.home-rail-label { margin: 0 0 14px; font-weight: 400; }
+.home-rail-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--text); }
+.home-rail-list > li { border-bottom: 1px solid var(--border); }
+@media (min-width: 900px) {
+  .home-rail { display: grid; grid-template-columns: 200px minmax(0, 1fr); column-gap: 48px; align-items: start; }
+  .home-rail-label { margin: 0; padding-top: 6px; }
+}
+
+/* ── news ── */
+.news { padding-top: 24px; }
+.news-row { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 24px; align-items: baseline; padding: 13px 0; }
+a.news-row:hover { text-decoration: none; }
+.news-date { font-family: var(--mono); font-size: 12px; color: var(--faint); font-variant-numeric: tabular-nums; }
+.news-text { font-size: 16px; line-height: 1.6; color: var(--muted); transition: color 0.2s ease; }
+a.news-row:hover .news-text, a.news-row:focus-visible .news-text { color: var(--text); }
+@media (max-width: 640px) {
+  .news { padding-top: 40px; }
+  .news-row { grid-template-columns: minmax(0, 1fr); gap: 2px; padding: 12px 0; }
+  .news-text { font-size: 15px; }
+}
+
+/* ── site index ── */
+.site-index { margin-top: var(--section-gap); }
+.index-item { display: flex; align-items: center; gap: 14px; min-height: 44px; padding: 20px 0; color: var(--text); }
+.index-item:hover { text-decoration: none; }
+.index-item-n { flex: 0 0 24px; font-family: var(--mono); font-size: 11px; color: var(--faint); }
+.index-item-body { flex: 1 1 auto; min-width: 0; }
+.index-item-title { display: block; font-family: var(--serif); font-size: 36px; line-height: 1; }
+.index-item-line { display: block; margin-top: 6px; font-size: 14px; line-height: 1.5; color: var(--muted); }
+.index-item-arrow { flex: 0 0 auto; font-size: 20px; color: var(--muted); transition: transform 0.3s var(--ease), color 0.2s ease; }
+.index-item:hover .index-item-arrow, .index-item:focus-visible .index-item-arrow { transform: translateX(4px); color: var(--text); }
+.index-item:hover .index-item-title, .index-item:focus-visible .index-item-title { color: var(--text); }
+/* thesis progress: a <progress> whose value comes from education.yaml (`progress` on the M.Sc. role) */
+.index-progress {
+  display: inline-block; width: 120px; height: 3px; margin-left: 14px; vertical-align: middle; border: 0; border-radius: 2px;
   -webkit-appearance: none; appearance: none; background: var(--border); color: var(--accent); overflow: hidden;
 }
-.glimpse-progress::-webkit-progress-bar { border-radius: 2px; background: var(--border); }
-.glimpse-progress::-webkit-progress-value { border-radius: 2px; background: var(--accent); }
-.glimpse-progress::-moz-progress-bar { border-radius: 2px; background: var(--accent); }
-
-/* experience */
-.glimpse-exp-row { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 20px; }
-.glimpse-exp-n { font-family: var(--serif); font-size: 96px; line-height: 0.8; }
-.glimpse-exp-text { padding-bottom: 4px; }
-.glimpse-exp-sub { margin-top: 4px; font-size: 15px; color: var(--muted); }
-.glimpse-chips { display: flex; flex-wrap: wrap; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
-.glimpse-chips span { padding: 4px 12px; border: 1px solid var(--border); border-radius: 999px; }
-.glimpse-chips .glimpse-chip-accent { color: var(--accent); }
-
-/* research: text + bar chart */
-.glimpse-research .glimpse-tile-in { flex-direction: row; flex-wrap: wrap; justify-content: flex-start; gap: 0; padding: 0; overflow: hidden; }
-.glimpse-research-text {
-  flex: 1 1 340px; min-width: 0; padding: 28px;
-  display: flex; flex-direction: column; justify-content: space-between; gap: 24px;
+.index-progress::-webkit-progress-bar { border-radius: 2px; background: var(--border); }
+.index-progress::-webkit-progress-value { border-radius: 2px; background: var(--accent); }
+.index-progress::-moz-progress-bar { border-radius: 2px; background: var(--accent); }
+@media (min-width: 641px) {
+  .index-item { display: grid; grid-template-columns: 40px 220px minmax(0, 1fr) 24px; gap: 16px; align-items: baseline; padding: 16px 0; }
+  .index-item-body { display: contents; }
+  .index-item-n { font-size: 12px; }
+  .index-item-title { font-size: 34px; }
+  .index-item-line { margin-top: 0; font-size: 15px; }
+  .index-item-arrow { font-size: 16px; justify-self: end; }
 }
-.glimpse-research-title { margin-top: 6px; font-family: var(--serif); font-size: 32px; line-height: 1.1; }
-.glimpse-bars {
-  flex: 1 1 220px; min-height: 200px; padding: 28px; border-left: 1px solid var(--border);
-  background-image: radial-gradient(var(--dot) 1px, transparent 1.5px); background-size: 16px 16px;
-  display: flex; align-items: flex-end; gap: 6px;
-}
-.glimpse-bars span { flex: 1 1 0; border-radius: 4px 4px 0 0; background: var(--border); }
-.glimpse-bars span:nth-child(1) { height: 28%; }
-.glimpse-bars span:nth-child(2) { height: 46%; }
-.glimpse-bars span:nth-child(3) { height: 38%; }
-.glimpse-bars span:nth-child(4) { height: 72%; background: var(--accent); }
-.glimpse-bars span:nth-child(5) { height: 56%; }
-
-/* by the numbers (not a link: no surface, no hover) */
-.glimpse-numbers-in { gap: 18px; }
-.glimpse-number { display: flex; align-items: baseline; gap: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
-.glimpse-number:last-child { padding-bottom: 0; border-bottom: 0; }
-.glimpse-number-n { font-family: var(--serif); font-size: 48px; line-height: 1; }
-.glimpse-number-text { font-size: 14px; color: var(--muted); }
-
-/* writing + reading */
-.glimpse-writing .glimpse-tile-in, .glimpse-reading .glimpse-tile-in { min-height: 240px; }
-.glimpse-title-sm { margin-top: 6px; line-height: 1.15; }
-.glimpse-tags { font-family: var(--mono); font-size: 12px; color: var(--muted); }
-.glimpse-reading .glimpse-tile-in { flex-direction: row; }
-.glimpse-reading-text { min-width: 0; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; }
-.glimpse-reading-top { display: block; }
-.glimpse-reading-top .glimpse-arrow { margin-left: 8px; }
-.glimpse-author { margin-top: 2px; font-size: 14px; color: var(--muted); }
-.glimpse-spines { display: flex; align-items: flex-end; gap: 4px; padding: 0 4px; border-bottom: 2px solid var(--text); }
-.glimpse-spines span {
-  border: 1px solid var(--border); border-bottom: 0; border-radius: 3px 3px 0 0; background: var(--bg);
-  transition: transform 0.25s ease;
-}
-.glimpse-spines span:nth-child(1) { width: 22px; height: 150px; box-shadow: inset 0 14px 0 -12px var(--accent); }
-.glimpse-spines span:nth-child(2) { width: 18px; height: 128px; transition-delay: 0.04s; }
-.glimpse-spines span:nth-child(3) { width: 26px; height: 162px; transition-delay: 0.08s; }
-.glimpse-spines span:nth-child(4) { width: 16px; height: 136px; transition-delay: 0.12s; }
-.glimpse-tile:hover .glimpse-spines span, .glimpse-tile:focus-visible .glimpse-spines span { transform: translateY(-6px); }
-
-/* phones: numbered list instead of the bento */
-.glimpse-list-title, .glimpse-list { display: none; }
-.glimpse-list { margin: 14px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--border); }
-.glimpse-item {
-  display: flex; align-items: center; gap: 14px; min-height: 44px; padding: 20px 0;
-  border-bottom: 1px solid var(--border); color: var(--text);
-}
-.glimpse-item:hover { text-decoration: none; }
-.glimpse-item-n { flex: 0 0 24px; font-family: var(--mono); font-size: 11px; color: var(--faint); }
-.glimpse-item-body { flex: 1 1 auto; min-width: 0; }
-.glimpse-item-title { display: block; font-family: var(--serif); font-size: 36px; line-height: 1; }
-.glimpse-item-line { display: block; margin-top: 6px; font-size: 14px; line-height: 1.5; color: var(--muted); }
-.glimpse-item-arrow { flex: 0 0 auto; font-size: 20px; color: var(--muted); }
-
-@media (prefers-reduced-motion: reduce) {
-  .glimpse-tile-in, .glimpse-arrow, .glimpse-spines span { transition: none; }
-}
-
 @media (max-width: 640px) {
-  .glimpse { padding-top: 56px; }
-  .glimpse-head, .glimpse-bento { display: none; }
-  .glimpse-list-title {
-    display: block; font-family: var(--mono); font-weight: 400; font-size: 11px; letter-spacing: 0.08em; color: var(--faint);
-  }
-  .glimpse-list { display: block; }
+  .index-list { border-top-color: var(--border); }
+  .index-progress { display: block; margin: 8px 0 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .news-text, .index-item-arrow { transition: none; }
 }
 
 /* ── token strip ── */
 .tokens {
-  margin-top: 120px; padding: 52px 0 60px; overflow: hidden;
+  margin-top: var(--section-gap); padding: 52px 0 60px; overflow: hidden;
   border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
 }
 .tokens-caption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--faint); }
@@ -316,7 +176,7 @@
 }
 
 @media (max-width: 640px) {
-  .tokens { margin-top: 56px; padding: 36px 0 40px; }
+  .tokens { padding: 36px 0 40px; }
   .tokens-caption { font-size: 11px; }
   .tokens-aside, .tokens-desktop { display: none; }
   .tokens-phone { display: block; margin-top: 14px; }
@@ -325,19 +185,14 @@
 }
 
 /* ── contact ── */
-.contact { padding-top: 120px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 32px; }
+.contact { padding-top: var(--section-gap); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 32px; }
 .contact-title { font-family: var(--serif); font-weight: 400; font-size: clamp(64px, 8vw, 120px); line-height: 1; letter-spacing: -0.02em; }
 .contact-actions { flex: 0 1 420px; }
-.contact-links { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 6px 20px; font-family: var(--mono); font-size: 13px; }
-.contact-links a { color: var(--muted); }
+.contact-links { margin-top: 16px; }
 
 @media (max-width: 640px) {
-  .contact { padding-top: 64px; display: block; }
+  .contact { display: block; }
   .contact-title { font-size: 64px; }
   .contact-actions { margin-top: 22px; }
   .contact-email { display: flex; justify-content: space-between; padding: 0 18px; font-size: 14px; }
-  /* 44px touch targets (SPEC §6); margins absorb the extra height so the text sits where MobileHome.dc.html has it. */
-  .contact-links { margin-top: 4px; margin-bottom: -12px; gap: 0 18px; font-size: 12px; }
-  .contact-links a { display: inline-flex; align-items: center; min-height: 44px; }
-  .contact-links .contact-desktop-only { display: none; }
 }

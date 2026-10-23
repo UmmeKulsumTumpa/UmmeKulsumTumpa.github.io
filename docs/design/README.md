@@ -3,6 +3,29 @@
 The approved design, captured from the claude.ai prototype. **Build to match the screenshots.**
 Read `../SPEC.md` for the rules behind them; when a screenshot and the spec disagree, the spec wins.
 
+## v2 (Phase 8 design refresh)
+
+The captures in `screenshots/v2/` supersede the v1 captures below for **Home, Education, Experience and Research**.
+v1 still applies to Writing, Reading and 404, and to anything v2 does not show (phones, light theme).
+
+v2 captures are 1440×900 (desktop, dark theme) with no prototype toolbar: the whole image is the site.
+`edu-after-arc.jpg` and `edu-after-open.jpg` are crops of the course-projects section (1216px wide).
+In full-page captures the background glow ends after the first screen; that is a capture artifact, not part of the design.
+Full-page captures hide the dock; the dock is unchanged. The text inside the Home portrait frame (`[your photo]`) and the
+Experience screenshot frame is hidden in production; the frames stay (SPEC §4).
+The Research "pdf / doi / bibtex" pills are illustrative only: pills render only for links that exist in `publications.yaml`.
+
+| File | What it shows |
+|---|---|
+| `v2/home-after-view.jpg` | Home first screen: hero (breadcrumb + clock, hello, name + caret, role, bio, italic statement, icon links, portrait), top of News |
+| `v2/home-after-full.jpg` | Home whole page: hero, News, "around the site" index, token strip, "Say hello." + email button + icon links, footer |
+| `v2/edu-after-full.jpg` | Education whole page: short page head, timeline with the date rail, selected course projects, hackathons, certifications |
+| `v2/edu-after-arc.jpg` | Education course projects: 6 featured cards (3×2), "Show all 19 course projects" collapsed |
+| `v2/edu-after-open.jpg` | Education course projects with "Show all 19" open: list grouped by category, "all repositories on GitHub" |
+| `v2/exp-after-view.jpg` | Experience first screen: short page head (breadcrumb, title, lead), timeline with the date rail |
+| `v2/exp-after-full.jpg` | Experience whole page: timeline, one selected project as a wide card (media left, text right), toolbox |
+| `v2/res-after-full.jpg` | Research whole page: interests, publications without a figure frame, in progress, collaborators |
+
 ## How to use these
 
 1. Before building a page, open every screenshot for that page (Claude Code: use the Read tool on each `.jpg`; it renders images).
