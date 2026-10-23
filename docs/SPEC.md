@@ -194,7 +194,7 @@ responsive card grid, each card links to `https://github.com/UmmeKulsumTumpa/<id
 
 ### 5.3 Experience `/experience/` (`Experience.dc.html`; screenshots `experience-desktop-01…05`)
 
-Header (ghost "ship it"). Timeline newest first: Cefalo [Associate SE (current, full-time) → SE part-time → Intern], BARTA Research Lab (Fellowship.AI removed by the owner: it is not an experience entry).
+Header (ghost "ship it"). Timeline newest first: Cefalo [Associate SE (current, full-time) → SE part-time → Intern], Fellowship.AI, BARTA Research Lab.
 Then selected projects (Cefalo Travel Connect + placeholders, image cards with zoom) and toolbox (Web, Mobile, Research, Practice).
 **Known prototype glitch:** in `experience-desktop-04-projects-GLITCH.jpg` the Cefalo Travel Connect text floats in the right column with
 stray boxes. Do not copy that. Every project card is one card: screenshot (fixed 240px tall, as in `Experience.dc.html`) on top, then meta line, title ↗, one line, stack;

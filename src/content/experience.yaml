@@ -27,6 +27,18 @@
       end: "Aug 2025"
       summary: "Six-month academic internship: technologies and industry practice, teamwork and self-management."
 
+- id: fellowship-ai
+  org: Fellowship.AI
+  short: F
+  location: "[remote]"
+  span: "2024"
+  roles:
+    - title: Data Science Fellow
+      type: professional certificate
+      start: "[Mon YYYY]"
+      end: "Dec 2024"
+      summary: "Capstone project: Causal Competitor Analysis for Retail. Completed the program and earned the certification."
+
 - id: barta
   org: BARTA Research Lab, IIT, University of Dhaka
   short: BARTA
