@@ -163,7 +163,7 @@ bottom padding ≥ 150px so the dock never covers the last line.
 ### 5.1 Home `/` (prototype: `docs/design/Main.dc.html`; screenshots `home-desktop-01…07`, `home-light-01`, `mobile-home-01…04`)
 
 1. **Hero:** top line `~/ummekulsumtumpa` + "Dhaka, BD · HH:MM (UTC+6)" live clock island; "hello, I'm" (mono, accent);
-   **name on one line**, Instrument Serif, `clamp(52px, 11.4vw, 172px)`, blinking accent caret; "SOFTWARE ENGINEER · RESEARCHER"
+   **name on one line**, Instrument Serif, `clamp(52px, 11.4vw, 163px)` (the cap keeps name + caret inside the 1280px container at any width), blinking accent caret; "SOFTWARE ENGINEER · RESEARCHER"
    tracked mono; italic serif statement (left) + "currently" block with pulsing dot (right). Faint dot grid + outlined
    "context" ghost word with parallax.
 2. **About (§ 01):** heading "A little about me." on one line + `~/about.md · engineer · researcher · reader`.
@@ -221,7 +221,7 @@ On-brand: serif "Lost in context.", link home, dock.
 ## 6. Responsive & accessibility
 
 - Breakpoints by content, mainly 520 / 640 / 900 / 1280. Mobile reference: `docs/design/MobileHome.dc.html`, `MobileReading.dc.html`.
-- Name stays one line on desktop; two lines allowed on phones.
+- Name stays one line on desktop and never overflows the content box (capped at 163px); two lines allowed on phones.
 - Semantic landmarks (`header`, `main`, `nav`, `section` with `aria-labelledby`, `footer`), one `h1` per page.
 - Contrast AA in both themes; visible focus ring; all interactive controls are real `<a>`/`<button>`; touch targets ≥ 44px on mobile.
 - `prefers-reduced-motion`: no entrance motion, no parallax, no background drift, no caret blink.
