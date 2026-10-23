@@ -12,7 +12,12 @@
 
 /* ---------- library (src/islands/ReadingLibrary.tsx) ---------- */
 .rd-bar { padding-top: 40px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; }
-.rd-bar[hidden] { display: none; }
+/* Hidden until the island is ready. Without JS it takes no space. With JS (html[data-js], Base.astro) it keeps
+   its space, and only Books shows, without the kind headings, so the page is already laid out as the hydrated
+   library and nothing moves when the tabs take over (CLS). */
+:root:not([data-js]) .rd-bar[hidden] { display: none; }
+.rd-bar[hidden] { visibility: hidden; }
+[data-js] .rd-kind + .rd-kind, [data-js] .rd-kind-label { display: none; }
 .rd-tabs { display: inline-flex; padding: 4px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
 .rd-tab {
   min-height: 40px; padding: 0 18px; border: 0; border-radius: 9px; background: transparent;
@@ -22,7 +27,7 @@
 .rd-pills { display: flex; flex-wrap: wrap; gap: 8px; }
 .rd-pill { min-height: 36px; }
 .rd-empty { margin-top: 40px; font-family: var(--mono); font-size: 13px; color: var(--faint); }
-/* before hydration (and without JS) every kind is stacked under its own heading */
+/* without JS every kind is stacked under its own heading */
 .rd-kind-label { margin-top: 40px; font-weight: 400; }
 
 /* status: pill on desktop, plain coloured text on phones */
