@@ -183,7 +183,7 @@ Page heads (every page but Home): terminal breadcrumb `~/ummekulsumtumpa/<page>`
 
 ### 5.1 Home `/` (screenshots `v2/home-after-view`, `v2/home-after-full`; phones and light theme: `mobile-home-01…04`, `home-light-01`)
 
-Order: Hero → News → "around the site" → Token strip. No About, off-the-clock tiles, quote, bento or "Say hello." section
+Order: Hero → Milestones → "around the site" → Token strip. No About, off-the-clock tiles, quote, bento or "Say hello." section
 (the hero's icon links and the dock's email cover contact).
 
 1. **Hero:** top line `~/ummekulsumtumpa` + "Dhaka, BD · HH:MM (UTC+6)" live clock island (12px); "hello, I'm" (mono, accent);
