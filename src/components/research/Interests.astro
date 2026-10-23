@@ -12,11 +12,11 @@ const interests = [
 ];
 ---
 
-<section class="res-section res-int" data-anim="up" aria-labelledby="h-int">
-  <h2 id="h-int" class="label res-label">01 · interests</h2>
+<section class="res-section res-int" aria-labelledby="h-int">
+  <h2 id="h-int" class="label res-label" data-anim="up">01 · interests</h2>
   <div class="res-int-grid">
-    {interests.map((it) => (
-      <div class="res-int-col">
+    {interests.map((it, i) => (
+      <div class:list={['res-int-col', ['d1', 'd2', 'd3'][Math.min(i, 2)]]} data-anim="up">
         <h3 class="res-int-name">{it.name}</h3>
         <p class="res-int-line">{it.line}</p>
         {visible(it.ask) && <p class="res-int-ask">asking: {it.ask}</p>}

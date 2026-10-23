@@ -13,13 +13,13 @@ const { previous, next } = Astro.props;
 {(previous || next) && (
   <nav class="wr-nav" aria-label="More posts">
     {previous && (
-      <a class="wr-nav-link wr-nav-prev" href={postHref(previous)} rel="prev">
+      <a class="wr-nav-link wr-nav-prev" data-anim="from-left" href={postHref(previous)} rel="prev">
         <span class="wr-nav-label"><span class="wr-arrow" aria-hidden="true">←</span> previous</span>
         <span class="wr-nav-title">{previous.data.title}</span>
       </a>
     )}
     {next && (
-      <a class="wr-nav-link wr-nav-next" href={postHref(next)} rel="next">
+      <a class="wr-nav-link wr-nav-next d1" data-anim="from-right" href={postHref(next)} rel="next">
         <span class="wr-nav-label">next <span class="wr-arrow" aria-hidden="true">→</span></span>
         <span class="wr-nav-title">{next.data.title}</span>
       </a>

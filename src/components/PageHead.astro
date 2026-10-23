@@ -19,7 +19,7 @@ const phoneLead = Astro.slots.has('lead-phone');
       )}
     </a>
     <div class="ph-text">
-      <h1 class="ph-title" data-anim="mask"><span class="d1">{title}</span></h1>
+      <h1 class="ph-title" data-anim="mask" data-parallax="0.08"><span class="d1">{title}</span></h1>
       <p class="ph-lead d4" data-anim="up">
         {phoneLead ? (
           <><span class="ph-wide"><slot /></span><span class="ph-phone"><slot name="lead-phone" /></span></>

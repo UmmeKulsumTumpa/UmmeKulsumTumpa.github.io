@@ -48,12 +48,12 @@ const total = projects.length;
   </div>
   <div class="arc-more">
     <details class="arc-all">
-      <summary class="arc-sum">
+      <summary class="arc-sum" data-anim="up">
         <span class="arc-sum-show">+ Show all {total} course projects</span>
         <span class="arc-sum-hide">− Hide all {total} course projects</span>
       </summary>
       {groups.map((g) => (
-        <div class="arc-group">
+        <div class="arc-group" data-anim="up">
           <h3 class="label arc-group-label">{g.label} · {g.items.length}</h3>
           <ul class="arc-rows">
             {g.items.map((p) => (
@@ -68,6 +68,6 @@ const total = projects.length;
         </div>
       ))}
     </details>
-    <a class="arc-repos tap-target" href={`${site.links.github}?tab=repositories`}>all repositories on GitHub <span aria-hidden="true">↗</span></a>
+    <a class="arc-repos tap-target d1" data-anim="up" href={`${site.links.github}?tab=repositories`}>all repositories on GitHub <span aria-hidden="true">↗</span></a>
   </div>
 </section>

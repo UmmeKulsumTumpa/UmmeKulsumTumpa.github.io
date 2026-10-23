@@ -136,10 +136,21 @@ Under 520px: 42px items, no tooltips, Email hidden. On touch screens an item shr
 ### 3.4 Motion vocabulary
 
 Slide-style entrances when elements enter the viewport: `up`, `from-left`, `from-right`,
-`zoom`, `blur`, `mask` (line wipe for big headings). An element plays its entrance once, the first time it enters,
-and stays entered; scrolling back does not replay it. Stagger with `.d1`–`.d8`. Parallax (`data-parallax`) only on
-elements that still carry it; the ghost words and the hero dot grid are gone. Everything off under reduced motion; content
-must be fully visible with JS disabled (the hidden state only applies once `html[data-anim-ready]` is set).
+`zoom`, `blur`, `mask` (line wipe for big headings), on every page: page heads, section heads, timeline orgs and roles,
+list rows, cards. Entrances replay in both scroll directions:
+
+- Scrolling down, an element that comes in at the bottom of the viewport enters from below (as on first load).
+- Scrolling up, an element that comes in at the top enters from above: the vertical offset of `up`, `blur` and the
+  `mask` wipe is mirrored. `from-left`, `from-right` and `zoom` look the same either way.
+- An element enters once about 12% of it is visible and resets to hidden only when it is fully out of the viewport
+  (hysteresis, so nothing flickers at the edge). The reset jumps without a transition, so it plays again the next time
+  it enters, from whichever side that is.
+
+First-screen content enters from below on load. Stagger with `.d1`–`.d8`. Light parallax (`data-parallax`) only on
+elements that carry it; the ghost words and the hero dot grid are gone. Hydrated island copies of entered elements carry
+on without replaying. Everything off under reduced motion; content must be fully visible with JS disabled (the hidden
+state only applies once `html[data-anim-ready]` is set, and the head script in `Base.astro` shows everything if
+`motion.ts` never starts).
 
 ### 3.5 Theme
 

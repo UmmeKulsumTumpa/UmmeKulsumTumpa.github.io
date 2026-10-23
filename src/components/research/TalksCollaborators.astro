@@ -14,13 +14,13 @@ const collaborators = [
 ];
 ---
 
-<div class="res-section res-pair" data-anim="up">
+<div class="res-section res-pair">
   {talks.length > 0 && (
     <section class="res-col" aria-labelledby="h-talks">
-      <h2 id="h-talks" class="label res-label">04 · talks &amp; posters</h2>
+      <h2 id="h-talks" class="label res-label" data-anim="up">04 · talks &amp; posters</h2>
       <ul class="res-talks" role="list">
-        {talks.map((t) => (
-          <li class="res-talk">
+        {talks.map((t, i) => (
+          <li class:list={['res-talk', ['', 'd1', 'd2', 'd3'][Math.min(i, 3)]]} data-anim="up">
             {visible(clean(t.when)) && <div class="res-talk-when">{clean(t.when)}</div>}
             <div class="res-talk-title">{t.title}{visible(t.event) && <> <span class="res-talk-event">· {t.event}</span></>}</div>
           </li>
@@ -29,10 +29,10 @@ const collaborators = [
     </section>
   )}
   <section class:list={['res-col', talks.length === 0 && 'res-col-full']} aria-labelledby="h-collab">
-    <h2 id="h-collab" class="label res-label">05 · collaborators</h2>
+    <h2 id="h-collab" class="label res-label" data-anim="up">05 · collaborators</h2>
     <ul class="res-collab" role="list">
-      {collaborators.map((c) => (
-        <li class="res-collab-row">
+      {collaborators.map((c, i) => (
+        <li class:list={['res-collab-row', ['', 'd1', 'd2', 'd3'][Math.min(i, 3)]]} data-anim="from-right">
           <span>{c.name}</span>
           <span class="res-collab-org">{c.org}</span>
         </li>
