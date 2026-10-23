@@ -37,8 +37,11 @@ function Books({ list }: { list: Item[] }) {
         const inner = (
           <>
             <span className={cx('rd-cover', `rd-cover-v${(i % 4) + 1}`)}>
-              <span className="rd-cover-rule" aria-hidden="true"></span>
-              <span className="rd-cover-title">{b.title}</span>
+              {/* The rule follows the title, so a long title pushes it down instead of being struck through. */}
+              <span className="rd-cover-head">
+                <span className="rd-cover-title">{b.title}</span>
+                <span className="rd-cover-rule" aria-hidden="true"></span>
+              </span>
               <span className="rd-cover-author">{b.author}</span>
             </span>
             <span className="rd-book-meta">
