@@ -8,4 +8,7 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://ummekulsumtumpa.github.io',
   integrations: [react(), sitemap()],
+  // Code blocks are plain <pre><code>, styled by prose.css from the theme tokens. Shiki would inline
+  // fixed hex colours (one theme for both light and dark) as style attributes.
+  markdown: { syntaxHighlight: false },
 });
