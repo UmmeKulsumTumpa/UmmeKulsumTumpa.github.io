@@ -137,4 +137,21 @@ const toolbox = defineCollection({
   }),
 });
 
-export const collections = { writing, reading, experience, education, projects, publications, selectedProjects, toolbox };
+/** Education "05 · certifications": thumbnail links to the full-size certificate image. */
+const certifications = defineCollection({
+  loader: ordered('src/content/certifications.yaml'),
+  schema: ({ image }) =>
+    z.object({
+      id: z.string(),
+      title: z.string(),
+      issuer: z.string(),
+      date: z.string(), // shown as written, e.g. "Dec 2024"
+      note: z.string().optional(), // one line under the title
+      image: image(), // path relative to the YAML file, e.g. ../assets/certificates/<file>.jpg
+      alt: z.string(), // describes the certificate image
+      url: z.url().optional(), // issuer's verification page, shown as a link
+      order: z.number(), // set by ordered(): position in the YAML file, not written by hand
+    }),
+});
+
+export const collections = { writing, reading, experience, education, projects, publications, selectedProjects, toolbox, certifications };
