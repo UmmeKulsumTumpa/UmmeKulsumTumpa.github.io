@@ -26,11 +26,12 @@
 .hero-hello { font-family: var(--mono); font-size: 14px; color: var(--accent); }
 .hero-name {
   margin-top: 10px; font-family: var(--serif); font-weight: 400;
-  font-size: clamp(52px, 11.4vw, 172px); line-height: 0.95; letter-spacing: -0.02em;
+  font-size: clamp(52px, 11.4vw, 163px); line-height: 0.95; letter-spacing: -0.02em;
 }
 /* Desktop: both masked lines sit on one line and wipe in together (.d1), as in Main.dc.html.
    Phones stack them and keep the second line's own .d3 delay.
-   nowrap: at the 172px cap (≥1430px wide) the name is slightly wider than the 1216px content box. */
+   The 163px cap (reached at ~1430px wide) keeps name + caret inside the 1216px content box (1280px container
+   minus 2 × 32px gutter): the name is ~7.33em wide plus 18px of caret, so 163px gives ~1212px (#46). */
 .hero-name .hero-name-line { display: inline-block; vertical-align: top; }
 @media (min-width: 641px) {
   .hero-name { white-space: nowrap; }
@@ -196,10 +197,15 @@
 .glimpse-serif-30 { font-family: var(--serif); font-size: 30px; line-height: 1.1; }
 .glimpse-edu .glimpse-sub { margin-top: 8px; }
 
-/* education: thesis progress (30% as in Main.dc.html; no content field yet) */
+/* education: thesis progress, a <progress> whose value comes from education.yaml (`progress` on the M.Sc. role) */
 .glimpse-progress-label { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 11px; color: var(--faint); }
-.glimpse-progress { margin-top: 8px; height: 3px; border-radius: 2px; background: var(--border); }
-.glimpse-progress-bar { width: 30%; height: 3px; border-radius: 2px; background: var(--accent); }
+.glimpse-progress {
+  display: block; width: 100%; height: 3px; margin-top: 8px; border: 0; border-radius: 2px;
+  -webkit-appearance: none; appearance: none; background: var(--border); color: var(--accent); overflow: hidden;
+}
+.glimpse-progress::-webkit-progress-bar { border-radius: 2px; background: var(--border); }
+.glimpse-progress::-webkit-progress-value { border-radius: 2px; background: var(--accent); }
+.glimpse-progress::-moz-progress-bar { border-radius: 2px; background: var(--accent); }
 
 /* experience */
 .glimpse-exp-row { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 20px; }

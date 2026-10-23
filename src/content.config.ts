@@ -67,6 +67,7 @@ const role = z.object({
   link: z.object({ label: z.string(), href: z.string() }).optional(), // shown after the summary
   details: z.array(z.object({ label: z.string(), value: z.string(), href: z.string().optional() })).default([]),
   courses: z.array(z.object({ name: z.string(), note: z.string() })).default([]),
+  progress: z.number().min(0).max(100).optional(), // thesis progress in %, shown on the Home education tile
 });
 
 const org = z.object({
@@ -103,6 +104,8 @@ const publications = defineCollection({
     authors: z.array(z.string()),
     venue: z.string(),
     year: z.number(),
+    short: z.string().optional(), // shorter title for the Home research tile (falls back to title)
+    venueShort: z.string().optional(), // shorter venue for the Home research tile (falls back to venue)
     tldr: z.string().optional(),
     links: z.array(z.object({ label: z.string(), href: z.string() })).default([]),
     order: z.number(), // set by ordered(): position in the YAML file, not written by hand

@@ -17,6 +17,8 @@
         - { name: Research Methodology, note: Systematic review of cross-lingual LLM agents }
         - { name: Software Security, note: Prompt-injection robustness of coding agents }
         - { name: Formal Methods, note: Modelling with Alloy }
+      # Thesis progress in % (0-100): the bar on the Home education tile.
+      progress: 20
     - title: B.Sc. in Software Engineering
       start: "2022"
       end: Feb 2026

@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 
 // "02 · selected projects" (Experience.dc.html; SPEC §5.3), from src/content/selected-projects.yaml in file order.
-// Every card is one card: screenshot (16:10), meta, title ↗, one line, stack.
+// Every card is one card: screenshot (240px tall), meta, title ↗, one line, stack.
 // The whole card is clickable through the title link's stretched ::after, so links inside the line
 // (e.g. "React frontend") are siblings, not nested anchors (the nesting caused the prototype glitch).
 const projects = (await getCollection('selectedProjects')).sort((a, b) => a.data.order - b.data.order).map((p) => p.data);
@@ -16,7 +16,7 @@ const projects = (await getCollection('selectedProjects')).sort((a, b) => a.data
   <div class="proj-grid">
     {projects.map((p, i) => (
       <article class:list={['proj-card', i % 2 === 1 && 'd1']} data-anim="zoom">
-        {/* No screenshots yet: dotted 16:10 placeholder. Swap in Astro <Image> once real images exist. */}
+        {/* No screenshots yet: dotted 240px placeholder. Swap in Astro <Image> once real images exist. */}
         <div class="proj-media">
           <div class="proj-shot" role="img" aria-label="Project screenshot placeholder">[screenshot]</div>
         </div>
