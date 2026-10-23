@@ -27,17 +27,6 @@
       end: "Aug 2025"
       summary: "Six-month academic internship: technologies and industry practice, teamwork and self-management."
 
-- id: fellowship-ai
-  org: Fellowship.AI
-  short: F
-  location: "[remote]"
-  span: "[YYYY]"
-  roles:
-    - title: "[Fellow title, e.g. Machine Learning Fellow · cohort]"
-      start: "[Mon YYYY]"
-      end: "[Mon YYYY]"
-      summary: "[One line: the project you worked on and what you shipped.]"
-
 - id: barta
   org: BARTA Research Lab, IIT, University of Dhaka
   short: BARTA
