@@ -11,7 +11,11 @@ issue backlog and branch protection.
 flowchart LR
   P0[0 Repo + deploy] --> P1[1 Shell] --> P2[2 Home] --> P3[3 Education + Experience]
   P3 --> P4[4 Research] --> P5[5 Writing + Reading] --> P6[6 SEO, a11y, QA] --> P7[7 Content fill]
+  P6 --> P8[8 Design refresh]
+  P8 -.-> P7
 ```
+
+Phase 7 (content fill) can run after Phase 8 or alongside it.
 
 ## Visual check (used by every phase from 1 on)
 
@@ -114,3 +118,21 @@ Checks: Lighthouse ≥ 95 in all four categories on Home; no console errors; eve
 ## Phase 7: content fill (with the owner)
 
 Walk through SPEC §9 with the owner and replace every `[placeholder]`. Add `public/portrait.jpg` and `public/cv.pdf` when she provides them.
+
+## Phase 8: design refresh (single batch)
+
+Goal: redesign Home, Education, Experience and Research per the owner-approved design review: shorter page heads
+without ghost words, the Home hero + News + site index, the timeline date rail, featured course projects,
+placeholders hidden in production, motion that plays once (SPEC §3.4, §4, §5, §6). Writing, Reading and 404 only get the new page head.
+
+Issue #119 (milestone `Phase 8: design refresh`, label `phase:8`). Release `v0.8.0`.
+
+One-PR exception: the owner asked for a single batch, so this phase does not use one issue per row. The work runs in
+parallel tracks on local worktree branches, merged into `feature/119-design-refresh`; one PR into `develop`, squash-merged
+(see `docs/GIT-WORKFLOW.md` → Batch exception).
+
+Checks (UI check instead of per-PR review):
+- `npm run build` passes.
+- Each refreshed page matches its `docs/design/screenshots/v2/` capture at 1440×900 (dark); the visual check lists every difference until none is worth naming.
+- No console errors, no horizontal overflow and no visible `[placeholder]` text on Home, Education, Experience and Research in the production build.
+- Light theme and phone width checked for anything broken; Writing, Reading and 404 look as before except the page head.

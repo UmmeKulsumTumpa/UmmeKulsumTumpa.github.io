@@ -44,6 +44,7 @@ gitGraph
 |---|---|
 | Phase 0 bootstrap (pushed straight to `main`) | `v0.0.1` |
 | End of Phase N (1–6) | `v0.N.0` |
+| End of Phase 8 (design refresh) | `v0.8.0` |
 | End of Phase 7 (content filled, site complete) | `v1.0.0` |
 | Hotfix | bump the patch: `v0.N.1` |
 
@@ -57,10 +58,10 @@ gitGraph
    Leave GitHub's "automatically delete head branches" **off**: it would delete a `release/` branch as soon as it merges
    into `main`, before the back-merge into `develop`. Feature branches are deleted by `gh pr merge --delete-branch` instead.
 3. Labels: `type:feature`, `type:fix`, `type:style`, `type:docs`, `type:chore`, `type:ci`, `type:content`,
-   `phase:0` … `phase:7`, `needs:owner` (`gh label create <name> --color <hex> --description <text>`).
+   `phase:0` … `phase:8`, `needs:owner` (`gh label create <name> --color <hex> --description <text>`).
 4. Milestones, one per phase, with exactly these titles: `Phase 0: repository and deploy`, `Phase 1: shell`, `Phase 2: Home`,
    `Phase 3: Education + Experience`, `Phase 4: Research`, `Phase 5: Writing + Reading`, `Phase 6: SEO, a11y, QA`,
-   `Phase 7: content fill` (`gh api repos/UmmeKulsumTumpa/UmmeKulsumTumpa.github.io/milestones -f title="Phase 1: shell"`).
+   `Phase 7: content fill`, `Phase 8: design refresh` (`gh api repos/UmmeKulsumTumpa/UmmeKulsumTumpa.github.io/milestones -f title="Phase 1: shell"`).
 5. Issues: one per row of the **Issue backlog** below, with its labels and milestone and the body template.
 6. Add `.github/workflows/ci.yml` through the normal feature loop for backlog issue 1 ("ci: build check on pull requests"): runs `npm ci` and `npm run build`
    on `pull_request` to `develop` and `main` and on `push` to `develop`. Use the current major versions of the actions
@@ -107,6 +108,9 @@ gitGraph
    content-only PRs (Markdown/YAML, images) are checked in the built HTML and screenshots instead. No auto-merge.
 9. `gh pr merge <pr#> --squash --delete-branch`
 10. `git switch develop && git pull --ff-only`; confirm the issue is closed. Post a one-line status to the owner and take the next issue.
+
+Batch exception: when the owner asks for a single batch (Phase 8), one umbrella issue lists the rows as a checklist;
+tracks work in local worktree branches merged into one `feature/<issue#>-<slug>` branch; one PR, squash-merged.
 
 New work found mid-feature (a bug, an idea, missing content) becomes a **new issue**, not extra commits on the current branch.
 Blocked on the owner (missing text, a decision): keep the `[placeholder]`, add `needs:owner` with a comment saying exactly what is needed, and continue with the next independent issue.
