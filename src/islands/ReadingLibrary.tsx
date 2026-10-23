@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
+import { useEffect, useRef, useState, type FocusEvent, type KeyboardEvent } from 'react';
 
 type Kind = 'book' | 'paper' | 'article';
 type Status = 'reading' | 'finished' | 'queued';
@@ -28,6 +28,11 @@ const BOOK_STAGGER = ['', 'd1', 'd2', 'd3']; // 0 / 0.08 / 0.16 / 0.24s across e
 const ROW_STAGGER = ['', 'd1', 'd2', 'd3', 'd4']; // 0.08s apart, capped
 
 const cx = (...names: (string | false | undefined)[]) => names.filter(Boolean).join(' ');
+
+// On phones the pills are one horizontally scrolling row, and Chrome does not scroll a partly hidden button into
+// view on focus, so its focus ring would stay cut off. Bring the focused pill fully into the row (instant, no smooth
+// scrolling, so nothing animates under reduced motion). Desktop rows wrap and never scroll, so this is a no-op there.
+const reveal = (e: FocusEvent<HTMLButtonElement>) => e.currentTarget.scrollIntoView({ block: 'nearest', inline: 'nearest' });
 
 /** Book covers: shade, spine edge and rule height cycle through four variants. */
 function Books({ list }: { list: Item[] }) {
@@ -143,7 +148,7 @@ export default function ReadingLibrary({ items, heading }: Props) {
         </div>
         <div className="rd-pills" role="group" aria-label="Status">
           {STATUSES.map((s) => (
-            <button key={s} type="button" className="pill-btn rd-pill" aria-pressed={s === status} onClick={() => setStatus(s)}>
+            <button key={s} type="button" className="pill-btn rd-pill" aria-pressed={s === status} onClick={() => setStatus(s)} onFocus={reveal}>
               {s}
             </button>
           ))}
