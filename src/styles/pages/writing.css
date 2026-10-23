@@ -36,7 +36,9 @@
 .wr-all-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; }
 .wr-all-label { font-weight: 400; }
 .wr-filters { display: flex; flex-wrap: wrap; gap: 8px; }
-/* Until the island hydrates (WritingFilter.tsx) the pills keep their space, so nothing jumps when they appear. */
+/* Hidden until the island is ready (WritingFilter.tsx). Without JS they take no space. With JS (html[data-js],
+   Base.astro) they keep their space, so nothing jumps when they appear (CLS). */
+:root:not([data-js]) .wr-filters[hidden] { display: none; }
 .wr-filters[hidden] { visibility: hidden; }
 .wr-pill { min-height: 36px; }
 .wr-rows { list-style: none; margin: 20px 0 0; padding: 0; border-top: 1px solid var(--border); }
