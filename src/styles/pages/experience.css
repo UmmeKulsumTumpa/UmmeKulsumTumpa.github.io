@@ -9,8 +9,8 @@
 .exp-tl .tl-org:has(.tl-dot-current) .tl-logo { color: var(--text); }
 .exp-tl .tl-logo-text { font-size: 12px; }
 
-/* Sections after the timeline (Experience.dc.html). */
-.exp-section { padding-top: 96px; }
+/* Sections after the timeline: the shared section gap (tokens.css; 96px, 64px on phones). */
+.exp-section { padding-top: var(--section-gap); }
 
 /* ---------- 02 · selected projects (src/components/experience/SelectedProjects.astro) ---------- */
 .proj-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 12px; }
@@ -34,6 +34,13 @@
 }
 .proj-card:hover .proj-shot, .proj-card:has(.proj-link:focus-visible) .proj-shot { transform: scale(1.05); }
 .proj-body { padding: 22px 24px 24px; }
+/* One project left: one full-width card, media left and text right (vertically centred). Phones stack it, as before. */
+@media (min-width: 641px) {
+  .proj-grid-single { grid-template-columns: 1fr; }
+  .proj-card-wide { display: grid; grid-template-columns: 1.1fr 1fr; }
+  .proj-card-wide .proj-media { border-bottom: 0; }
+  .proj-card-wide .proj-body { align-self: center; }
+}
 .proj-meta { font-family: var(--mono); font-size: 11px; color: var(--faint); }
 .proj-meta + .proj-title { margin-top: 4px; }
 .proj-title { font-size: 19px; font-weight: 600; line-height: 1.65; }

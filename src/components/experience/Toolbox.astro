@@ -1,22 +1,29 @@
 ---
 import { getCollection } from 'astro:content';
+import { keep } from '../../lib/placeholder';
 
 // "03 · toolbox" (Experience.dc.html; SPEC §5.3), from src/content/toolbox.yaml in file order (one entry per column).
+// Placeholder items are dropped in production (src/lib/placeholder.ts), and so is a column left empty.
 // Entrance delays 0 / 0.08 / 0.16 / 0.24s = '' / d1 / d2 / d3.
-const columns = (await getCollection('toolbox')).sort((a, b) => a.data.order - b.data.order).map((c) => c.data);
+const columns = (await getCollection('toolbox'))
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((c) => ({ ...c.data, items: keep(c.data.items, (it) => it) }))
+  .filter((c) => c.items.length > 0);
 const delays = ['', 'd1', 'd2', 'd3'];
 ---
 
-<section class="exp-section tool" aria-labelledby="h-tools">
-  <h2 id="h-tools" class="label tool-heading" data-anim="up">03 · toolbox</h2>
-  <div class="tool-grid">
-    {columns.map((c, i) => (
-      <div class:list={['tool-col', delays[i]]} data-anim="up">
-        <h3 class="tool-name">{c.name}</h3>
-        <ul class="tool-list" role="list">
-          {c.items.map((it) => <li>{it}</li>)}
-        </ul>
-      </div>
-    ))}
-  </div>
-</section>
+{columns.length > 0 && (
+  <section class="exp-section tool" aria-labelledby="h-tools">
+    <h2 id="h-tools" class="label tool-heading" data-anim="up">03 · toolbox</h2>
+    <div class="tool-grid">
+      {columns.map((c, i) => (
+        <div class:list={['tool-col', delays[i]]} data-anim="up">
+          <h3 class="tool-name">{c.name}</h3>
+          <ul class="tool-list" role="list">
+            {c.items.map((it) => <li>{it}</li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+)}
