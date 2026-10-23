@@ -1,10 +1,12 @@
 ---
 // "02 · publications" (Research.dc.html; SPEC §5.4) from src/content/publications.yaml, in file order
-// (newest first), grouped by year: year column, figure placeholder, title, authors with "U. K. Tumpa" bold,
-// venue in italic serif, TL;DR and one link pill per entry in `links`. The schema has no paper URL, so the
+// (newest first), grouped by year: year column, then the body: title, authors with "U. K. Tumpa" bold,
+// venue in italic serif, TL;DR (only when visible(): production hides a placeholder TL;DR) and one link pill
+// per entry in `links`. No figure frame: the schema has no figure field. The schema has no paper URL, so the
 // title is plain text (the prototype's href="#" is not carried over); external pills get the ↗ mark.
 import { getCollection } from 'astro:content';
 import { site } from '../../data/site';
+import { visible } from '../../lib/placeholder';
 
 const SELF = 'U. K. Tumpa';
 const papers = (await getCollection('publications')).sort((a, b) => a.data.order - b.data.order);
@@ -29,8 +31,6 @@ const external = (href: string) => /^https?:\/\//.test(href);
       <div class="pub-list">
         {g.items.map(({ data: p }) => (
           <article class="pub">
-            {/* No figures yet: dotted placeholder, as in the prototype. */}
-            <div class="pub-fig" role="img" aria-label="Paper figure placeholder">[key figure]</div>
             <div class="pub-body">
               <h3 class="pub-title">{p.title}</h3>
               <p class="pub-authors">
@@ -39,7 +39,7 @@ const external = (href: string) => /^https?:\/\//.test(href);
                 ))}
               </p>
               <p class="pub-venue">{p.venue}</p>
-              {p.tldr && <p class="pub-tldr">{p.tldr}</p>}
+              {visible(p.tldr) && <p class="pub-tldr">{p.tldr}</p>}
               {p.links.length > 0 && (
                 <ul class="pub-links" role="list">
                   {p.links.map((l) => (
