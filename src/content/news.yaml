@@ -1,0 +1,22 @@
+# Home "news": short dated lines, newest first (the order of this file is the order on the page).
+# `id` is any unique slug; date is shown as written; href (optional) links the line to a page.
+- id: msc-start
+  date: Jul 2026
+  text: Started the M.Sc. (thesis) at IIT DU
+  href: /education/
+- id: cefalo-ase
+  date: Feb 2026
+  text: Associate Software Engineer I at Cefalo; completed the B.Sc.
+  href: /experience/
+- id: bigdata-2025
+  date: "2025"
+  text: Paper at IEEE BigData 2025 (Voices of Care)
+  href: /research/
+- id: fellowship-ai
+  date: Dec 2024
+  text: Data Science Fellow, Fellowship.AI
+  href: /education/
+- id: barta
+  date: Nov 2023
+  text: Joined BARTA Research Lab
+  href: /research/

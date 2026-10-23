@@ -1,27 +1,20 @@
 /* ---------- page header for inner pages (src/components/PageHead.astro) ----------
    Sizes follow Research/Writing/Reading.dc.html; per-page differences live in pages/<page>.css
-   under the .ph-<slug> hook. Phones follow MobileReading.dc.html. */
+   under the .ph-<slug> hook. Phones follow MobileReading.dc.html. Phase 8: no ghost word, no § label,
+   a smaller title; the head is about 270px tall on Experience at 1440px. */
 .ph { position: relative; overflow: hidden; border-bottom: 1px solid var(--border); }
-.ph-ghost {
-  position: absolute; right: -20px; top: 30px; font-family: var(--serif); font-size: 380px;
-  line-height: 0.8; color: transparent; -webkit-text-stroke: 1px var(--stroke); white-space: nowrap; user-select: none;
-}
-.ph-ghost-italic { font-style: italic; }
-.ph-inner { position: relative; padding-top: 16px; padding-bottom: 48px; }
-.ph-crumb { display: inline-block; font-family: var(--mono); font-size: 13px; color: var(--muted); }
-.ph-text { margin-top: 32px; }
-.ph-title { margin-top: 14px; font-family: var(--serif); font-weight: 400; font-size: clamp(64px, 9vw, 128px); line-height: 1; letter-spacing: -0.02em; }
-.ph-lead { margin-top: 28px; max-width: 36em; font-size: 19px; line-height: 1.7; color: var(--muted); }
+.ph-inner { position: relative; padding-top: 16px; padding-bottom: 36px; }
+.ph-crumb { display: inline-block; font-family: var(--mono); font-size: 12px; color: var(--faint); }
+.ph-text { margin-top: 36px; }
+.ph-title { font-family: var(--serif); font-weight: 400; font-size: clamp(48px, 7vw, 72px); line-height: 1; letter-spacing: -0.02em; }
+.ph-lead { margin-top: 16px; max-width: 36em; font-size: 18px; line-height: 1.7; color: var(--muted); }
 .ph-em { color: var(--text); }
 /* Optional phone variants of the crumb and lead (PageHead phoneCrumb, "lead-phone" slot). */
 .ph-phone { display: none; }
 
 @media (max-width: 640px) {
-  .ph-ghost { right: auto; left: 60px; top: 50px; font-size: 200px; }
   .ph-inner { padding-top: 14px; padding-bottom: 24px; }
-  .ph-crumb { font-size: 12px; }
   .ph-text { margin-top: 28px; }
-  .ph-title { font-size: 60px; }
   .ph-lead { margin-top: 14px; font-size: 15px; line-height: 1.65; }
   .ph-wide { display: none; }
   .ph-phone { display: inline; }
