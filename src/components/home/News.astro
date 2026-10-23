@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content';
+import { keep } from '../../lib/placeholder';
+
+// Short dated lines from src/content/news.yaml, in file order (newest first); a line links to its page when it has an href.
+const news = keep(
+  (await getCollection('news')).sort((a, b) => a.data.order - b.data.order).map(({ data }) => data),
+  (n) => n.text,
+);
+---
+
+{news.length > 0 && (
+  <section class="container home-rail news" aria-labelledby="h-news">
+    <h2 id="h-news" class="label home-rail-label" data-anim="blur">news</h2>
+    <ol class="home-rail-list news-list" role="list">
+      {news.map((n) => {
+        const Row = n.href ? 'a' : 'div';
+        return (
+          <li data-anim="up">
+            <Row class="news-row" href={n.href}>
+              <span class="news-date">{n.date}</span>
+              <span class="news-text">{n.text}</span>
+            </Row>
+          </li>
+        );
+      })}
+    </ol>
+  </section>
+)}

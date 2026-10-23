@@ -5,6 +5,8 @@ export const site = {
   role: 'Software Engineer · Researcher',
   description:
     'Software engineer at Cefalo Bangladesh and M.Sc. researcher at IIT, University of Dhaka, working on LLM efficiency, context management and adaptive inference.',
+  // Home hero bio (Hero.astro sets the named entities in the text colour).
+  bio: "I'm a software engineer at Cefalo Bangladesh and a thesis-based M.Sc. student in Software Engineering at IIT, University of Dhaka. At BARTA Research Lab I work on NLP, LLMs and AI agents; my thesis is on adaptive inference for efficient LLMs.",
   statement:
     'I build production software by day, and research how language models can do more with less.',
   location: 'Dhaka, Bangladesh',
@@ -16,11 +18,6 @@ export const site = {
     linkedin: 'https://www.linkedin.com/in/umme-kulsum-tumpa-082245288',
     leetcode: 'https://leetcode.com/iampilgrim_',
     cv: '/cv.pdf',
-  },
-  currently: {
-    building: 'Cefalo Bangladesh',
-    researching: 'BARTA Lab, IIT DU',
-    thesis: 'adaptive inference',
   },
 } as const;
 

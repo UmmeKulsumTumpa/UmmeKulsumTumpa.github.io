@@ -2,8 +2,11 @@
 /**
  * LinkedIn-style timeline, shared by Education and Experience. One entry per organisation;
  * several roles in one entry are joined by a line ("connected dots"). Order comes from the YAML
- * file (newest first) and is never re-sorted here.
+ * file (newest first) and is never re-sorted here. From 900px the org meta and each role's dates
+ * sit in a left date rail (timeline.css); below that, under the org name and the role title.
  */
+import { clean } from '../lib/placeholder';
+
 interface Role {
   title: string; type?: string; start: string; end?: string; current: boolean;
   summary?: string; bullets: string[];
@@ -29,8 +32,9 @@ const arrow = (label: string) => {
   const m = label.match(/^(.*?)\s*([↗↓→←↑])$/u);
   return m ? { text: m[1], mark: m[2] } : { text: label, mark: '' };
 };
+// Through clean(): production drops [placeholders] with their separator ("[Mon YYYY] → Dec 2024" → "Dec 2024").
 const when = (r: Role) =>
-  (r.end || r.current ? `${r.start} → ${r.current ? 'present' : r.end}` : r.start) + (r.type ? ` · ${r.type}` : '');
+  clean((r.end || r.current ? `${r.start} → ${r.current ? 'present' : r.end}` : r.start) + (r.type ? ` · ${r.type}` : ''));
 ---
 
 <section class:list={['tl-section', className]} aria-labelledby={id}>
@@ -45,7 +49,7 @@ const when = (r: Role) =>
         <div class="tl-body">
           <div class="tl-head">
             <h3 class="tl-org-name">{e.url ? <a class="tap-target" href={e.url}>{e.org}</a> : e.org}</h3>
-            <span class="tl-meta">{e.location} · {e.span}</span>
+            <span class="tl-meta">{clean(`${e.location} · ${e.span}`)}</span>
           </div>
           {e.roles.map((r, i) => (
             <div class="tl-role">

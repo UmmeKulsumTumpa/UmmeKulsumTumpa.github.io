@@ -1,21 +1,15 @@
-/* Education page (src/pages/education.astro). Head differs from the shared sizes (Education.dc.html). */
+/* Education page (src/pages/education.astro). The lead is narrower than the shared default (Education.dc.html). */
 @media (min-width: 641px) {
-  .ph-education .ph-ghost { font-size: 360px; }
-  .ph-education .ph-title { margin-top: 12px; font-size: clamp(64px, 9vw, 120px); }
   .ph-education .ph-lead { margin-top: 20px; max-width: 38em; }
 }
 
-/* ---------- course-project archive (src/islands/ProjectArchive.tsx) ---------- */
-.arc { padding-top: 72px; }
-.arc-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px; }
+/* ---------- course projects (src/components/education/CourseArchive.astro) ---------- */
+.arc { padding-top: var(--section-gap); }
 .arc-label { font-weight: 400; }
 .arc-title { margin-top: 8px; font-family: var(--serif); font-size: 34px; line-height: 1.15; }
-.arc-all { font-family: var(--mono); font-size: 13px; color: var(--muted); }
-.arc-filters { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 8px; }
-/* Counts at full --faint (AA, #86); in the pressed pill they take its colour, full strength. */
-.arc-pill-n { color: var(--faint); }
-.arc-pill[aria-pressed='true'] .arc-pill-n { color: inherit; }
-.arc-grid { margin-top: 24px; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 16px; }
+
+/* Selected projects: 3 columns, 2 at <= 900px, 1 on phones. */
+.arc-grid { margin-top: 24px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .arc-card { display: block; color: var(--text); }
 .arc-card:hover { text-decoration: none; }
 .arc-card-in {
@@ -35,10 +29,46 @@
 .arc-desc { flex: 1 1 auto; font-size: 14px; line-height: 1.55; color: var(--muted); }
 .arc-gh { color: var(--text); }
 
+/* "Show all": a <details> (no JS). Its summary swaps "+ Show" / "− Hide" on [open]; the GitHub link sits on
+   the summary row, outside the summary so it is not a link nested in a button. */
+.arc-more { position: relative; margin-top: 28px; border-top: 1px solid var(--border); }
+.arc-sum {
+  display: block; padding-top: 18px; padding-right: 240px; list-style: none; cursor: pointer;
+  font-family: var(--mono); font-size: 13px; line-height: 1.5; color: var(--text);
+}
+.arc-sum::-webkit-details-marker { display: none; }
+.arc-sum-hide, .arc-all[open] .arc-sum-show { display: none; }
+.arc-all[open] .arc-sum-hide { display: inline; }
+.arc-repos { position: absolute; top: 18px; right: 0; font-family: var(--mono); font-size: 13px; line-height: 1.5; color: var(--muted); }
+
+/* The full list, grouped by category. */
+.arc-group { margin-top: 22px; }
+.arc-group-label { font-weight: 400; }
+.arc-rows { list-style: none; margin: 4px 0 0; padding: 0; }
+.arc-row {
+  display: grid; grid-template-columns: 300px 110px minmax(0, 1fr) 70px; gap: 20px; align-items: baseline;
+  padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 14.5px;
+}
+.arc-row-name { min-width: 0; font-weight: 500; color: var(--text); overflow-wrap: anywhere; }
+.arc-row-lang { font-family: var(--mono); font-size: 12px; color: var(--faint); }
+.arc-row-desc { color: var(--muted); }
+.arc-row-repo { justify-self: end; font-family: var(--mono); font-size: 12px; color: var(--muted); white-space: nowrap; }
+
+@media (max-width: 900px) {
+  .arc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* Rows: name + language on one line (repo link at its end), the one-liner below. */
+  .arc-row { grid-template-columns: minmax(0, max-content) max-content minmax(0, 1fr) max-content; grid-template-areas: 'name lang . repo' 'desc desc desc desc'; gap: 4px 12px; }
+  .arc-row-name { grid-area: name; }
+  .arc-row-lang { grid-area: lang; }
+  .arc-row-desc { grid-area: desc; }
+  .arc-row-desc:empty { display: none; }
+  .arc-row-repo { grid-area: repo; }
+}
 @media (max-width: 640px) {
-  /* 44px touch targets (SPEC §6). */
-  .arc-pill { min-height: 44px; }
-  .arc-all { display: inline-flex; align-items: center; min-height: 44px; }
+  .arc-grid { grid-template-columns: minmax(0, 1fr); }
+  /* The two summary-row items no longer fit on one line: the GitHub link follows the details. */
+  .arc-sum { padding-right: 0; min-height: 44px; }
+  .arc-repos { position: static; display: inline-block; margin-top: 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .arc-card-in { transition: none; }
@@ -46,7 +76,7 @@
 
 /* ---------- awards & activities + hackathons & contests (src/components/education/Activities.astro) ---------- */
 /* No overflow clip here: html already clips the from-left/right hidden state, and a clip would cut the focus ring. */
-.edu-extra { padding-top: 88px; display: flex; flex-wrap: wrap; gap: 48px 64px; }
+.edu-extra { padding-top: var(--section-gap); display: flex; flex-wrap: wrap; gap: 48px 64px; }
 .edu-col { flex: 1 1 420px; min-width: 0; }
 .edu-col-label { font-weight: 400; }
 .edu-rows { list-style: none; margin: 18px 0 0; padding: 0; border-top: 1px solid var(--border); }
