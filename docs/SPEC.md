@@ -127,7 +127,7 @@ Compare against `docs/design/screenshots/home-desktop-01.jpg` (dark) and `home-l
 
 Floating glass pill, bottom-centre, fixed. Order: **Home, Education, Experience, Research, Writing, Reading** | Email, Theme.
 macOS-style hover magnification (hovered 1.22×, neighbours 1.08×), tooltip label above, active page gets a dot + tint, `aria-current="page"`.
-Under 520px: 42px items, no tooltips, Email hidden. Slides up on load. No top nav bar anywhere.
+Under 520px: 42px items, no tooltips, Email hidden. On touch screens an item shrinks to 0.92× while pressed (off under reduced motion). Slides up on load. No top nav bar anywhere.
 
 ### 3.4 Motion vocabulary
 

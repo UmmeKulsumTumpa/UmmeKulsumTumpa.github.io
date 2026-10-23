@@ -47,6 +47,10 @@
   .dock-item { width: 42px; height: 42px; }
   .dock-tip, .dock-email { display: none; }
 }
+/* Touch screens: a small press while an item is tapped (MobileHome.dc.html; #33). Off under reduced motion. */
+@media (hover: none) and (prefers-reduced-motion: no-preference) {
+  .dock-item:active { transform: scale(0.92); }
+}
 @media (prefers-reduced-motion: reduce) {
   .dock-wrap { animation: none; }
   .dock-item { transition: none; }
