@@ -10,6 +10,7 @@ interface Item {
   status: Status;
   topic?: string;
   year?: string;
+  url?: string; // external link for the row title (papers, articles)
   why?: string;
   notes: boolean; // has a Markdown body, so the notes page exists
 }
@@ -42,8 +43,11 @@ function Books({ list }: { list: Item[] }) {
         const inner = (
           <>
             <span className={cx('rd-cover', `rd-cover-v${(i % 4) + 1}`)}>
-              <span className="rd-cover-rule" aria-hidden="true"></span>
-              <span className="rd-cover-title">{b.title}</span>
+              {/* The rule follows the title, so a long title pushes it down instead of being struck through. */}
+              <span className="rd-cover-head">
+                <span className="rd-cover-title">{b.title}</span>
+                <span className="rd-cover-rule" aria-hidden="true"></span>
+              </span>
               <span className="rd-cover-author">{b.author}</span>
             </span>
             <span className="rd-book-meta">
@@ -62,7 +66,7 @@ function Books({ list }: { list: Item[] }) {
   );
 }
 
-/** Paper / article rows. */
+/** Paper / article rows; an entry's `url` links its title. */
 function Rows({ list }: { list: Item[] }) {
   return (
     <ul className="rd-rows">
@@ -70,7 +74,13 @@ function Rows({ list }: { list: Item[] }) {
         <li key={r.href} className={cx('rd-row', ROW_STAGGER[Math.min(i, ROW_STAGGER.length - 1)])} data-anim="from-right">
           <span className="rd-row-year">{r.year}</span>
           <span className="rd-row-main">
-            <span className="rd-row-title">{r.title}</span>
+            <span className="rd-row-title">
+              {r.url ? (
+                <a className="link-underline" href={r.url} rel="noopener">{r.title}</a>
+              ) : (
+                r.title
+              )}
+            </span>
             <span className="rd-row-source">{r.author}</span>
             {r.why && <span className="rd-row-why">{r.why}</span>}
           </span>

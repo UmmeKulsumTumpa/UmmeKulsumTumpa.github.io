@@ -4,6 +4,9 @@
 .reading-stat-label { margin-top: 6px; font-family: var(--mono); font-size: 12px; color: var(--faint); }
 
 @media (max-width: 640px) {
+  /* Phones drop the § label on this page only (MobileReading.dc.html); the title takes its place. */
+  .ph-reading .ph-label { display: none; }
+  .ph-reading .ph-title { margin-top: 0; }
   .reading-stats { margin-top: 22px; gap: 28px; }
   .reading-stat-n { font-size: 34px; }
   .reading-stat-label { margin-top: 0; font-size: 11px; }
@@ -36,7 +39,9 @@
 .rd-status-finished { color: var(--text); }
 .rd-status-queued { color: var(--muted); }
 
-/* books: 2:3 covers with a spine edge and a rule (accent while reading); shade, edge and rule height cycle */
+/* books: 2:3 covers with a spine edge and a rule (accent while reading); shade, edge and rule height cycle.
+   The rule sits at --rd-rule-at × the cover height (as in Reading.dc.html) or, under a longer title, 12px below it:
+   it ends .rd-cover-head, whose min-height puts it at that height (% of the content box, padding added back). */
 .rd-books { margin: 40px 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 40px 28px; }
 .rd-book { display: block; color: var(--text); }
 a.rd-book { transition: transform 0.3s ease; }
@@ -44,16 +49,21 @@ a.rd-book:hover, a.rd-book:focus-visible { transform: translateY(-6px) rotate(-1
 /* Keyboard focus: the ring goes on the cover, so it follows the cover's corners (the meta line sits below). */
 a.rd-book:focus-visible { outline: none; }
 a.rd-book:focus-visible .rd-cover { outline: 2px solid var(--accent); outline-offset: 3px; }
-.rd-cover-v1 { --rd-shade: var(--cover-1); --rd-edge: var(--cover-edge-1); --rd-rule-top: 62%; }
-.rd-cover-v2 { --rd-shade: var(--cover-2); --rd-edge: var(--cover-edge-2); --rd-rule-top: 28%; }
-.rd-cover-v3 { --rd-shade: var(--cover-3); --rd-edge: var(--cover-edge-1); --rd-rule-top: 74%; }
-.rd-cover-v4 { --rd-shade: var(--cover-4); --rd-edge: var(--cover-edge-2); --rd-rule-top: 45%; }
+.rd-cover-v1 { --rd-shade: var(--cover-1); --rd-edge: var(--cover-edge-1); --rd-rule-at: 0.62; }
+.rd-cover-v2 { --rd-shade: var(--cover-2); --rd-edge: var(--cover-edge-2); --rd-rule-at: 0.28; }
+.rd-cover-v3 { --rd-shade: var(--cover-3); --rd-edge: var(--cover-edge-1); --rd-rule-at: 0.74; }
+.rd-cover-v4 { --rd-shade: var(--cover-4); --rd-edge: var(--cover-edge-2); --rd-rule-at: 0.45; }
 .rd-cover {
-  position: relative; aspect-ratio: 2 / 3; padding: 20px 18px 18px 24px; overflow: hidden;
+  --rd-pad-top: 20px; --rd-pad-bottom: 18px;
+  position: relative; aspect-ratio: 2 / 3; padding: var(--rd-pad-top) 18px var(--rd-pad-bottom) 24px; overflow: hidden;
   display: flex; flex-direction: column; justify-content: space-between;
   border: 1px solid var(--border); border-radius: 4px 10px 10px 4px; background: var(--rd-shade); box-shadow: inset 6px 0 0 var(--rd-edge);
 }
-.rd-cover-rule { position: absolute; left: 24px; right: 18px; top: var(--rd-rule-top); height: 1px; background: var(--border); }
+.rd-cover-head {
+  display: flex; flex-direction: column; gap: 12px;
+  min-height: calc(var(--rd-rule-at) * (100% + var(--rd-pad-top) + var(--rd-pad-bottom)) - var(--rd-pad-top) + 1px);
+}
+.rd-cover-rule { margin-top: auto; height: 1px; background: var(--border); }
 .rd-is-reading .rd-cover-rule { background: var(--accent); }
 .rd-cover-title { font-family: var(--serif); font-size: 24px; line-height: 1.1; }
 .rd-cover-author { font-family: var(--mono); font-size: 11px; color: var(--muted); }
@@ -85,8 +95,7 @@ a.rd-book:focus-visible .rd-cover { outline: 2px solid var(--accent); outline-of
   .rd-status { border: 0; padding: 0; }
 
   .rd-books { margin-top: 22px; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 16px; }
-  .rd-cover { padding: 14px 12px 12px 18px; border-radius: 3px 8px 8px 3px; box-shadow: inset 5px 0 0 var(--rd-edge); }
-  .rd-cover-rule { left: 18px; right: 12px; }
+  .rd-cover { --rd-pad-top: 14px; --rd-pad-bottom: 12px; padding: var(--rd-pad-top) 12px var(--rd-pad-bottom) 18px; border-radius: 3px 8px 8px 3px; box-shadow: inset 5px 0 0 var(--rd-edge); }
   .rd-cover-title { font-size: 20px; }
   .rd-cover-author { font-size: 10px; }
   .rd-book-meta { margin-top: 8px; gap: 6px; }

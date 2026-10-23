@@ -28,6 +28,7 @@ const reading = defineCollection({
     status: z.enum(['reading', 'finished', 'queued']),
     topic: z.string().optional(),
     year: z.union([z.number(), z.string()]).optional(),
+    finished: z.coerce.date().optional(), // the day you finished it; books finished this year count in "books in <year>"
     url: z.url().optional(),
     why: z.string().optional(),
     draft: z.boolean().default(false),

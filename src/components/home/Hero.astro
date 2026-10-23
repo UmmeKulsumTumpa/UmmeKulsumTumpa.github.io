@@ -1,11 +1,11 @@
 ---
-import { getReading } from '../../lib/reading';
+import { getCurrentRead } from '../../lib/reading';
 import { site } from '../../data/site';
 import LocalTime from '../../islands/LocalTime.tsx';
 
 // Phones show "reading <current book>" in place of the thesis line (MobileHome.dc.html).
-// Until a reading entry has status "reading", keep the prototype's placeholder.
-const current = (await getReading()).find(({ data }) => data.status === 'reading');
+// Same pick as the Glimpse tile (a book first); until an entry has status "reading", keep the prototype's placeholder.
+const current = await getCurrentRead();
 const book = current?.data.title ?? '[book title]';
 
 // Two masked lines (given name, family name): one line on desktop, stacked on phones (MobileHome.dc.html).
@@ -18,9 +18,10 @@ const [nameStart, nameEnd] = [site.name.slice(0, cut), site.name.slice(cut + 1)]
   <div class="hero-ghost" data-parallax="0.45" aria-hidden="true">context</div>
 
   <div class="container hero-inner">
+    {/* Top line: phones show the short one from MobileHome.dc.html, "~/ukt" and "Dhaka · HH:MM" (.hero-wide / .hero-phone). */}
     <div class="hero-top" data-anim="blur">
-      <a class="hero-path tap-target" href="/">~/{site.handle}</a>
-      <span>Dhaka, BD · <LocalTime client:idle timeZone={site.timezone} /> (UTC+6)</span>
+      <a class="hero-path tap-target" href="/"><span class="hero-wide">~/{site.handle}</span><span class="hero-phone">~/{site.handleShort}</span></a>
+      <span><span class="hero-wide">Dhaka, BD</span><span class="hero-phone">Dhaka</span> · <LocalTime client:idle timeZone={site.timezone} /><span class="hero-wide"> (UTC+6)</span></span>
     </div>
 
     <div class="hero-name-block">

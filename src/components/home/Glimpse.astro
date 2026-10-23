@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import { getReading } from '../../lib/reading';
+import { getCurrentRead } from '../../lib/reading';
 import { getPosts } from '../../lib/posts';
 
 // Live numbers (SPEC §5.1 item 3): counts and latest entries come from the collections.
@@ -11,7 +11,7 @@ const thesis = (await getCollection('education')).flatMap(({ data }) => data.rol
 // Research tile: the newest paper (first in publications.yaml), in its short wording when given.
 const [paper] = [...publications].sort((a, b) => a.data.order - b.data.order);
 const [latest] = await getPosts(); // newest first, drafts left out of production builds
-const book = (await getReading()).find(({ data }) => data.status === 'reading');
+const book = await getCurrentRead(); // "on my desk": a book first (lib/reading.ts)
 
 const numbers = [
   // "2 degrees" stays literal (SPEC §5.1); no collection field states it.

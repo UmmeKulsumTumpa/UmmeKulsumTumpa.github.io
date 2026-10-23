@@ -147,7 +147,7 @@ script applies the saved theme before paint (no flash).
 | Collection | Source | Shape |
 |---|---|---|
 | `writing` | `src/content/writing/*.md` | title, date, summary, tags[llm/engineering/notes/essays], featured, draft |
-| `reading` | `src/content/reading/*.md` | title, author, kind[book/paper/article], status[reading/finished/queued], topic?, year?, url?, why? (+ Markdown notes) |
+| `reading` | `src/content/reading/*.md` | title, author, kind[book/paper/article], status[reading/finished/queued], topic?, year?, finished? (date), url?, why? (+ Markdown notes) |
 | `experience` | `src/content/experience.yaml` | org entries with `roles[]` (title, type, start, end, current, summary, bullets) |
 | `education` | `src/content/education.yaml` | same shape; roles = degrees (+ details[], courses[], progress? = thesis progress in % for the Home education tile) |
 | `projects` | `src/content/course-projects.yaml` | id = GitHub repo name, category[spl/ai/sys/fund], lang, desc, course |
@@ -169,7 +169,7 @@ sits at the bottom of the viewport.
 1. **Hero:** top line `~/ummekulsumtumpa` + "Dhaka, BD · HH:MM (UTC+6)" live clock island; "hello, I'm" (mono, accent);
    **name on one line**, Instrument Serif, `clamp(52px, 11.4vw, 163px)` (the cap keeps name + caret inside the 1280px container at any width), blinking accent caret; "SOFTWARE ENGINEER · RESEARCHER"
    tracked mono; italic serif statement (left) + "currently" block with pulsing dot (right). Faint dot grid + outlined
-   "context" ghost word with parallax.
+   "context" ghost word with parallax. On phones (≤640px) the top line is the short one from `MobileHome.dc.html`: `~/ukt` + "Dhaka · HH:MM".
 2. **About (§ 01):** heading "A little about me." on one line + `~/about.md · engineer · researcher · reader`.
    - Row: left `aside` (at-a-glance facts list, then "find me" links: email, scholar, github, linkedin, cv.pdf) and right the text:
      lead sentence (22px) + three paragraphs (17px, single column). **This layout is approved; do not restructure it.**
@@ -179,7 +179,7 @@ sits at the bottom of the viewport.
 3. **Glimpse (§ 02):** bento tiles linking to pages, in dock order: Education (M.Sc. + thesis progress bar, value from `progress` in `education.yaml`), Experience
    ("4 production projects", stack chips), Research (newest `publications.yaml` entry: `short` / `venueShort` when set, else title / venue; + "now → Bangla agents"), By the numbers
    (2 degrees, 1 paper, N course projects, where N comes from the collection), Writing (latest post or "first post coming soon"),
-   Reading (current book from `status: reading` + spines). Hover: lift + ring, arrow rotates.
+   Reading (current book: the first book with `status: reading`, else the first entry of any kind with it; + spines). Hover: lift + ring, arrow rotates.
    **On phones (<640px) the bento becomes a numbered list** (`01 Education → … 05 Reading`, serif title, one-line note, arrow), see `mobile-home-03.jpg`.
 4. **Token strip:** "fig. 0 — me, tokenized": two rows of tokenizer-style chips sliding in opposite directions; keywords in accent.
 5. **Contact:** "Say hello." (mask) + email button + links.
@@ -214,9 +214,14 @@ styles, back link, date, tags, reading time, previous/next. Add `/rss.xml` (`@as
 
 ### 5.6 Reading `/reading/` (`Reading.dc.html`, mobile: `MobileReading.dc.html`; screenshots `reading-desktop-01…04`, `reading-light-01-papers`, `mobile-reading-light-01…02`)
 
-Header (ghost "library"), counts (books this year, papers read, notes written, all computed). React island: tabs Books / Papers / Articles,
-status pills all / reading / finished / queued. Books render as covers (2:3, spine edge, accent rule on "reading"); papers/articles as rows
-with year, source, italic "why", status, "notes →" (links to `/reading/<slug>/` when the entry has a body).
+Header (ghost "library"), counts (books in <year>, papers read, notes written, all computed; "books in <year>" counts books whose
+`finished` date is in the current year). React island: tabs Books / Papers / Articles, status pills all / reading / finished / queued.
+Books render as covers (2:3, spine edge, rule below the title, accent on "reading"); papers/articles as rows with year, title
+(links to the entry's `url` when it has one), source, italic "why", status, "notes →" (links to `/reading/<slug>/` when
+the entry has a body).
+On phones (≤640px) the head follows `MobileReading.dc.html`: crumb "← ~/reading", the one-line lead "Books, papers and articles:
+reading, read, or next.", no "§ reading" label and two counters (no "notes written"). Other pages keep their desktop head copy
+and § label on phones.
 
 ### 5.7 404
 
