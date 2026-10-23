@@ -23,9 +23,10 @@ interface Props {
   entries: Entry[];
   currentLabel?: string; // badge on the role marked current: true
   class?: string; // extra class on the section, for page-level spacing tweaks
+  multiMeta?: boolean; // false: no org meta line on entries with several roles (each role already shows its own dates)
 }
 
-const { id, label, hint, entries, currentLabel = 'current', class: className } = Astro.props;
+const { id, label, hint, entries, currentLabel = 'current', class: className, multiMeta = true } = Astro.props;
 // A trailing arrow in a link label from the YAML (e.g. "see research →", "19 on GitHub ↓") is decoration:
 // render it aria-hidden, like the arrows the components add themselves.
 const arrow = (label: string) => {
@@ -49,7 +50,7 @@ const when = (r: Role) =>
         <div class="tl-body">
           <div class="tl-head">
             <h3 class="tl-org-name">{e.url ? <a class="tap-target" href={e.url}>{e.org}</a> : e.org}</h3>
-            <span class="tl-meta">{clean(`${e.location} · ${e.span}`)}</span>
+            {(multiMeta || e.roles.length < 2) && <span class="tl-meta">{clean(`${e.location} · ${e.span}`)}</span>}
           </div>
           {e.roles.map((r, i) => (
             <div class="tl-role">
