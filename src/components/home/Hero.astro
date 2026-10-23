@@ -8,8 +8,6 @@ import LocalTime from '../../islands/LocalTime.tsx';
 const current = await getCurrentRead();
 const book = current?.data.title ?? '[book title]';
 
-// Top line: phones show the short one from MobileHome.dc.html, "~/ukt" and "Dhaka · HH:MM" (.hero-wide / .hero-phone).
-
 // Two masked lines (given name, family name): one line on desktop, stacked on phones (MobileHome.dc.html).
 const cut = site.name.lastIndexOf(' ');
 const [nameStart, nameEnd] = [site.name.slice(0, cut), site.name.slice(cut + 1)];
@@ -20,6 +18,7 @@ const [nameStart, nameEnd] = [site.name.slice(0, cut), site.name.slice(cut + 1)]
   <div class="hero-ghost" data-parallax="0.45" aria-hidden="true">context</div>
 
   <div class="container hero-inner">
+    {/* Top line: phones show the short one from MobileHome.dc.html, "~/ukt" and "Dhaka · HH:MM" (.hero-wide / .hero-phone). */}
     <div class="hero-top" data-anim="blur">
       <a class="hero-path tap-target" href="/"><span class="hero-wide">~/{site.handle}</span><span class="hero-phone">~/{site.handleShort}</span></a>
       <span><span class="hero-wide">Dhaka, BD</span><span class="hero-phone">Dhaka</span> · <LocalTime client:idle timeZone={site.timezone} /><span class="hero-wide"> (UTC+6)</span></span>
