@@ -39,6 +39,27 @@
 .tl-course-name { font-size: 15px; font-weight: 500; }
 .tl-course-note { margin-top: 2px; font-size: 13px; color: var(--muted); }
 
+/* Date rail (>= 900px): org meta and each role's dates move into a 200px left column; logos and the
+   section-head hint are hidden. A real grid, so the rail and the content column line up row by row. */
+@media (min-width: 900px) {
+  .tl-hint { display: none; }
+  .tl-org { display: block; }
+  .tl-logo { display: none; }
+  .tl-head, .tl-role { display: grid; grid-template-columns: 200px minmax(0, 1fr); column-gap: 48px; }
+  .tl-org-name { grid-column: 2; grid-row: 1; }
+  /* contain: size so a two-line meta hangs into the gap below instead of making the org row taller. */
+  .tl-meta { grid-column: 1; grid-row: 1; padding-top: 13px; line-height: 1.6; contain: size; }
+  /* Plain wrapping in the narrow rail: the inherited text-wrap: pretty (base.css, li) starts lines with "→" or "·". */
+  .tl-meta, .tl-when { font-variant-numeric: tabular-nums; text-wrap: wrap; }
+  .tl-role { padding-left: 0; align-items: start; }
+  .tl-title, .tl-text, .tl-bullets, .tl-details, .tl-courses { grid-column: 2; }
+  /* Spans every content row, so a two-line date never pushes the role's text down. */
+  .tl-when { grid-column: 1; grid-row: 1 / span 5; margin-top: 5px; line-height: 1.6; color: var(--faint); }
+  /* Dot and line sit in the gap, 20px before the content column. */
+  .tl-dot { left: 220px; }
+  .tl-line { left: 224px; }
+}
+
 @media (max-width: 640px) {
   .tl-org { gap: 14px; }
   .tl-logo { flex-basis: 44px; height: 44px; font-size: 18px; }

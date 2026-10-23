@@ -88,6 +88,8 @@ const projects = defineCollection({
   loader: ordered('src/content/course-projects.yaml'),
   schema: z.object({
     id: z.string(), // GitHub repo name
+    title: z.string().optional(), // display title (falls back to the repo name)
+    featured: z.boolean().default(false), // shown among the selected course projects
     category: z.enum(['spl', 'ai', 'sys', 'fund']),
     lang: z.string(),
     desc: z.string(),
@@ -154,4 +156,16 @@ const certifications = defineCollection({
     }),
 });
 
-export const collections = { writing, reading, experience, education, projects, publications, selectedProjects, toolbox, certifications };
+/** Home "news": short dated lines, newest first. */
+const news = defineCollection({
+  loader: ordered('src/content/news.yaml'),
+  schema: z.object({
+    id: z.string(),
+    date: z.string(), // shown as written, e.g. "Jul 2026"
+    text: z.string(),
+    href: z.string().optional(), // the page the line links to
+    order: z.number(), // set by ordered(): position in the YAML file, not written by hand
+  }),
+});
+
+export const collections = { writing, reading, experience, education, projects, publications, selectedProjects, toolbox, certifications, news };
