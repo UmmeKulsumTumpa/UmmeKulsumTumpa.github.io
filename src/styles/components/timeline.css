@@ -53,8 +53,9 @@
   .tl-meta, .tl-when { font-variant-numeric: tabular-nums; text-wrap: wrap; }
   .tl-role { padding-left: 0; align-items: start; }
   .tl-title, .tl-text, .tl-bullets, .tl-details, .tl-courses { grid-column: 2; }
-  /* Spans every content row, so a two-line date never pushes the role's text down. */
-  .tl-when { grid-column: 1; grid-row: 1 / span 5; margin-top: 5px; line-height: 1.6; color: var(--faint); }
+  /* Spans every content row, so a two-line date never pushes the role's text down; its second line may hang
+     into the padding below (negative margin of one line), so a one-line role keeps its height. */
+  .tl-when { grid-column: 1; grid-row: 1 / span 5; margin-top: 5px; margin-bottom: -1.6em; line-height: 1.6; color: var(--faint); }
   /* Dot and line sit in the gap, 20px before the content column. */
   .tl-dot { left: 220px; }
   .tl-line { left: 224px; }
