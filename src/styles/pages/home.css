@@ -38,7 +38,7 @@
 .hero-links { margin-top: 32px; }
 .hero-portrait { display: flex; flex-direction: column; width: 100%; max-width: 300px; }
 .hero-portrait-img {
-  margin-top: 12px; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover;
+  width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover;
   border: 1px solid var(--border); border-radius: var(--radius); background-color: var(--surface);
 }
 .hero-portrait figcaption {
@@ -110,8 +110,18 @@ a.news-row:hover { text-decoration: none; }
 .news-date { font-family: var(--mono); font-size: 12px; color: var(--faint); font-variant-numeric: tabular-nums; }
 .news-text { font-size: 16px; line-height: 1.6; color: var(--muted); transition: color 0.2s ease; }
 a.news-row:focus-visible .news-text { color: var(--text); }
+/* Older milestones: a <details> (no JS) under the list; its summary swaps "+ Show" / "− Hide" on [open]. */
+.news-more-sum {
+  display: flex; align-items: center; min-height: 44px; list-style: none; cursor: pointer;
+  font-family: var(--mono); font-size: 12px; color: var(--muted);
+}
+.news-more-sum::-webkit-details-marker { display: none; }
+.news-more-hide, .news-more[open] .news-more-show { display: none; }
+.news-more[open] .news-more-hide { display: inline; }
+.news-list-earlier { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--border); }
+.news-list-earlier > li { border-bottom: 1px solid var(--border); }
 @media (hover: hover) {
-  a.news-row:hover .news-text { color: var(--text); }
+  a.news-row:hover .news-text, .news-more-sum:hover { color: var(--text); }
 }
 @media (max-width: 640px) {
   .news { padding-top: 40px; }

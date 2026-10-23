@@ -1,20 +1,33 @@
-# Home "news": short dated lines, newest first (the order of this file is the order on the page).
+# Home "milestones": short dated lines, newest first (the order of this file is the order on the page).
 # `id` is any unique slug; date is shown as written; href (optional) links the line to a page.
+# The first six show; older ones sit behind "Show N earlier" (News.astro).
 - id: msc-start
   date: Jul 2026
   text: Started the M.Sc. in Software Engineering (thesis) at IIT, University of Dhaka.
   href: /education/
 - id: cefalo-ase
   date: Feb 2026
-  text: Joined Cefalo Bangladesh as Associate Software Engineer I; completed the B.Sc.
+  text: Joined Cefalo Bangladesh full-time as Associate Software Engineer I.
   href: /experience/
+- id: bsc-complete
+  date: Feb 2026
+  text: Completed the B.Sc. in Software Engineering at IIT, University of Dhaka.
+  href: /education/
 - id: bigdata-2025
   date: "2025"
-  text: "Paper at IEEE BigData 2025: Voices of Care."
+  text: "My capstone project, Voices of Care, became a first-author paper at IEEE BigData 2025."
   href: /research/
+- id: cefalo-part-time
+  date: Sep 2025
+  text: Stayed at Cefalo part-time as a Software Engineering Trainee, alongside the B.Sc.
+  href: /experience/
+- id: cefalo-trainee
+  date: Mar 2025
+  text: Joined Cefalo Bangladesh as a Software Engineer Trainee (six-month academic internship).
+  href: /experience/
 - id: fellowship-ai
   date: Dec 2024
-  text: Data Science Fellow, Fellowship.AI.
+  text: Completed the Data Science Fellowship at Fellowship.AI.
   href: /education/
 - id: barta
   date: Nov 2023

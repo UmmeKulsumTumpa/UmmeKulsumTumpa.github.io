@@ -13,14 +13,15 @@
       start: "Feb 2026"
       current: true
       bullets:
-        - "Four production systems, two in-house and two for clients. Now the full-stack developer (backend, frontend and mobile) on a booking platform live in several European countries: group bookings with partial-failure recovery, saved payment methods charged later with Stripe, and a token-authenticated API for a partner system."
-        - "Internal web platforms in Next.js and TypeScript: modules built from Figma designs, a layered frontend architecture, role-based access control, and server state with TanStack Query and Redux."
+        - "Full-stack developer (backend, frontend and mobile) on a client's booking platform live in several European countries: group bookings with partial-failure recovery, saved payment methods charged later with Stripe, and a token-authenticated API for a partner system."
         - "Spec-driven, agent-assisted development: Claude Code skills that standardise how backend functions and their tests are generated, saving about 20% of the time on repetitive backend work."
     - title: Software Engineering Trainee
       type: part-time, alongside the B.Sc.
       start: "Sep 2025"
       end: "Feb 2026"
-      summary: "Stayed on part-time after the six-month internship."
+      bullets:
+        - "Cefalo's company-wide HR platform: five production modules built in Next.js from Figma designs, a layered frontend architecture, and role-based access control for HR, managers and employees."
+        - "An in-house applicant tracking system: a redesigned UI system with Ant Design theming, large data tables that stay usable on every screen size, and fixes to state and data-loading bugs."
     - title: Software Engineer Trainee
       type: academic internship
       start: "Mar 2025"

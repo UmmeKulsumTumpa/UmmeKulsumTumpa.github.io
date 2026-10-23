@@ -155,7 +155,7 @@ script applies the saved theme before paint (no flash).
 | `experience` | `src/content/experience.yaml` | org entries with `roles[]` (title, type, start, end, current, summary, bullets) |
 | `education` | `src/content/education.yaml` | same shape; roles = degrees (+ details[], courses[], progress? = thesis progress in % for the Home education tile) |
 | `projects` | `src/content/course-projects.yaml` | id = GitHub repo name, category[spl/ai/sys/fund], lang, desc, course, featured (default false; shown as a card on Education), title? (display title; else the id) |
-| `news` | `src/content/news.yaml` | Home News list, newest first: id, date (as shown, e.g. "Jul 2026"), text, href? (page the row links to) |
+| `news` | `src/content/news.yaml` | Home "milestones" list, newest first: id, date (as shown, e.g. "Jul 2026"), text, href? (page the row links to) |
 | `publications` | `src/content/publications.yaml` | title, authors[], venue, year, tldr, links[], short?, venueShort? (shorter title and venue for the Home research tile) |
 | `selectedProjects` | `src/content/selected-projects.yaml` | Experience project cards: id, title, href, meta?, line[] (text, or { text, href } links inside the line), stack |
 | `toolbox` | `src/content/toolbox.yaml` | Experience toolbox columns, in page order: id, name, items[] |
@@ -190,10 +190,11 @@ Order: Hero → News → "around the site" → Token strip. No About, off-the-cl
    **name on one line**, Instrument Serif, `clamp(52px, 7.2vw, 104px)`, blinking accent caret; "SOFTWARE ENGINEER · RESEARCHER"
    tracked mono; bio (`site.bio`, named entities in `--text`); italic serif statement; icon links (Google Scholar
    first and accented, then email, GitHub, LinkedIn, CV), each with an `aria-label` and a dock-style tooltip on hover/focus (none on touch).
-   **Portrait** on the right (4:5, `src/assets/portrait.jpg` through Astro `<Image>`, caption "Umme Kulsum Tumpa · Dhaka, 2026").
+   **Portrait** on the right (no label above it; 4:5, `src/assets/portrait.jpg` through Astro `<Image>`, caption "Umme Kulsum Tumpa · Dhaka, 2026").
    No ghost word, no dot grid, no "currently" block. On phones (≤640px) the top line keeps the full `~/ummekulsumtumpa`
    (like the other pages' breadcrumb) with "Dhaka · HH:MM".
-2. **News:** from `news.yaml`, newest first. Label `news` in the left rail; rows of date (mono) and text; a row links to `href` when set.
+2. **Milestones:** from `news.yaml`, newest first, written as one career sequence. Label `milestones` in the left rail; rows of
+   date (mono) and text; a row links to `href` when set. The newest 6 show; older ones sit in a no-JS `<details>` ("+ Show N earlier").
 3. **Around the site:** an index list, one row per page in dock order (Education, Experience, Research, Writing, Reading).
    Row = number, serif title, one live line, arrow; the whole row is one link. Live lines:
    Education "M.Sc. in Software Engineering, in progress" + thesis progress bar (value from `progress` in `education.yaml`);
