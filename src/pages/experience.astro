@@ -4,15 +4,17 @@ import PageHead from '../components/PageHead.astro';
 import ExperienceTimeline from '../components/experience/ExperienceTimeline.astro';
 import SelectedProjects from '../components/experience/SelectedProjects.astro';
 import Toolbox from '../components/experience/Toolbox.astro';
+// Page lead: shown under the title and used as the meta description.
+const lead = 'Three roles at Cefalo Bangladesh, from intern to full-time engineer, a fellowship at Fellowship.AI, and research at BARTA Lab.';
 ---
 <Base
   title="Experience"
-  description="Three roles at Cefalo Bangladesh, from intern to full-time engineer, a fellowship at Fellowship.AI, and research at BARTA Lab."
+  description={lead}
   active="experience"
 >
   <main>
     <PageHead slug="experience" title="Experience" ghost="ship it">
-      Three roles at Cefalo Bangladesh, from intern to full-time engineer, a fellowship at Fellowship.AI, and research at BARTA Lab.
+      {lead}
     </PageHead>
     <div class="container">
       <ExperienceTimeline />
