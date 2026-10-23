@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import { Image, getImage } from 'astro:assets';
+
+// "05 · certifications" (SPEC §5.2), from src/content/certifications.yaml in file order, below
+// awards & activities + hackathons & contests in the same row style. The thumbnail is a link to the
+// full-size certificate (a large WebP generated at build time from the same source image).
+const stagger = ['', 'd1', 'd2', 'd3', 'd4', 'd5', 'd6', 'd7', 'd8'];
+const certs = await Promise.all(
+  (await getCollection('certifications'))
+    .sort((a, b) => a.data.order - b.data.order)
+    .map(async ({ data }) => ({ ...data, full: await getImage({ src: data.image, width: 2400, format: 'webp', quality: 82 }) })),
+);
+---
+
+{certs.length > 0 && (
+  <section class="edu-cert" aria-labelledby="h-cert">
+    <h2 id="h-cert" class="label edu-col-label" data-anim="up">05 · certifications</h2>
+    <ul class="edu-rows">
+      {certs.map((c, i) => (
+        <li class:list={['edu-row', 'edu-cert-row', stagger[Math.min(i, stagger.length - 1)]]} data-anim="from-left">
+          <a class="edu-cert-thumb" href={c.full.src}>
+            <Image class="edu-cert-img" src={c.image} alt={c.alt} width={160} densities={[1, 2]} format="webp" />
+          </a>
+          <div class="edu-cert-body">
+            <span>{c.title} · {c.issuer}</span>
+            {c.note && <span class="edu-cert-note">{c.note}</span>}
+            {c.url && <a class="edu-cert-verify" href={c.url}>verify <span aria-hidden="true">↗</span></a>}
+          </div>
+          <span class="edu-row-meta edu-cert-date">{c.date}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}
