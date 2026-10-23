@@ -6,8 +6,9 @@
  *   class="d1" … class="d8"                 (optional stagger, see motion.css)
  *   data-parallax="0.3"                     (moves at 30% of scroll speed)
  *
- * Elements re-animate when they scroll back into view. Everything is skipped
- * for visitors who ask for reduced motion, and content stays visible if JS fails.
+ * An element animates once, the first time it enters the viewport, and then stays entered: scrolling
+ * back never replays it. Everything is skipped for visitors who ask for reduced motion, and content
+ * stays visible if JS fails.
  */
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -31,11 +32,7 @@ function init() {
 }
 
 function startEntrances(root: HTMLElement) {
-  // Enter when 12% is visible. Leave (so it replays later) only once the element is more than
-  // OUT_MARGIN px outside the viewport: observers see the transformed box, and the hidden state moves
-  // elements down by up to 64px, so leaving right at the edge would pull an element parked just above
-  // the top back into view, where it re-enters, leaves again, and flickers in a loop.
-  const OUT_MARGIN = 80;
+  // Enter when 12% is visible, once: an entered element is no longer observed and never leaves.
   // When each entered element's entrance started (document timeline ms), so a copy that replaces it can carry
   // on from the same point (below). null: starting with the next frame; -Infinity: it entered without a
   // transition, already at rest.
@@ -46,7 +43,7 @@ function startEntrances(root: HTMLElement) {
       startedAt.set(el, t ? null : -Infinity);
       t?.ready.then(
         () => { if (startedAt.get(el) === null && typeof t.startTime === 'number') startedAt.set(el, t.startTime); },
-        () => {}, // cancelled: it left or was removed before it started
+        () => {}, // cancelled: it was removed before it started
       );
     } catch {
       el.setAttribute('data-in', ''); // no timing known: a copy of it will simply start entered
@@ -56,18 +53,12 @@ function startEntrances(root: HTMLElement) {
   const enter = new IntersectionObserver(
     (entries) => {
       const entered = entries.filter((e) => e.intersectionRatio >= 0.12 && !e.target.hasAttribute('data-in')).map((e) => e.target);
-      entered.forEach((el) => el.setAttribute('data-in', ''));
+      entered.forEach((el) => { el.setAttribute('data-in', ''); enter.unobserve(el); });
       entered.forEach(track); // after all are set, so style is recomputed once
     },
     { threshold: [0, 0.12] },
   );
-  const leave = new IntersectionObserver(
-    (entries) => {
-      for (const e of entries) if (!e.isIntersecting) e.target.removeAttribute('data-in');
-    },
-    { rootMargin: `${OUT_MARGIN}px 0px` },
-  );
-  const observe = (el: HTMLElement) => { enter.observe(el); leave.observe(el); };
+  const observe = (el: HTMLElement) => { if (!el.hasAttribute('data-in')) enter.observe(el); };
   const animated = (n: HTMLElement) => [...(n.matches('[data-anim]') ? [n] : []), ...n.querySelectorAll<HTMLElement>('[data-anim]')];
   animated(document.body).forEach(observe);
 
@@ -103,7 +94,6 @@ function startEntrances(root: HTMLElement) {
         if (!(n instanceof HTMLElement)) return;
         for (const el of animated(n)) {
           enter.unobserve(el);
-          leave.unobserve(el);
           const start = startedAt.get(el);
           if (start !== undefined && el.hasAttribute('data-in')) replaced.set(twinKey(el), start);
         }
