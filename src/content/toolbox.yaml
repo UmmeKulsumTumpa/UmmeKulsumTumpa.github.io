@@ -1,0 +1,13 @@
+# Experience "03 · toolbox": one entry per column, in page order (left to right).
+- id: web
+  name: Web
+  items: [React, Next.js, Node.js · Express, TypeScript]
+- id: mobile
+  name: Mobile
+  items: [Flutter, Dart, Firebase]
+- id: research
+  name: Research
+  items: [LLMs · NLP, AI agents, "[your ML stack]"]
+- id: practice
+  name: Practice
+  items: [spec-driven development, agent-assisted workflows, skills · hooks · plugins, code review]

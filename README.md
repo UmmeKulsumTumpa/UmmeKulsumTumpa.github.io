@@ -23,6 +23,8 @@ npm run dev        # http://localhost:4321
 | Degree | edit `src/content/education.yaml` |
 | Course project | edit `src/content/course-projects.yaml` |
 | Paper | edit `src/content/publications.yaml` |
+| Selected project (Experience) | edit `src/content/selected-projects.yaml` (newest first) |
+| Toolbox item (Experience) | edit `src/content/toolbox.yaml` |
 
 Open a PR into `develop`; the site updates when `develop` is released to `main` (see `docs/GIT-WORKFLOW.md`).
 
