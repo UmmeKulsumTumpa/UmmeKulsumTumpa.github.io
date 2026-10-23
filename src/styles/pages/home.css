@@ -71,6 +71,9 @@
   .hero-now { font-size: 12px; }
   .hero-now-thesis { display: none; }
   .hero-now-reading { display: block; }
+  /* The 'currently' lines are 24px apart: keep the Cefalo link's enlarged hit area (.tap-target) inside its
+     own line so a tap on the next line doesn't open cefalo.com. */
+  .hero-now-value.tap-target::after { inset: -4px 0; }
 }
 
 /* ── about ── */
