@@ -1,11 +1,8 @@
-/* Research page (src/pages/research.astro). Ghost word per Research.dc.html. */
-@media (min-width: 641px) {
-  .ph-research .ph-ghost { right: -40px; font-size: 360px; }
-}
+/* Research page (src/pages/research.astro). */
 
-/* Sections in <main> (Research.dc.html): interests sit 72px under the head, the rest 96px apart. */
-.res-section { padding-top: 96px; }
-.res-section.res-int { padding-top: 72px; }
+/* Sections in <main>: one section gap apart (96px, 64px on phones); interests sit at most 72px under the head. */
+.res-section { padding-top: var(--section-gap); }
+.res-section.res-int { padding-top: min(72px, var(--section-gap)); }
 .res-label { font-weight: 400; }
 
 /* ---------- 01 · interests (src/components/research/Interests.astro) ---------- */
@@ -16,19 +13,14 @@
 .res-int-ask { margin-top: 14px; font-family: var(--mono); font-size: 12px; color: var(--faint); }
 
 /* ---------- 02 · publications (src/components/research/Publications.astro) ---------- */
+/* Each group is the year column plus the paper bodies (no figure frame). */
 .pub-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 12px; }
 .pub-scholar { font-family: var(--mono); font-size: 13px; color: var(--muted); }
 .pub-group { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 8px 40px; border-top: 1px solid var(--border); padding-top: 28px; }
 .pub-group + .pub-group { margin-top: 40px; }
 .pub-year { flex: 0 0 90px; font-family: var(--serif); font-size: 40px; line-height: 1; color: var(--faint); }
 .pub-list { flex: 1 1 600px; min-width: 0; display: flex; flex-direction: column; gap: 40px; }
-.pub { display: flex; flex-wrap: wrap; gap: 20px 32px; }
-.pub-fig {
-  flex: 0 0 220px; height: 150px; border-radius: 12px; border: 1px solid var(--border);
-  background-color: var(--surface); background-image: radial-gradient(var(--dot) 1px, transparent 1.5px); background-size: 16px 16px;
-  display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 12px; color: var(--faint);
-}
-.pub-body { flex: 1 1 360px; min-width: 0; }
+.pub-body { min-width: 0; }
 .pub-title { font-size: 20px; font-weight: 500; line-height: 1.4; }
 .pub-authors { margin-top: 8px; font-size: 15px; color: var(--muted); }
 .pub-self { font-weight: 600; color: var(--text); }
@@ -61,6 +53,7 @@
 /* ---------- 04 · talks & posters + 05 · collaborators (src/components/research/TalksCollaborators.astro) ---------- */
 .res-pair { display: flex; flex-wrap: wrap; gap: 48px 64px; }
 .res-col { flex: 1 1 420px; min-width: 0; }
+.res-col-full { flex-basis: 100%; } /* collaborators alone (no visible talks): full row, same row style */
 .res-talks { margin: 24px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--border); }
 .res-talk { padding: 20px 0; border-bottom: 1px solid var(--border); }
 .res-talk-when { font-family: var(--mono); font-size: 12px; color: var(--faint); }
