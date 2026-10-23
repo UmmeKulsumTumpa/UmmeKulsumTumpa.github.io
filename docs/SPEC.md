@@ -11,6 +11,8 @@ The approved visual design lives in two places:
   approved prototype at 1375×732 (desktop) and phone width, dark and light. Index and notes:
   `docs/design/README.md`. **The built site must match these screenshots** (layout, spacing, type
   scale, colour); use them as the visual acceptance test for every page.
+- **v2 screenshots (Phase 8 design refresh):** `docs/design/screenshots/v2/*.jpg`, 1440×900, dark. They replace the v1
+  captures for Home, Education, Experience and Research. v1 still applies to Writing, Reading, 404, phones and the light theme.
 - **Prototype source (in repo):** `docs/design/*.dc.html` — one file per page. They run on the
   prototype runtime, so read them as markup/style reference (exact text, sizes, colours), not as code to copy verbatim.
 
@@ -60,7 +62,7 @@ src/
   pages/        routes only; compose components; no <style>, no inline style=""
   layouts/      Base.astro: <head>, background, dock, motion script
   components/   *.astro, markup only (props in, HTML out); no inline styles/scripts
-    home/       Hero, About, Glimpse, TokenStrip, Contact
+    home/       Hero, News, SiteIndex, IconLinks, TokenStrip, Contact
   islands/      *.tsx React components that need client JS; nothing else
   scripts/      *.ts browser behaviour (motion.ts); no DOM building
   styles/
@@ -273,10 +275,12 @@ On-brand: serif "Lost in context.", link home, dock.
 - `npm run build` passes with no type or content-schema errors.
 - Every page matches the prototype layout at 1440, 1024 and 390 widths in both themes. Check by taking Playwright screenshots
   at 1375×732 and 390×844 and comparing them side by side with `docs/design/screenshots/` (see `docs/PLAN.md` → Visual check).
+  Home, Education, Experience and Research compare at 1440×900 against `docs/design/screenshots/v2/`; their phone and
+  light-theme checks still use the v1 captures.
 - Adding `src/content/writing/my-post.md` and pushing to `main` publishes it with no code changes.
 - Lighthouse ≥ 95 on Home (mobile).
 
 ## 9. Open content (owner to fill)
 
 Portrait, cv.pdf, Fellowship.AI start month + location, interest one-liners, paper TL;DR + PDF/DOI, course names and
-one-liners per repo, awards & activities, About tiles, current book, first posts and reading list.
+one-liners per repo, awards & activities, current book, first posts and reading list.
