@@ -6,26 +6,26 @@
   short: C
   url: https://cefalo.com
   location: Dhaka
-  span: "[YYYY] → now"
+  span: "2025 → now"
   roles:
-    - title: Associate Software Engineer
+    - title: Associate Software Engineer I
       type: full-time
-      start: "[Mon YYYY]"
+      start: "Feb 2026"
       current: true
       bullets:
         - "Production features across four projects, two in-house and two for clients: backend services, web apps (React, Next.js, Node.js, TypeScript) and cross-platform mobile apps (Flutter, Firebase)."
         - "Spec-driven, agent-assisted development: LLM agents help turn requirements into specs, implement them and review the code."
         - "Custom skills, hooks and plugins, and the workflows that keep agent output reliable."
-    - title: Software Engineer, part-time
+    - title: Software Engineering Trainee
       type: part-time, alongside the B.Sc.
-      start: "[Mon YYYY]"
-      end: "[Mon YYYY]"
-      summary: "[One line: the project or team you joined.]"
-    - title: Software Engineering Intern
-      type: internship
-      start: "[Mon YYYY]"
-      end: "[Mon YYYY]"
-      summary: "[One line: training phase, what you learned or built.]"
+      start: "Sep 2025"
+      end: "Feb 2026"
+      summary: "Stayed on part-time after the six-month internship."
+    - title: Software Engineer Trainee
+      type: academic internship
+      start: "Mar 2025"
+      end: "Aug 2025"
+      summary: "Six-month academic internship: technologies and industry practice, teamwork and self-management."
 
 - id: fellowship-ai
   org: Fellowship.AI
@@ -42,10 +42,10 @@
   org: BARTA Research Lab, IIT, University of Dhaka
   short: BARTA
   location: Dhaka
-  span: "[YYYY] → now"
+  span: "2023 → now"
   roles:
     - title: Researcher
-      start: "[Mon YYYY]"
+      start: "Nov 2023"
       current: true
       summary: "NLP, LLMs and AI agents: LLM-based analysis of health discussions on social media (IEEE BigData 2025), and cross-lingual evaluation of LLM agents in Bangla."
       link: { label: "see research →", href: /research/ }
