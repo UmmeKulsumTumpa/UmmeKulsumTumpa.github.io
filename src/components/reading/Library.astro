@@ -11,6 +11,7 @@ const items = (await getReading()).map((entry) => ({
   status: entry.data.status,
   topic: entry.data.topic,
   year: entry.data.year === undefined ? undefined : String(entry.data.year),
+  url: entry.data.url,
   why: entry.data.why,
   notes: hasNotes(entry),
 }));
